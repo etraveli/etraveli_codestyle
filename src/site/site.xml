@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/DECORATION/1.8.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/DECORATION/1.8.0 http://maven.apache.org/xsd/decoration-1.8.0.xsd">
+
+    <bannerLeft>
+        <name><![CDATA[<span style="color: #777777;">${project.artifactId}</span>]]></name>
+    </bannerLeft>
+    <bannerRight>
+        <name>
+            <![CDATA[<span style="color: #777777;">Etraveli:</span> <a href="http://documentation.etraveli.net/framework/codestyle/">Codestyle</a>]]></name>
+        <href>http://documentation.etraveli.net/framework/codestyle/</href>
+    </bannerRight>
+
+    <publishDate position="left" format="yyyy-MM-dd"/>
+    <version position="right"/>
+
+    <skin>
+        <groupId>org.apache.maven.skins</groupId>
+        <artifactId>maven-fluido-skin</artifactId>
+        <version>1.7</version>
+    </skin>
+
+    <custom>
+        <fluidoSkin>
+            <sourceLineNumbersEnabled>true</sourceLineNumbersEnabled>
+        </fluidoSkin>
+    </custom>
+
+    <body>
+        <head><![CDATA[
+            <!-- Add syntax highlighter -->
+            <link href="http://alexgorbatchev.com/pub/sh/current/styles/shThemeDefault.css"
+                  rel="stylesheet"
+                  type="text/css"/>
+            <link href="http://alexgorbatchev.com/pub/sh/current/styles/shCore.css"
+                  rel="stylesheet"
+                  type="text/css"/>
+            <script src="http://alexgorbatchev.com/pub/sh/current/scripts/shCore.js"
+                    type="text/javascript"></script>
+            <script src="http://alexgorbatchev.com/pub/sh/current/scripts/shBrushJava.js"
+                    type="text/javascript"></script>
+            <script src="http://alexgorbatchev.com/pub/sh/current/scripts/shBrushJScript.js"
+                    type="text/javascript"></script>
+            <script src="http://alexgorbatchev.com/pub/sh/current/scripts/shBrushXml.js"
+                    type="text/javascript"></script>
+                    ]]>
+        </head>
+        <menu name="Overview">
+            <item name="Introduction" href="index.html"/>
+            <item name="Concepts and Overview" href="concepts.html"/>
+        </menu>
+
+        <menu name="Modularity and Scalability">
+            <item name="Modularity" href="theory/modularity.html"/>
+            <item name="Software Components" href="theory/software_components.html"/>
+            <item name="Reducing complexity" href="theory/complexity_reduction.html"/>
+        </menu>
+
+        <menu name="Setup and Usage">
+            <item name="Setup: IDE, Graphviz" href="setup.html"/>
+            <item name="Building documentation" href="documentation.html"/>
+        </menu>
+
+
+        <menu ref="modules" inherit="bottom"/>
+        <menu ref="reports" inherit="bottom"/>
+
+        <footer><![CDATA[
+            <!-- Launch the syntax highlighter. -->
+            <script type="text/javascript">
+                SyntaxHighlighter.all()
+            </script>
+            ]]>
+        </footer>
+    </body>
+</project>
