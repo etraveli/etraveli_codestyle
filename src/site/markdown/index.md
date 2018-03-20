@@ -12,7 +12,8 @@ and rule-set implementation for...
    
 ### Intermission: The Code Style factor
 
-Others are considering the importance of Code Style as well:
+It is important to code in style; strive to bring a smile to your face:
+ 
 ![Code Style](img/styleCode.jpg "Code in Style...")
 
 ## Using the "Codestyle" repo artifacts
@@ -72,18 +73,14 @@ Build the staged documentation for all modules using:
 	mvn site site:stage	
 
 
-
 ## How should I proceed?
 
-Want to get started with your Nazgul Tools-derived project?
+Want to get started with your Codestyle-derived project?
 
 1. Check out the [concepts](concepts.html).
 
-1. Read through the thoughs and structure of [Nazgul Software Components](nazgul_tools.html).
+1. Read through the thoughts and structure of [Software Components](nazgul_tools.html).
 
-1. Read [a brief overview of the Nazgul Tools reactor](nazgul_tools.html).
-
-1. Import some components from Nazgul Framework: Core for direct use - or use the `nazgul-tools-external-parent` as a
-   parent within your development project as shown in [Nazgul Software Components](nazgul_tools.html).
+1. Read [a brief overview of the Codestyle reactor](nazgul_tools.html).
 
 ... and we are working on a few screencasts, to shorten the startup time even more...

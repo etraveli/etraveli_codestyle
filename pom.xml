@@ -1,4 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
+<!--
+  ~ Copyright (c) Etraveli AB
+  -->
+
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
@@ -24,32 +28,26 @@
 
     <licenses>
         <license>
-            <name>Etraveli Corporate Open Source License, based on The Apache Software License, Version 2.0</name>
-            <url>http://www.etraveli.com/tech/licenses/etraveliCorporateOpenSourceLicense-2.0.txt</url>
+            <name>Seat24 Travel Corporate Open Source License, based on The Apache Software License, Version 2.0</name>
+            <url>http://www.seat24.se/tech/licenses/seat24CorporateOpenSourceLicense-2.0.txt</url>
             <distribution>repo</distribution>
             <comments>A business-friendly OSS license</comments>
         </license>
-        <license>
-            <name>Etraveli Corporate Closed Source License</name>
-            <url>http://www.etraveli.com/tech/licenses/etraveliCorporateClosedSourceLicense.txt</url>
-            <distribution>repo</distribution>
-            <comments>A closed-source license</comments>
-        </license>
     </licenses>
 
-    <!-- developers>
+    <developers>
         <developer>
             <id>lj</id>
             <name>Lennart Jörelid</name>
-            <email>lj@etraveli.com</email>
+            <email>lj@jguru.se</email>
             <roles>
                 <role>Committer</role>
             </roles>
-            <organization>Etraveli AB</organization>
+            <organization>Etraveli</organization>
             <organizationUrl>http://www.etraveli.com</organizationUrl>
             <timezone>+1</timezone>
         </developer>
-    </developers -->
+    </developers>
 
     <properties>
         <!--
@@ -62,8 +60,7 @@
         <!--
             Define URL prefixes used in the various URL settings of the POM.
         -->
-        <github.global.server>nazgul_github</github.global.server>
-        <git.repo.owner>lennartj</git.repo.owner>
+        <git.repo.owner>etraveli</git.repo.owner>
         <git.repo.url.prefix>https://github.com/${git.repo.owner}</git.repo.url.prefix>
         <git.scm.url.prefix>scm:git:ssh://git@github.com/${git.repo.owner}</git.scm.url.prefix>
         <site.url.prefix>http://${git.repo.owner}.github.io</site.url.prefix>
@@ -99,9 +96,9 @@
     ################################################
     -->
     <modules>
-        <!-- module>codestyle</module>
-        <module>validation</module>
-        <module>poms</module>
+        <module>annotations</module>
+        <module>codestyle</module>
+        <!-- module>poms</module>
         <module>features-assembly</module -->
     </modules>
 
@@ -177,7 +174,7 @@
                 <artifactId>maven-release-plugin</artifactId>
                 <version>2.5.3</version>
                 <configuration>
-                    <arguments>-Pnazgul-release</arguments>
+                    <arguments>-Petraveli-release</arguments>
                     <mavenExecutorId>forked-path</mavenExecutorId>
                     <useReleaseProfile>false</useReleaseProfile>
                     <tagNameFormat>${reactor.name}-@{project.version}</tagNameFormat>
@@ -417,7 +414,7 @@
             Release profile for Nazgul Reactors.
         -->
         <profile>
-            <id>nazgul-release</id>
+            <id>etraveli-release</id>
             <build>
                 <plugins>
                     <plugin>
