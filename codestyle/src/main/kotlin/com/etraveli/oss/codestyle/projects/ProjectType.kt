@@ -10,9 +10,9 @@ import java.io.Serializable
 /**
  * Specification for how to classify Maven projects originating from their GAV.
  * All implementations must supply a `toString()` method to supply usable debug logs
- * from some of the enforcer rules, such as [se.jguru.codestyle.projects.enforcer.PermittedProjectTypeRule].
+ * from some of the enforcer rules, such as `PermittedProjectTypeRule`.
  *
- * @author [Lennart Jörelid](mailto:lj@jguru.se), jGuru Europe AB
+ * @author [Lennart J&ouml;relid](mailto:lj@jguru.se), jGuru Europe AB
  */
 interface ProjectType : Serializable {
 
@@ -53,8 +53,8 @@ interface ProjectType : Serializable {
     fun isCompliantWith(project: MavenProject): Boolean {
 
         return isCompliantGroupID(project.groupId) &&
-            isCompliantArtifactID(project.artifactId) &&
-            isCompliantPackaging(project.packaging)
+                isCompliantArtifactID(project.artifactId) &&
+                isCompliantPackaging(project.packaging)
     }
 }
 
@@ -64,28 +64,28 @@ interface ProjectType : Serializable {
  */
 open class DefaultProjectType(
 
-    /**
-     * The [Regex] to identify matching Aether GroupIDs for this [ProjectType]
-     */
-    protected val groupIdRegex: Regex,
+        /**
+         * The [Regex] to identify matching Aether GroupIDs for this [ProjectType]
+         */
+        protected val groupIdRegex: Regex,
+
+        /**
+         * The [Regex] to identify matching Aether ArtifactIDs for this [ProjectType]
+         */
+        protected val artifactIdRegex: Regex,
+
+        /**
+         * The [Regex] to identify matching Aether packaging for this [ProjectType]
+         */
+        protected val packagingRegex: Regex,
+
+        /**
+         * Indicates if received [null]s should be accepted or rejected.
+         */
+        protected val acceptNullValues: Boolean = false) : ProjectType {
 
     /**
-     * The [Regex] to identify matching Aether ArtifactIDs for this [ProjectType]
-     */
-    protected val artifactIdRegex: Regex,
-
-    /**
-     * The [Regex] to identify matching Aether packaging for this [ProjectType]
-     */
-    protected val packagingRegex: Regex,
-
-    /**
-     * Indicates if received [null]s should be accepted or rejected.
-     */
-    protected val acceptNullValues: Boolean = false) : ProjectType {
-
-    /**
-     * Convenience constructor using the pure String [Pattern]s instead of the full [Regex] objects.
+     * Convenience constructor using the pure String `Pattern`s instead of the full [Regex] objects.
      *
      * @see #getDefaultRegexFor
      * @see #IGNORE_CASE_AND_COMMENTS
@@ -97,13 +97,14 @@ open class DefaultProjectType(
             getDefaultRegexFor(groupIdPattern),
             getDefaultRegexFor(artifactIdPattern),
             getDefaultRegexFor(packagingPattern),
-        acceptNullValues)
+            acceptNullValues)
 
     /**
      * Default implementation validates that the received [artifactID] matches the [artifactIdRegex]
      * or - if null - returns a value corresponding to the [acceptNullValues] constructor argument.
      *
-     * @see `ProjectType#isCompliantArtifactID`
+     * @param artifactID The value of the `project.artifactID` element from a Maven POM.
+     * @return `true` if the artifactID is compliant with this ProjectType.
      */
     override fun isCompliantArtifactID(artifactID: String?): Boolean = when (artifactID) {
         null -> acceptNullValues
@@ -114,7 +115,8 @@ open class DefaultProjectType(
      * Default implementation validates that the received [groupID] matches the [groupIdRegex]
      * or - if null - returns a value corresponding to the [acceptNullValues] constructor argument.
      *
-     * @see ProjectType#isCompliantGroupID
+     * @param groupID The value of the `project.groupId` element from a Maven POM.
+     * @return `true` if the groupID is compliant with this ProjectType.
      */
     override fun isCompliantGroupID(groupID: String?): Boolean = when (groupID) {
         null -> acceptNullValues
@@ -125,7 +127,8 @@ open class DefaultProjectType(
      * Default implementation validates that the received [packaging] matches the [packagingRegex]
      * or - if null - returns a value corresponding to the [acceptNullValues] constructor argument.
      *
-     * @see ProjectType#isCompliantPackaging
+     * @param packaging The value of the `project.packaging` element from a Maven POM.
+     * @return `true` if the packaging is compliant with this ProjectType.
      */
     override fun isCompliantPackaging(packaging: String?): Boolean = when (packaging) {
         null -> acceptNullValues
@@ -137,8 +140,8 @@ open class DefaultProjectType(
      */
     override fun toString(): String {
         return "[ProjectType: ${javaClass.name}] - GroupIdRegex: ${groupIdRegex.pattern}, " +
-            "ArtifactIdRegex: ${artifactIdRegex.pattern}, " +
-            "PackagingRegex: ${packagingRegex.pattern}"
+                "ArtifactIdRegex: ${artifactIdRegex.pattern}, " +
+                "PackagingRegex: ${packagingRegex.pattern}"
     }
 
     /**

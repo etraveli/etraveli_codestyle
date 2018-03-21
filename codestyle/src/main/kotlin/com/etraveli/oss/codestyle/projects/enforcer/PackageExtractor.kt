@@ -50,12 +50,12 @@ abstract class AbstractSimplePackageExtractor : PackageExtractor {
          * semicolon. Otherwise this termination is required.
          */
         fun getPackageRegExp(optionalSemicolonTermination: Boolean) = Regex("^\\s*${PACKAGE_WORD}\\s*" +
-            "([a-zA-Z_][a-zA-Z0-9_]*(\\.[a-zA-Z_][a-zA-Z0-9_]*)*)?\\s*?;" +
-            when (optionalSemicolonTermination) {
-                true -> "?"
-                false -> ""
-            } +
-            "\\s*$");
+                "([a-zA-Z_][a-zA-Z0-9_]*(\\.[a-zA-Z_][a-zA-Z0-9_]*)*)?\\s*?;" +
+                when (optionalSemicolonTermination) {
+                    true -> "?"
+                    false -> ""
+                } +
+                "\\s*$");
 
         /**
          * Utility method which retrieves a FileFilter which accepts Files whose name ends
@@ -63,8 +63,8 @@ abstract class AbstractSimplePackageExtractor : PackageExtractor {
          */
         fun getSuffixFileFilter(requiredLowerCaseSuffix: String) = FileFilter { aFile ->
             aFile != null &&
-                aFile.isFile &&
-                aFile.name.toLowerCase().trim().endsWith(requiredLowerCaseSuffix.toLowerCase())
+                    aFile.isFile &&
+                    aFile.name.toLowerCase().trim().endsWith(requiredLowerCaseSuffix.toLowerCase())
         }
     }
 }

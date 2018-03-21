@@ -4,11 +4,14 @@
 
 package com.etraveli.oss.codestyle.projects.enforcer
 
+import com.etraveli.oss.codestyle.projects.CommonProjectTypes
+import com.etraveli.oss.codestyle.projects.ProjectType
+import com.etraveli.oss.codestyle.projects.enforcer.CorrectDependenciesRule.Companion.EVALUATE_GROUPIDS
+import com.etraveli.oss.codestyle.projects.enforcer.CorrectDependenciesRule.Companion.IGNORED_PROJECT_TYPES
+import com.etraveli.oss.codestyle.projects.enforcer.CorrectDependenciesRule.Companion.IGNORE_GROUPIDS
 import org.apache.maven.artifact.Artifact
 import org.apache.maven.enforcer.rule.api.EnforcerRuleHelper
 import org.apache.maven.project.MavenProject
-import com.etraveli.oss.codestyle.projects.CommonProjectTypes
-import com.etraveli.oss.codestyle.projects.ProjectType
 
 /**
  * Maven enforcement rule which ensures that Implementation [Artifact]s are not used as dependencies within
@@ -19,38 +22,38 @@ import com.etraveli.oss.codestyle.projects.ProjectType
 class CorrectDependenciesRule(
 
         /**
-     * List containing [ProjectType]s for which this rule should be ignored.
-     * Defaults to [IGNORED_PROJECT_TYPES] unless explicitly given.
-     */
-    var ignoredProjectTypes: List<ProjectType> = IGNORED_PROJECT_TYPES,
+         * List containing [ProjectType]s for which this rule should be ignored.
+         * Defaults to [IGNORED_PROJECT_TYPES] unless explicitly given.
+         */
+        var ignoredProjectTypes: List<ProjectType> = IGNORED_PROJECT_TYPES,
 
         /**
-     * List containing [Regex]ps which indicate which Maven GroupIDs should be included in this Rule's evaluation.
-     * Defaults to [EVALUATE_GROUPIDS] unless explicitly given.
-     */
-    var evaluateGroupIds: List<Regex> = listOf(EVALUATE_GROUPIDS).map { Regex(it) },
+         * List containing [Regex]ps which indicate which Maven GroupIDs should be included in this Rule's evaluation.
+         * Defaults to [EVALUATE_GROUPIDS] unless explicitly given.
+         */
+        var evaluateGroupIds: List<Regex> = listOf(EVALUATE_GROUPIDS).map { Regex(it) },
 
         /**
-     * List containing [Regex]ps which indicate which Maven GroupIDs should not be included ("ignored") in this Rule's
-     * evaluation. Defaults to [IGNORE_GROUPIDS] unless explicitly given.
-     */
-    var dontEvaluateGroupIds: List<Regex> = listOf(IGNORE_GROUPIDS).map { Regex(it) },
+         * List containing [Regex]ps which indicate which Maven GroupIDs should not be included ("ignored") in this Rule's
+         * evaluation. Defaults to [IGNORE_GROUPIDS] unless explicitly given.
+         */
+        var dontEvaluateGroupIds: List<Regex> = listOf(IGNORE_GROUPIDS).map { Regex(it) },
 
         /**
-     * A projectConverter method to convert each [MavenProject] to a [ProjectType].
-     * Defaults to `CommonProjectTypes#getProjectType`.
-     *
-     * @see CommonProjectTypes
-     */
-    var projectConverter: (theProject: MavenProject) -> ProjectType = { CommonProjectTypes.getProjectType(it) },
+         * A projectConverter method to convert each [MavenProject] to a [ProjectType].
+         * Defaults to `CommonProjectTypes#getProjectType`.
+         *
+         * @see CommonProjectTypes
+         */
+        var projectConverter: (theProject: MavenProject) -> ProjectType = { CommonProjectTypes.getProjectType(it) },
 
         /**
-     * A Maven [Artifact] to [ProjectType] converter function.
-     *
-     * @see CommonProjectTypes
-     */
-    var artifactConverter: (theArtifact: Artifact) -> ProjectType = { CommonProjectTypes.getProjectType(it) }) :
-    AbstractNonCacheableEnforcerRule() {
+         * A Maven [Artifact] to [ProjectType] converter function.
+         *
+         * @see CommonProjectTypes
+         */
+        var artifactConverter: (theArtifact: Artifact) -> ProjectType = { CommonProjectTypes.getProjectType(it) }) :
+        AbstractNonCacheableEnforcerRule() {
 
     companion object {
 
@@ -65,21 +68,21 @@ class CorrectDependenciesRule(
          * This default value will be used unless overridden by [explicit] configuration.
          */
         val IGNORE_GROUPIDS = "^se\\.jguru\\..*\\.generated\\..*," +
-            "^se\\.jguru\\.codestyle\\..*"
+                "^se\\.jguru\\.codestyle\\..*"
 
         /**
          * ProjectTypes for which this rule should be ignored.
          */
         val IGNORED_PROJECT_TYPES: List<ProjectType> = listOf(
-            CommonProjectTypes.JEE_APPLICATION,
-            CommonProjectTypes.PARENT,
-            CommonProjectTypes.ASSEMBLY,
-            CommonProjectTypes.REACTOR,
-            CommonProjectTypes.PROOF_OF_CONCEPT,
-            CommonProjectTypes.EXAMPLE,
-            CommonProjectTypes.TEST,
-            CommonProjectTypes.JAVA_AGENT,
-            CommonProjectTypes.STANDALONE_APPLICATION)
+                CommonProjectTypes.JEE_APPLICATION,
+                CommonProjectTypes.PARENT,
+                CommonProjectTypes.ASSEMBLY,
+                CommonProjectTypes.REACTOR,
+                CommonProjectTypes.PROOF_OF_CONCEPT,
+                CommonProjectTypes.EXAMPLE,
+                CommonProjectTypes.TEST,
+                CommonProjectTypes.JAVA_AGENT,
+                CommonProjectTypes.STANDALONE_APPLICATION)
     }
 
     /**
@@ -87,7 +90,7 @@ class CorrectDependenciesRule(
      * (Example: "No -impl dependencies permitted in this project")
      */
     override fun getShortRuleDescription(): String = "Impl projects should only be injected in applications (not in " +
-        "Models, APIs or SPIs)."
+            "Models, APIs or SPIs)."
 
     override fun performValidation(project: MavenProject, helper: EnforcerRuleHelper) {
 
@@ -102,7 +105,7 @@ class CorrectDependenciesRule(
 
             // Log somewhat
             helper.log.debug("Ignored [" + project.groupId + ":" + project.artifactId
-                + "] since its groupId was excluded from enforcement.")
+                    + "] since its groupId was excluded from enforcement.")
             return
 
         }
@@ -112,7 +115,7 @@ class CorrectDependenciesRule(
 
             // Log somewhat
             helper.log.debug("Ignored [" + project.groupId + ":" + project.artifactId
-                + "] since its groupId was not included in enforcement.")
+                    + "] since its groupId was not included in enforcement.")
             return
         }
 
@@ -141,7 +144,7 @@ class CorrectDependenciesRule(
                 }
 
                 if (artifactProjectType === CommonProjectTypes.JEE_APPLICATION
-                    || artifactProjectType === CommonProjectTypes.PROOF_OF_CONCEPT) {
+                        || artifactProjectType === CommonProjectTypes.PROOF_OF_CONCEPT) {
                     throw RuleFailureException(prefix + "in bundles.", current)
                 }
             }

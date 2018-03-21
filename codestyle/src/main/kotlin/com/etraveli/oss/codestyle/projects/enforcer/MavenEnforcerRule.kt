@@ -11,10 +11,14 @@ import org.apache.maven.enforcer.rule.api.EnforcerRuleException
 import org.apache.maven.enforcer.rule.api.EnforcerRuleHelper
 import org.apache.maven.project.MavenProject
 import org.codehaus.plexus.component.configurator.expression.ExpressionEvaluationException
-import java.util.ArrayList
 import java.util.StringTokenizer
 import java.util.regex.Pattern
 import java.util.regex.PatternSyntaxException
+import kotlin.collections.ArrayList
+import kotlin.collections.List
+import kotlin.collections.any
+import kotlin.collections.forEach
+import kotlin.collections.mapTo
 
 /**
  * Abstract Enforcer rule specification, handling some pretty printing
@@ -24,17 +28,15 @@ import java.util.regex.PatternSyntaxException
  */
 abstract class AbstractEnforcerRule(
 
-    /**
-     * Assigns the EnforcerLevel of this AbstractEnforcerRule.
-     *
-     * @see EnforcerRule2.getLevel
-     */
-    protected open val enforcerLevel: EnforcerLevel = EnforcerLevel.ERROR) : EnforcerRule2 {
+        /**
+         * Assigns the EnforcerLevel of this AbstractEnforcerRule.
+         *
+         * @see EnforcerRule2.getLevel
+         */
+        protected open val enforcerLevel: EnforcerLevel = EnforcerLevel.ERROR) : EnforcerRule2 {
 
     /**
      * Defines if the results of this AbstractEnforcerRule is cacheable.
-     *
-     * @see .isCacheable
      */
     protected var cacheable = false
 
@@ -62,7 +64,7 @@ abstract class AbstractEnforcerRule(
 
             // Whoops.
             val msg = ("Could not acquire MavenProject. (Expression lookup failure for: "
-                + e.localizedMessage + ")")
+                    + e.localizedMessage + ")")
             throw EnforcerRuleException(msg, e)
         }
 
@@ -73,13 +75,13 @@ abstract class AbstractEnforcerRule(
 
             // Create a somewhat verbose failure message.
             var message = ("\n"
-                + "\n#"
-                + "\n# Structure rule failure:"
-                + "\n# " + getShortRuleDescription()
-                + "\n# "
-                + "\n# Message: " + e.getLocalizedMessage()
-                + "\n# " + "\n# Offending project [" + project.groupId + ":"
-                + project.artifactId + ":" + project.version + "]" + "\n#")
+                    + "\n#"
+                    + "\n# Structure rule failure:"
+                    + "\n# " + getShortRuleDescription()
+                    + "\n# "
+                    + "\n# Message: " + e.getLocalizedMessage()
+                    + "\n# " + "\n# Offending project [" + project.groupId + ":"
+                    + project.artifactId + ":" + project.version + "]" + "\n#")
 
             val art = e.offendingArtifact
             message += when (art) {
@@ -149,7 +151,7 @@ abstract class AbstractEnforcerRule(
      */
     @Throws(PatternSyntaxException::class)
     protected fun splice2Pattern(toSplice: String): List<Pattern> =
-        splice(toSplice).mapTo(ArrayList<Pattern>()) { Pattern.compile(it) }
+            splice(toSplice).mapTo(ArrayList<Pattern>()) { Pattern.compile(it) }
 
     /**
      * Matches the provided `toMatch` string with all [Regex] in the patternList.
@@ -160,7 +162,7 @@ abstract class AbstractEnforcerRule(
      * @return `true` if one pattern in the patternList matches, this method returns `true`.
      */
     protected fun matches(toMatch: String, patternList: List<Regex>): Boolean =
-        patternList.any { it.matches(toMatch) }
+            patternList.any { it.matches(toMatch) }
 
     /**
      * Checks if any element within source startsWith the provided toCheck string.
@@ -195,12 +197,13 @@ abstract class AbstractEnforcerRule(
  * @author [Lennart Jörelid](mailto:lj@jguru.se), jGuru Europe AB
  */
 abstract class AbstractNonCacheableEnforcerRule(
-    /**
-     * Assigns the EnforcerLevel of this AbstractEnforcerRule.
-     *
-     * @see EnforcerRule2.getLevel
-     */
-    lvl: EnforcerLevel = EnforcerLevel.ERROR) : AbstractEnforcerRule(lvl) {
+
+        /**
+         * Assigns the EnforcerLevel of this AbstractEnforcerRule.
+         */
+        lvl: EnforcerLevel = EnforcerLevel.ERROR
+
+) : AbstractEnforcerRule(lvl) {
 
     /**
      * Always returns `null`.

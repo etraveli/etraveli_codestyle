@@ -4,10 +4,10 @@
 
 package com.etraveli.oss.codestyle.projects.enforcer
 
-import org.apache.maven.enforcer.rule.api.EnforcerRuleHelper
-import org.apache.maven.project.MavenProject
 import com.etraveli.oss.codestyle.projects.CommonProjectTypes
 import com.etraveli.oss.codestyle.projects.ProjectType
+import org.apache.maven.enforcer.rule.api.EnforcerRuleHelper
+import org.apache.maven.project.MavenProject
 
 /**
  * Enforcer rule to validate ProjectType compliance, to harmonize the pom structure in terms
@@ -19,21 +19,22 @@ import com.etraveli.oss.codestyle.projects.ProjectType
  * @author [Lennart Jörelid](mailto:lj@jguru.se), jGuru Europe AB
  */
 class PermittedProjectTypeRule(val permittedProjectTypes: List<ProjectType> = CommonProjectTypes.values().asList())
+
     : AbstractNonCacheableEnforcerRule() {
 
     // Internal state
     private val partialDescription = permittedProjectTypes
-        .mapIndexed { index, current -> "\n[$index/${permittedProjectTypes.size}]: ${current.javaClass.simpleName}" }
-        .reduce { l, r -> l + r }
+            .mapIndexed { index, current -> "\n[$index/${permittedProjectTypes.size}]: ${current.javaClass.simpleName}" }
+            .reduce { l, r -> l + r }
 
     private fun prettyPrint(project: MavenProject): String =
-        "GAV [${project.groupId}:${project.artifactId}:${project.packaging}]"
+            "GAV [${project.groupId}:${project.artifactId}:${project.packaging}]"
 
     /**
      * Supplies the short rule description for this MavenEnforcerRule.
      */
     override fun getShortRuleDescription(): String = "POM groupId, artifactId and packaging " +
-        "must comply with defined standard"
+            "must comply with defined standard"
 
     /**
      * Delegate method, implemented by concrete subclasses.
@@ -45,7 +46,7 @@ class PermittedProjectTypeRule(val permittedProjectTypes: List<ProjectType> = Co
     override fun performValidation(project: MavenProject, helper: EnforcerRuleHelper) {
 
         // Does any of the supplied project types match?
-        val firstMatchingProjectType = permittedProjectTypes.firstOrNull { it.isCompliantWith(project)}
+        val firstMatchingProjectType = permittedProjectTypes.firstOrNull { it.isCompliantWith(project) }
 
         if (firstMatchingProjectType == null) {
 
@@ -56,7 +57,7 @@ class PermittedProjectTypeRule(val permittedProjectTypes: List<ProjectType> = Co
         } else if (helper.log.isDebugEnabled) {
 
             helper.log.debug("Found matching ProjectType [$firstMatchingProjectType] " +
-                "for project ${prettyPrint(project)}")
+                    "for project ${prettyPrint(project)}")
         }
     }
 

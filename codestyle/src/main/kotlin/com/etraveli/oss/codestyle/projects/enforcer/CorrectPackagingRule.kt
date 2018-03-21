@@ -9,11 +9,7 @@ import org.apache.maven.enforcer.rule.api.EnforcerRuleHelper
 import org.apache.maven.project.MavenProject
 import java.io.File
 import java.io.FileFilter
-import java.util.ArrayList
-import java.util.SortedMap
-import java.util.SortedSet
-import java.util.TreeMap
-import java.util.TreeSet
+import java.util.*
 
 /**
  * Enforcer rule to enforce correct packaging for all source files within a project,
@@ -63,8 +59,8 @@ class CorrectPackagingRule(lvl: EnforcerLevel = EnforcerLevel.ERROR,
 
             // Correct packaging everywhere?
             val incorrectPackages = pkg2SourceFilesMap.keys
-                .filter { !it.startsWith(groupId) }
-                .toCollection(TreeSet())
+                    .filter { !it.startsWith(groupId) }
+                    .toCollection(TreeSet())
 
             if (incorrectPackages.isNotEmpty()) {
 
@@ -110,8 +106,8 @@ class CorrectPackagingRule(lvl: EnforcerLevel = EnforcerLevel.ERROR,
                 extractors.add(aClass.getDeclaredConstructor().newInstance() as PackageExtractor)
             } catch (e: Exception) {
                 throw IllegalArgumentException("Could not instantiate PackageExtractor from class ["
-                    + current + "]. Validate that implementation has a default constructor, and implements the"
-                    + PackageExtractor::class.java.simpleName + " interface.")
+                        + current + "]. Validate that implementation has a default constructor, and implements the"
+                        + PackageExtractor::class.java.simpleName + " interface.")
             }
 
         }

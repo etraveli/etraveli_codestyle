@@ -1,0 +1,15 @@
+<!--
+  ~ Copyright (c) Seat24 AB
+  -->
+<FindBugsFilter>
+    <Match>
+        <Package name="~jsp\.jsp.*"/>
+    </Match>
+    <Match>
+        <Class name="~.*"/>
+        <Not>
+            <Field type="com_cenqua_clover.*"/>
+        </Not>
+    </Match>
+</FindBugsFilter>
+

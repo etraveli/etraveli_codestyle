@@ -54,6 +54,7 @@
         <kotlin.version>1.2.30</kotlin.version>
         <kotlin.jvm.target>1.8</kotlin.jvm.target>
         <kotlin.plugin>jpa</kotlin.plugin>
+        <license.id>seat24_apl_v2</license.id>
         
         <!--
             Define URL prefixes used in the various URL settings of the POM.
@@ -302,7 +303,6 @@
         </pluginManagement>
 
         <plugins>
-
             <!--
                  Ensure that the kotlin-maven-plugin uses the standard src/main/kotlin
                  and src/test/kotlin directories.
