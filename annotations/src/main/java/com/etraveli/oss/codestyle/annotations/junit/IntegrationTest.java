@@ -1,5 +1,5 @@
 /*
- * Copyright (c) Etraveli AB
+ * Copyright (c) Seat24 AB
  */
 
 package com.etraveli.oss.codestyle.annotations.junit;

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) Seat24 AB
+  -->
+
+<!--suppress MavenRedundantGroupId -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!--
+    ################################################
+    # Section 1:  Project information
+    ################################################
+    -->
+    <parent>
+        <groupId>com.etraveli.oss.codestyle.poms</groupId>
+        <artifactId>etraveli-codestyle-poms-reactor</artifactId>
+        <version>0.9.2-SNAPSHOT</version>
+    </parent>
+
+    <groupId>com.etraveli.oss.codestyle.poms.kotlin</groupId>
+    <artifactId>etraveli-codestyle-poms-kotlin-reactor</artifactId>
+    <packaging>pom</packaging>
+    <name>${project.artifactId}</name>
+    <url>${site.top.url}/${path.in.reactor}</url>
+    <description>Etraveli Codestyle: Kotlin POMs Reactor (${project.packaging}, version ${project.version})</description>
+
+    <properties>
+        <path.in.reactor>poms/kotlin</path.in.reactor>
+
+        <!-- License plugin configuration parameters. -->
+        <license.id>seat24_apl_v2</license.id>
+        <license.licenseResolver>classpath://codestyle/license</license.licenseResolver>
+        <breakOnFailure.license>true</breakOnFailure.license>
+    </properties>
+
+    <!--
+    ################################################
+    # Section 2:  Modules
+    ################################################
+    -->
+    <modules>
+        <module>kotlin-reactor-parent</module>
+        <module>kotlin-internal-parent</module>
+        <module>kotlin-parent</module>
+        <module>kotlin-api-parent</module>
+        <module>kotlin-model-parent</module>
+        <module>kotlin-war-parent</module>
+        <module>kotlin-js-parent</module>
+    </modules>
+
+    <!--
+    ################################################
+    # Section 3:  Build settings
+    ################################################
+    -->
+    <build>
+        <plugins>
+            <!--
+                The license plugin is quite inflexible about the format for the injected/detected file header
+                in terms of license structure. Use it as intended, but provide a variable to handle the
+                desired license and license resolver.
+
+                Why:  Ensures that all files contain a license header.
+                Used: Standard lifecycle, mvn package.
+            -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <version>1.14</version>
+                <configuration>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <descriptionTemplate>/codestyle/license/${license.id}/licenseDescriptionTemplate.ftl</descriptionTemplate>
+                    <failOnMissingHeader>${breakOnFailure.license}</failOnMissingHeader>
+                    <licenseName>${license.id}</licenseName>
+                    <licenseResolver>${license.licenseResolver}</licenseResolver>
+                    <canUpdateDescription>true</canUpdateDescription>
+                    <addJavaLicenseAfterPackage>false</addJavaLicenseAfterPackage>
+                    <licenseFile>${project.build.directory}/LICENSE.TXT</licenseFile>
+                    <roots>
+                        <root>${project.basedir}/src/main</root>
+                        <root>${project.basedir}/src/site</root>
+                    </roots>
+                    <excludes>
+                        <!-- Custom excludes -->
+                        <param>**/*.json</param>
+                        <!-- Modelling filetypes -->
+                        <param>**/*.zargo</param>
+                        <param>**/*.uml</param>
+                        <param>**/*.umldi</param>
+                        <param>**/*.umldi</param>
+                        <param>**/*.xmi</param>
+                        <!-- Image filetypes -->
+                        <param>**/*.img</param>
+                        <param>**/*.png</param>
+                        <param>**/*.jpg</param>
+                        <param>**/*.jpeg</param>
+                        <param>**/*.gif</param>
+                        <!-- Archives -->
+                        <param>**/*.zip</param>
+                        <param>**/*.jar</param>
+                        <param>**/*.war</param>
+                        <param>**/*.ear</param>
+                        <param>**/*.tgz</param>
+                        <param>**/*.gz</param>
+                    </excludes>
+                    <extraExtensions>
+                        <kt>java</kt>
+                    </extraExtensions>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.etraveli.oss.codestyle</groupId>
+                        <artifactId>etraveli-codestyle</artifactId>
+                        <version>0.9.2-SNAPSHOT</version>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <id>check-file-header</id>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>check-file-header</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>add-license</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>update-project-license</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <!--
+    ################################################
+    # Section 4:  External systems
+    ################################################
+    -->
+
+    <!--
+        Compensate for Maven standard variable extrapolation.
+        Git requires steady URLs (... but Subversion requires path extrapolation, hence the problem).
+     -->
+    <distributionManagement>
+        <site>
+            <id>github_site</id>
+            <name>GitHub Site</name>
+            <url>${site.top.url}/${path.in.reactor}</url>
+        </site>
+    </distributionManagement>
+
+    <!--
+        Define connections for Maven's VCS integration.
+    -->
+    <scm>
+        <connection>${scm.connection.url}</connection>
+        <developerConnection>${scm.devConnection.url}</developerConnection>
+        <url>${scm.url}</url>
+        <tag>HEAD</tag>
+    </scm>
+</project>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright (c) Etraveli AB
+  ~ Copyright (c) Seat24 AB
   -->
 
 <project xmlns="http://maven.apache.org/DECORATION/1.8.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -11,8 +11,8 @@
     </bannerLeft>
     <bannerRight>
         <name>
-            <![CDATA[<span style="color: #777777;">jGuru:</span> <a href="https://www.jguru.se/dev/codestyle">Codestyle</a>]]></name>
-        <href>https://www.jguru.se/dev/codestyle</href>
+            <![CDATA[<span style="color: #777777;">Etraveli:</span> <a href="https://github.io/etraveli/codestyle">Codestyle</a>]]></name>
+        <href>https://github.com/etraveli/etraveli_codestyle</href>
     </bannerRight>
 
     <publishDate position="left" format="yyyy-MM-dd"/>
