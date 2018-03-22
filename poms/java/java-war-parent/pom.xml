@@ -25,7 +25,7 @@
     <url>${site.top.url}/${path.in.reactor}</url>
 
     <properties>
-        <!-- Define some extra version constants -->
+        <!-- Version number properties -->
         <resteasy.version>3.0.8.Final</resteasy.version>
         <undertow.version>1.0.15.Final</undertow.version>
 

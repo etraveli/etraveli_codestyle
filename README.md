@@ -11,10 +11,11 @@ and rule-set implementation for...
 3. **Parent definitions**: the common parents for use within projects 
    producing artifacts.
    
-### Intermission: The Code Style factor
+A `Codestyle` repository, therefore, has no (or few) dependencies on other repositories.
+The intended structure and responsibilities of projects/artifacts within repositories could/should
+be ordered as illustrated in the image below:
 
-Others are considering the importance of Codestyle as well:
-![Code Style](src/site/resources/img/styleCode.jpg "Code in Style...")
+![Code Style](src/site/resources/img/repoStructure_readme.png "Repository Dependency Structure")   
 
 ## Using the "Codestyle" repo artifacts
 
@@ -64,7 +65,10 @@ The standard documentation is built using
 [Maven Site Plugin](https://maven.apache.org/plugins/maven-site-plugin/) mechanics - we
 use [Markdown](https://daringfireball.net/projects/markdown/syntax) with the added 
 capabilities of [PlantUML](http://plantuml.com/) diagrams to render diagrams when needed.
-Build the documentation using:
+
+This requires you to install a `dot` executable normally found within the [Graphviz](http://graphviz.org) open-source 
+application simply download and install it within the standard path on your workstation to be able to build the 
+documentation and all its diagrams properly. Then, simply build the documentation using:
 
 	mvn site
 	

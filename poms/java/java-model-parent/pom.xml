@@ -26,6 +26,10 @@
 
     <properties>
         <path.in.reactor>poms/java/java-model-parent</path.in.reactor>
+
+        <!-- Version number properties -->
+        <nazgul-core.version>3.0.0</nazgul-core.version>
+        <xmlunit.version>2.5.1</xmlunit.version>
     </properties>
 
     <!-- +=============================================== -->
@@ -45,6 +49,24 @@
                 <artifactId>nazgul-core-persistence-api</artifactId>
                 <version>${nazgul-core.version}</version>
             </dependency>
+            <dependency>
+                <groupId>se.jguru.nazgul.core.xmlbinding.spi.jaxb</groupId>
+                <artifactId>nazgul-core-xmlbinding-spi-jaxb</artifactId>
+                <version>${nazgul-core.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.xmlunit</groupId>
+                <artifactId>xmlunit-core</artifactId>
+                <version>${xmlunit.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.xmlunit</groupId>
+                <artifactId>xmlunit-matchers</artifactId>
+                <version>${xmlunit.version}</version>
+                <scope>test</scope>
+            </dependency>
 
         </dependencies>
     </dependencyManagement>
@@ -55,12 +77,11 @@
         <dependency>
             <groupId>se.jguru.nazgul.core.xmlbinding.spi.jaxb</groupId>
             <artifactId>nazgul-core-xmlbinding-spi-jaxb</artifactId>
-            <version>${nazgul-core.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>xmlunit</groupId>
-            <artifactId>xmlunit</artifactId>
+            <groupId>org.xmlunit</groupId>
+            <artifactId>xmlunit-matchers</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>

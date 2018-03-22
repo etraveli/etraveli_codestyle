@@ -94,6 +94,7 @@
         <skip.verify.code>false</skip.verify.code>
 
         <!-- Enforcer configuration parameters -->
+        <enforcer.api.version>1.4.1</enforcer.api.version>
         <enforcer.includedGroupIdPatterns>^com\\.etraveli\\..*</enforcer.includedGroupIdPatterns>
         <enforcer.excludedGroupIdPatterns>^com\\.etraveli\\..*\\.generated\\..*,^com\\.etraveli\\.codestyle\\..*</enforcer.excludedGroupIdPatterns>
 
@@ -1130,8 +1131,11 @@
                 </plugin>
 
                 <!--
-                    Generate maven dependencies listing file
-                 -->
+                    Extracts dependency information from the build into a property file within the artifact.
+
+                    Why:  Plugin used to generate a META-INF/maven/dependencies.properties file within the artifact.
+                    Used: In all projects; generate-resources phase.
+                -->
                 <plugin>
                     <groupId>org.apache.servicemix.tooling</groupId>
                     <artifactId>depends-maven-plugin</artifactId>
@@ -1284,9 +1288,9 @@
                                     in child reactors - where needs are likely different than here.
                                 -->
                                 <restrictImplDependencies
-                                        implementation="com.etraveli.oss.codestyle.projects.enforcer.RestrictImplDependencies">
-                                    <includedGroupIdPatterns>${enforcer.includedGroupIdPatterns}</includedGroupIdPatterns>
-                                    <excludedGroupIdPatterns>${enforcer.excludedGroupIdPatterns}</excludedGroupIdPatterns>
+                                        implementation="com.etraveli.oss.codestyle.projects.enforcer.CorrectDependenciesRule">
+                                    <evaluateGroupIds>${enforcer.includedGroupIdPatterns}</evaluateGroupIds>
+                                    <dontEvaluateGroupIds>${enforcer.excludedGroupIdPatterns}</dontEvaluateGroupIds>
                                 </restrictImplDependencies>
 
                                 <!--
@@ -1309,6 +1313,16 @@
                         <groupId>com.etraveli.oss.codestyle</groupId>
                         <artifactId>etraveli-codestyle</artifactId>
                         <version>0.9.2-SNAPSHOT</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.jetbrains.kotlin</groupId>
+                        <artifactId>kotlin-stdlib-jdk8</artifactId>
+                        <version>1.2.30</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.apache.maven.enforcer</groupId>
+                        <artifactId>enforcer-api</artifactId>
+                        <version>${enforcer.api.version}</version>
                     </dependency>
                 </dependencies>
             </plugin>

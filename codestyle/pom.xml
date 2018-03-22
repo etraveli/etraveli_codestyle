@@ -285,7 +285,7 @@
                     <artifactId>maven-release-plugin</artifactId>
                     <version>2.5.3</version>
                     <configuration combine.self="override">
-                        <arguments>-Pjguru-release</arguments>
+                        <arguments>-Petraveli-release</arguments>
                         <mavenExecutorId>forked-path</mavenExecutorId>
                         <useReleaseProfile>false</useReleaseProfile>
                         <tagNameFormat>${reactor.name}-@{project.version}</tagNameFormat>
@@ -480,6 +480,26 @@
                                 </requireJavaVersion>&gt;
                             </rules>
                         </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!--
+                Extracts dependency information from the build into a property file within the artifact.
+
+                Why:  Plugin used to generate a META-INF/maven/dependencies.properties file within the artifact.
+                Used: In all projects; generate-resources phase.
+            -->
+            <plugin>
+                <groupId>org.apache.servicemix.tooling</groupId>
+                <artifactId>depends-maven-plugin</artifactId>
+                <version>1.4.0</version>
+                <executions>
+                    <execution>
+                        <id>generate-depends-file</id>
+                        <goals>
+                            <goal>generate-depends-file</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>
@@ -711,7 +731,7 @@
             Release profile for jGuru (Nazgul-component-style) reactors.
         -->
         <profile>
-            <id>jguru-release</id>
+            <id>etraveli-release</id>
             <build>
 
                 <plugins>
