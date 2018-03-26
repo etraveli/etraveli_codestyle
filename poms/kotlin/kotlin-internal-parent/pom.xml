@@ -98,7 +98,7 @@
         <clean.plugin.version>2.6.1</clean.plugin.version>
 
         <!-- Enforcer configuration parameters -->
-        <enforcer.api.version>1.4.1</enforcer.api.version>
+        <enforcer.version>3.0.0-M1</enforcer.version>
         <enforcer.includedGroupIdPatterns>^com\\.etraveli\\..*</enforcer.includedGroupIdPatterns>
         <enforcer.excludedGroupIdPatterns>^com\\.etraveli\\..*\\.generated\\..*,^com\\.etraveli\\.codestyle\\..*</enforcer.excludedGroupIdPatterns>
 
@@ -463,7 +463,7 @@
                 <!-- Enforce not importing incorrect projects. -->
                 <plugin>
                     <artifactId>maven-enforcer-plugin</artifactId>
-                    <version>1.4.1</version>
+                    <version>${enforcer.version}</version>
                     <executions>
                         <execution>
                             <id>enforce-imports</id>
@@ -528,7 +528,7 @@
                         <dependency>
                             <groupId>org.apache.maven.enforcer</groupId>
                             <artifactId>enforcer-api</artifactId>
-                            <version>${enforcer.api.version}</version>
+                            <version>${enforcer.version}</version>
                         </dependency>
                     </dependencies>
                 </plugin>

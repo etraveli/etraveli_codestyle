@@ -6,9 +6,6 @@ package com.etraveli.oss.codestyle.projects.enforcer
 
 import com.etraveli.oss.codestyle.projects.CommonProjectTypes
 import com.etraveli.oss.codestyle.projects.ProjectType
-import com.etraveli.oss.codestyle.projects.enforcer.CorrectDependenciesRule.Companion.EVALUATE_GROUPIDS
-import com.etraveli.oss.codestyle.projects.enforcer.CorrectDependenciesRule.Companion.IGNORED_PROJECT_TYPES
-import com.etraveli.oss.codestyle.projects.enforcer.CorrectDependenciesRule.Companion.IGNORE_GROUPIDS
 import org.apache.maven.artifact.Artifact
 import org.apache.maven.enforcer.rule.api.EnforcerRuleHelper
 import org.apache.maven.project.MavenProject
@@ -20,24 +17,23 @@ import org.apache.maven.project.MavenProject
  * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
  */
 class CorrectDependenciesRule(
-
         /**
          * List containing [ProjectType]s for which this rule should be ignored.
          * Defaults to [IGNORED_PROJECT_TYPES] unless explicitly given.
          */
-        var ignoredProjectTypes: List<ProjectType> = IGNORED_PROJECT_TYPES,
+        ignoredProjectTypes: List<ProjectType>?,
 
         /**
          * List containing [Regex]ps which indicate which Maven GroupIDs should be included in this Rule's evaluation.
          * Defaults to [EVALUATE_GROUPIDS] unless explicitly given.
          */
-        var evaluateGroupIds: List<Regex> = listOf(EVALUATE_GROUPIDS).map { Regex(it) },
+        evaluateGroupIds: List<String>?,
 
         /**
          * List containing [Regex]ps which indicate which Maven GroupIDs should not be included ("ignored") in this Rule's
          * evaluation. Defaults to [IGNORE_GROUPIDS] unless explicitly given.
          */
-        var dontEvaluateGroupIds: List<Regex> = listOf(IGNORE_GROUPIDS).map { Regex(it) },
+        dontEvaluateGroupIds: List<String>?,
 
         /**
          * A projectConverter method to convert each [MavenProject] to a [ProjectType].
@@ -45,45 +41,48 @@ class CorrectDependenciesRule(
          *
          * @see CommonProjectTypes
          */
-        var projectConverter: (theProject: MavenProject) -> ProjectType = { CommonProjectTypes.getProjectType(it) },
+        projectConverter: ((theProject: MavenProject) -> ProjectType)?,
 
         /**
          * A Maven [Artifact] to [ProjectType] converter function.
          *
          * @see CommonProjectTypes
          */
-        var artifactConverter: (theArtifact: Artifact) -> ProjectType = { CommonProjectTypes.getProjectType(it) }) :
-        AbstractNonCacheableEnforcerRule() {
+        artifactConverter: ((theArtifact: Artifact) -> ProjectType)?) : AbstractNonCacheableEnforcerRule() {
 
-    companion object {
+    /**
+     * Default constructor using default values for all arguments.
+     */
+    constructor() : this(null, null, null, null, null)
 
-        /**
-         * Pattern defining groupID for artifacts that should be evaluated by this EnforcerRule instance.
-         * This default value will be used unless overridden by [explicit] configuration.
-         */
-        val EVALUATE_GROUPIDS = "^se\\.jguru\\.nazgul\\..*"
+    // Internal state
+    private val ignoredProjectTypes: List<ProjectType> = ignoredProjectTypes ?: listOf(
+            CommonProjectTypes.JEE_APPLICATION,
+            CommonProjectTypes.PARENT,
+            CommonProjectTypes.ASSEMBLY,
+            CommonProjectTypes.REACTOR,
+            CommonProjectTypes.PROOF_OF_CONCEPT,
+            CommonProjectTypes.EXAMPLE,
+            CommonProjectTypes.TEST,
+            CommonProjectTypes.JAVA_AGENT,
+            CommonProjectTypes.STANDALONE_APPLICATION)
 
-        /**
-         * Pattern defining patterns for groupIDs that should be ignored by this EnforcerRule instance.
-         * This default value will be used unless overridden by [explicit] configuration.
-         */
-        val IGNORE_GROUPIDS = "^se\\.jguru\\..*\\.generated\\..*," +
-                "^se\\.jguru\\.codestyle\\..*"
+    /**
+     * List containing [Regex]ps which indicate which Maven GroupIDs should be included in this Rule's evaluation.
+     * Defaults to [EVALUATE_GROUPIDS] unless explicitly given.
+     */
+    private var evaluateGroupIds: List<String> = evaluateGroupIds ?: listOf("^com\\.etraveli\\..*")
+    private var dontEvaluateGroupIds: List<String> = dontEvaluateGroupIds
+            ?: listOf("^com\\.etraveli\\..*\\.generated\\..*", "^com\\.etraveli\\.oss\\.codestyle\\..*")
 
-        /**
-         * ProjectTypes for which this rule should be ignored.
-         */
-        val IGNORED_PROJECT_TYPES: List<ProjectType> = listOf(
-                CommonProjectTypes.JEE_APPLICATION,
-                CommonProjectTypes.PARENT,
-                CommonProjectTypes.ASSEMBLY,
-                CommonProjectTypes.REACTOR,
-                CommonProjectTypes.PROOF_OF_CONCEPT,
-                CommonProjectTypes.EXAMPLE,
-                CommonProjectTypes.TEST,
-                CommonProjectTypes.JAVA_AGENT,
-                CommonProjectTypes.STANDALONE_APPLICATION)
-    }
+    private var projectConverter: (theProject: MavenProject) -> ProjectType = projectConverter
+            ?: { CommonProjectTypes.getProjectType(it) }
+
+    private var artifactConverter: (theArtifact: Artifact) -> ProjectType = artifactConverter
+            ?: { CommonProjectTypes.getProjectType(it) }
+
+    private fun getEvaluationPatterns(): List<Regex> = evaluateGroupIds.map { Regex(it) }
+    private fun getIgnoreEvaluationPatterns(): List<Regex> = dontEvaluateGroupIds.map { Regex(it) }
 
     /**
      * @return A human-readable short description for this AbstractEnforcerRule.
@@ -101,7 +100,7 @@ class CorrectDependenciesRule(
         }
 
         // Don't evaluate if told not to.
-        if (matches(project.groupId, this.dontEvaluateGroupIds)) {
+        if (matches(project.groupId, getIgnoreEvaluationPatterns())) {
 
             // Log somewhat
             helper.log.debug("Ignored [" + project.groupId + ":" + project.artifactId
@@ -111,7 +110,7 @@ class CorrectDependenciesRule(
         }
 
         // Don't evaluate if not told to.
-        if (!matches(project.groupId, evaluateGroupIds)) {
+        if (!matches(project.groupId, getEvaluationPatterns())) {
 
             // Log somewhat
             helper.log.debug("Ignored [" + project.groupId + ":" + project.artifactId
@@ -128,8 +127,8 @@ class CorrectDependenciesRule(
             }
 
             // Should this Artifact be evaluated?
-            val isIncludedInEvaluation = matches(current.groupId, evaluateGroupIds)
-            val isNotExplicitlyExcludedFromEvaluation = !matches(current.groupId, dontEvaluateGroupIds)
+            val isIncludedInEvaluation = matches(current.groupId, getEvaluationPatterns())
+            val isNotExplicitlyExcludedFromEvaluation = !matches(current.groupId, getIgnoreEvaluationPatterns())
             if (isIncludedInEvaluation && isNotExplicitlyExcludedFromEvaluation) {
 
                 val artifactProjectType = artifactConverter(current)
