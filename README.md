@@ -67,12 +67,17 @@ use [Markdown](https://daringfireball.net/projects/markdown/syntax) with the add
 capabilities of [PlantUML](http://plantuml.com/) diagrams to render diagrams when needed.
 
 This requires you to install a `dot` executable normally found within the [Graphviz](http://graphviz.org) open-source 
-application simply download and install it within the standard path on your workstation to be able to build the 
-documentation and all its diagrams properly. Then, simply build the documentation using:
+application. Simply download and install it within the standard path on your workstation to be able to build the 
+documentation and all its diagrams properly.  
+
+After graphviz/dot is installed, simply build the documentation using:
 
 	mvn site
 	
 Build the staged documentation for all modules using:
 
 	mvn site site:stage	
+	
+The staged documentation should land within the `/tmp/${reactor.name}/${version}` directory - typically something like
+`/tmp/etraveli_codestyle/1.2.3/`. 
 
