@@ -13,25 +13,20 @@
     ################################################
     -->
     <parent>
-        <groupId>com.etraveli.oss.codestyle.poms</groupId>
-        <artifactId>etraveli-codestyle-poms-reactor</artifactId>
+        <groupId>com.etraveli.oss.codestyle.poms.java</groupId>
+        <artifactId>etraveli-codestyle-poms-java-reactor</artifactId>
         <version>0.9.2-SNAPSHOT</version>
     </parent>
 
     <groupId>com.etraveli.oss.codestyle.poms.java</groupId>
-    <artifactId>etraveli-codestyle-poms-java-reactor</artifactId>
+    <artifactId>etraveli-codestyle-java-reactor-parent</artifactId>
     <packaging>pom</packaging>
     <name>${project.artifactId}</name>
     <url>${site.top.url}/${path.in.reactor}</url>
-    <description>Etraveli Codestyle: Java POMs Reactor (${project.packaging}, version ${project.version})</description>
+    <description>Etraveli Codestyle: Reactor Parent POM (${project.packaging}, version ${project.version})</description>
 
     <properties>
-        <path.in.reactor>poms/java</path.in.reactor>
-
-        <!-- License plugin configuration parameters. -->
-        <license.id>seat24_apl_v2</license.id>
-        <license.licenseResolver>classpath://codestyle/license</license.licenseResolver>
-        <breakOnFailure.license>true</breakOnFailure.license>
+        <path.in.reactor>poms/java/java-reactor-parent</path.in.reactor>
     </properties>
 
     <!--
@@ -39,14 +34,6 @@
     # Section 2:  Modules
     ################################################
     -->
-    <modules>
-        <module>java-internal-parent</module>
-        <module>java-parent</module>
-        <module>java-api-parent</module>
-        <module>java-model-parent</module>
-        <module>java-war-parent</module>
-        <module>java-reactor-parent</module>
-    </modules>
 
     <!--
     ################################################
@@ -54,6 +41,7 @@
     ################################################
     -->
     <build>
+
         <plugins>
             <!--
                 The license plugin is quite inflexible about the format for the injected/detected file header
@@ -68,7 +56,6 @@
                 <artifactId>license-maven-plugin</artifactId>
                 <version>1.14</version>
                 <configuration>
-                    <encoding>${project.build.sourceEncoding}</encoding>
                     <descriptionTemplate>/codestyle/license/${license.id}/licenseDescriptionTemplate.ftl</descriptionTemplate>
                     <failOnMissingHeader>${breakOnFailure.license}</failOnMissingHeader>
                     <licenseName>${license.id}</licenseName>
@@ -78,6 +65,7 @@
                     <licenseFile>${project.build.directory}/LICENSE.TXT</licenseFile>
                     <roots>
                         <root>${project.basedir}/src/main</root>
+                        <root>${project.basedir}/src/test</root>
                         <root>${project.basedir}/src/site</root>
                     </roots>
                     <excludes>
@@ -103,9 +91,6 @@
                         <param>**/*.tgz</param>
                         <param>**/*.gz</param>
                     </excludes>
-                    <extraExtensions>
-                        <kt>java</kt>
-                    </extraExtensions>
                 </configuration>
                 <dependencies>
                     <dependency>

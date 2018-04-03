@@ -6,7 +6,7 @@ as a well-defined lifecycle for beans.
 
 To simplify running tests containing classes relying on CDI to inject
 field values, the `cdi-unit` dependency is provided as part of dependency
-management within the kotlin-parent POM of the etraveli codestyle. To use it
+management within the java-parent POM of the etraveli codestyle. To use it
 within a test, simply annotate all test classes with the `RunWith` annotation
 and submit the CdiRunner as its value.
 
