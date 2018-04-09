@@ -1,6 +1,6 @@
 # Types ("Stereotypes") of Projects
 
-Several standard ProjectType implementations are defined within the jGuru Codestyle.
+Several standard ProjectType implementations are defined within the etraveli Codestyle.
 Most of those reside within [CommonProjectTypes] enumeration, defining the values 
 within the table below - all of which are ProjectType implementations.
 Each project type can be identified uniquely by its Maven Project's GAP (GroupID, ArtifactID, Packaging)
@@ -104,7 +104,7 @@ The CommonProjectType values are:
 ## What is the difference between a Parent and a Reactor POM?
 
 The POM defines lots of configuration and build settings for Maven projects.
-jGuru Codestyle divides these POMs in 2 categories:
+etraveli Codestyle divides these POMs in 2 categories:
 
 <table>
     <tr>
@@ -129,7 +129,7 @@ jGuru Codestyle divides these POMs in 2 categories:
 
 **Parent** poms define dependencies and plugins required to produce an artifact.
 Parent poms are intended to be used as parents for projects producing artifacts and **not** having
-any modules (project children). The jGuru Codestyle structures projects in leaf projects
+any modules (project children). The etraveli Codestyle structures projects in leaf projects
 which create artifacts, and non-leaf projects which create the build reactor by defining modules.
 
 **Reactor** poms define the build reactor, implying that they are parents for POMs which have

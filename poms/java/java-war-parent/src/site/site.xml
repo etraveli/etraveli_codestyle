@@ -17,7 +17,6 @@
   limitations under the License.
   #L%
   -->
-
 <project xmlns="http://maven.apache.org/DECORATION/1.8.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/DECORATION/1.8.0 http://maven.apache.org/xsd/decoration-1.8.0.xsd">
 
@@ -26,8 +25,8 @@
     </bannerLeft>
     <bannerRight>
         <name>
-            <![CDATA[<span style="color: #777777;">jGuru:</span> <a href="https://www.jguru.se/dev/codestyle">Codestyle</a>]]></name>
-        <href>https://www.jguru.se/dev/codestyle</href>
+            <![CDATA[<span style="color: #777777;">Etraveli:</span> <a href="https://github.io/etraveli/codestyle">Codestyle</a>]]></name>
+        <href>https://github.com/etraveli/etraveli_codestyle</href>
     </bannerRight>
 
     <publishDate position="left" format="yyyy-MM-dd"/>
@@ -42,17 +41,12 @@
     <custom>
         <fluidoSkin>
             <sourceLineNumbersEnabled>true</sourceLineNumbersEnabled>
-            <topBarEnabled>true</topBarEnabled>
-            <sideBarEnabled>false</sideBarEnabled>
-            <topBarContainerStyle>width: 90%;</topBarContainerStyle>
             <copyrightClass>pull-right</copyrightClass>
 
             <!-- Social Media Integration -->
             <facebookLike/>
-            <googlePlusOne/>
         </fluidoSkin>
     </custom>
-
     <body>
         <menu name="Overview">
             <item name="Introduction" href="index.html"/>

@@ -51,20 +51,7 @@
         </head>
         <menu name="Overview">
             <item name="Introduction" href="index.html"/>
-            <item name="Concepts and Overview" href="concepts.html"/>
         </menu>
-
-        <menu name="Modularity and Scalability">
-            <item name="Modularity" href="theory/modularity.html"/>
-            <item name="Software Components" href="theory/software_components.html"/>
-            <item name="Reducing complexity" href="theory/complexity_reduction.html"/>
-        </menu>
-
-        <menu name="Setup and Usage">
-            <item name="Setup: IDE, Graphviz" href="setup.html"/>
-            <item name="Building documentation" href="documentation.html"/>
-        </menu>
-
 
         <menu ref="modules" inherit="bottom"/>
         <menu ref="reports" inherit="bottom"/>

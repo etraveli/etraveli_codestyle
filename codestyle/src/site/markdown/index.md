@@ -1,4 +1,4 @@
-# jGuru Codestyle: Definitions Overview
+# etraveli Codestyle: Definitions Overview
 
 The codestyle project contains configuration for plugins embedded in the maven build, as well as IDEs intended
 to be used for development. The configuration is roughly divided into four sections:
@@ -16,7 +16,7 @@ to be used for development. The configuration is roughly divided into four secti
 3. **License text configuration**. License texts used within the project are kept in section three of the
     codestyle project. These texts are used to configure the
     [Maven License Plugin](http://mojo.codehaus.org/license-maven-plugin/) for use within the 
-    jGuru Codestyle build reactor.
+    etraveli Codestyle build reactor.
 
 4. **Maven or Gradle plugin configurations**. Checkstyle, PMD and findbugs are normally used for Java projects to 
     ensure consistency and similarity between projects and developers. At the time of this writing, there are

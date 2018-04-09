@@ -4,17 +4,18 @@ This repository does not contain artifacts intended for deployment into producti
 Instead, this repository contains the `codestyle`, meaning that it contains a versioned 
 and rule-set implementation for...
 
-1. **Build reactor definitions**: the common build process, which means implementations of build rules for 
-   artifacts, plugin configurations and documentation.
-2. **Component definitions**: the common module definition, which is used within all normal build reactors 
-   within the system.
-3. **Parent definitions**: the common parents for use within projects producing artifacts.
+1. **Build reactor definitions**: the common build process, which means implementations of
+   build rules for artifacts, plugin configurations and documentation.
+2. **Component definitions**: the common module definition, which is used within 
+   all normal build reactors within the system.
+3. **Parent definitions**: the common parents for use within projects 
+   producing artifacts.
    
-### Intermission: The Code Style factor
+A `Codestyle` repository, therefore, has no (or few) dependencies on other repositories.
+The intended structure and responsibilities of projects/artifacts within repositories could/should
+be ordered as illustrated in the image below:
 
-It is important to code in style; strive to bring a smile to your face:
- 
-![Code Style](img/styleCode.jpg "Code in Style...")
+![Code Style](img/repoStructure_readme.png "Repository Dependency Structure")   
 
 ## Using the "Codestyle" repo artifacts
 
@@ -60,27 +61,22 @@ using a standard Maven build:
 	
 ## Building the Documentation
 
-The standard documentation is built using 
-[Maven Site Plugin](https://maven.apache.org/plugins/maven-site-plugin/) mechanics - we
-use [Markdown](https://daringfireball.net/projects/markdown/syntax) with the added 
-capabilities of [PlantUML](http://plantuml.com/) diagrams to render diagrams when needed.
-Build the documentation using:
+The standard documentation is built using [Maven Site Plugin](https://maven.apache.org/plugins/maven-site-plugin/) 
+mechanics - we use [Markdown](https://daringfireball.net/projects/markdown/syntax) with the added capabilities 
+of [PlantUML](http://plantuml.com/) diagrams to render diagrams when needed.
+
+This requires you to install a `dot` executable normally found within the [Graphviz](http://graphviz.org) open-source 
+application. Simply download and install it within the standard path on your workstation to be able to build the 
+documentation and all its diagrams properly.  
+
+After graphviz/dot is installed, simply build the documentation using:
 
 	mvn site
 	
 Build the staged documentation for all modules using:
 
 	mvn site site:stage	
+	
+The staged documentation should land within the `/tmp/${reactor.name}/${version}` directory - typically something like
+`/tmp/etraveli_codestyle/1.2.3/`. 
 
-
-## How should I proceed?
-
-Want to get started with your Codestyle-derived project?
-
-1. Check out the [concepts](concepts.html).
-
-1. Read through the thoughts and structure of [Software Components](nazgul_tools.html).
-
-1. Read [a brief overview of the Codestyle reactor](nazgul_tools.html).
-
-... and we are working on a few screencasts, to shorten the startup time even more...
