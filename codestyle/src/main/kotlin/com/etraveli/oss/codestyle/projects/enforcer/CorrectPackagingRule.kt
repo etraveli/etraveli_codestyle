@@ -16,7 +16,7 @@ import java.util.*
  * implying that all source files should be located within or under a package identical
  * to the groupId of the project itself.
  *
- * @author [Lennart Jörelid](mailto:lj@jguru.se), jGuru Europe AB
+ * @author [Lennart J&ouml;relid](mailto:lennart.jorelid@etraveli.com)
  */
 class CorrectPackagingRule(lvl: EnforcerLevel = EnforcerLevel.ERROR,
                            private var packageExtractors: List<PackageExtractor> = DEFAULT_PACKAGE_EXTRACTORS)

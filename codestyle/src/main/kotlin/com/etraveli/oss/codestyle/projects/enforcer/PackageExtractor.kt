@@ -10,7 +10,7 @@ import java.io.FileFilter
 /**
  * Specification for extracting a package definition from the supplied sourceFile.
  *
- * @author [Lennart Jörelid](mailto:lj@jguru.se), jGuru Europe AB
+ * @author [Lennart J&ouml;relid](mailto:lennart.jorelid@etraveli.com)
  */
 interface PackageExtractor {
 
@@ -33,7 +33,7 @@ interface PackageExtractor {
 /**
  * Utility class containing constants and generic Pattern definitions.
  *
- * @author [Lennart Jörelid](mailto:lj@jguru.se), jGuru Europe AB
+ * @author [Lennart J&ouml;relid](mailto:lennart.jorelid@etraveli.com)
  */
 abstract class AbstractSimplePackageExtractor : PackageExtractor {
 
@@ -72,7 +72,7 @@ abstract class AbstractSimplePackageExtractor : PackageExtractor {
 /**
  * [PackageExtractor] for Kotlin source files.
  *
- * @author [Lennart Jörelid](mailto:lj@jguru.se), jGuru Europe AB
+ * @author [Lennart J&ouml;relid](mailto:lennart.jorelid@etraveli.com)
  */
 class KotlinPackageExtractor : AbstractSimplePackageExtractor() {
 
@@ -107,7 +107,7 @@ class KotlinPackageExtractor : AbstractSimplePackageExtractor() {
 /**
  * [PackageExtractor] for Java source files.
  *
- * @author [Lennart Jörelid](mailto:lj@jguru.se), jGuru Europe AB
+ * @author [Lennart J&ouml;relid](mailto:lennart.jorelid@etraveli.com)
  */
 class JavaPackageExtractor : AbstractSimplePackageExtractor() {
 

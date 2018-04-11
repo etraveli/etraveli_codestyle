@@ -11,7 +11,7 @@ import org.apache.maven.project.MavenProject
 /**
  * Commonly known and used ProjectTypes, collected within an enum.
  *
- * @author [Lennart Jörelid](mailto:lj@jguru.se), jGuru Europe AB
+ * @author [Lennart J&ouml;relid](mailto:lennart.jorelid@etraveli.com)
  */
 enum class CommonProjectTypes(artifactIdPattern: String?,
                               groupIdPattern: String?,

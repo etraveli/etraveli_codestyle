@@ -9,7 +9,7 @@ import org.junit.Test
 
 /**
  *
- * @author [Lennart Jörelid](mailto:lj@jguru.se), jGuru Europe AB
+ * @author [Lennart J&ouml;relid](mailto:lennart.jorelid@etraveli.com)
  */
 class CommonProjectTypesTest {
 

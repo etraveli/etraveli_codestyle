@@ -12,7 +12,7 @@ import java.io.Serializable
  * All implementations must supply a `toString()` method to supply usable debug logs
  * from some of the enforcer rules, such as `PermittedProjectTypeRule`.
  *
- * @author [Lennart J&ouml;relid](mailto:lj@jguru.se), jGuru Europe AB
+ * @author [Lennart J&ouml;relid](mailto:lennart.jorelid@etraveli.com)
  */
 interface ProjectType : Serializable {
 

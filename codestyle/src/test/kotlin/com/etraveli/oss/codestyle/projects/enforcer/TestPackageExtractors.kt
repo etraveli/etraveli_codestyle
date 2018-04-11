@@ -10,7 +10,7 @@ import java.io.FileFilter
 /**
  * An incorrect PackageExtractor implementation, which does not have a default constructor.
  *
- * @author [Lennart Jörelid](mailto:lj@jguru.se), jGuru Europe AB
+ * @author [Lennart J&ouml;relid](mailto:lennart.jorelid@etraveli.com)
  */
 class IncorrectNoDefaultConstructorPackageExtractor(someConstructorArgument: String) : PackageExtractor {
 
@@ -22,7 +22,7 @@ class IncorrectNoDefaultConstructorPackageExtractor(someConstructorArgument: Str
 /**
  * A silly - but correctly implemented PackageExtractor, having a default constructor.
  *
- * @author [Lennart Jörelid](mailto:lj@jguru.se), jGuru Europe AB
+ * @author [Lennart J&ouml;relid](mailto:lennart.jorelid@etraveli.com)
  */
 class SillyPackageExtractor : PackageExtractor {
 

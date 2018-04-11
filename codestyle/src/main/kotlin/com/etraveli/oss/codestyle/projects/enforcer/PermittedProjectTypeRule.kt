@@ -16,7 +16,7 @@ import org.apache.maven.project.MavenProject
  * @param permittedProjectTypes A List containing the ProjectTypes permitted.
  * Defaults to `CommonProjectTypes.values().asList()`.
  * @see ProjectType
- * @author [Lennart Jörelid](mailto:lj@jguru.se), jGuru Europe AB
+ * @author [Lennart J&ouml;relid](mailto:lennart.jorelid@etraveli.com)
  */
 class PermittedProjectTypeRule(val permittedProjectTypes: List<ProjectType> = CommonProjectTypes.values().asList())
 

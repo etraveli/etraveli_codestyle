@@ -15,7 +15,7 @@ import java.io.File
 
 /**
  *
- * @author [Lennart Jörelid](mailto:lj@jguru.se), jGuru Europe AB
+ * @author [Lennart J&ouml;relid](mailto:lennart.jorelid@etraveli.com)
  */
 class MockEnforcerRuleHelper(val project: MavenProject,
                              val logLevel : Level = Level.DEBUG) : EnforcerRuleHelper {

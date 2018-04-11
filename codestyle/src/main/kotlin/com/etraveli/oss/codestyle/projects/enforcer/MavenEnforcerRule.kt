@@ -24,7 +24,7 @@ import kotlin.collections.mapTo
  * Abstract Enforcer rule specification, handling some pretty printing
  * of Maven's Enforcement exceptions.
  *
- * @author [Lennart Jörelid](mailto:lj@jguru.se), jGuru Europe AB
+ * @author [Lennart J&ouml;relid](mailto:lennart.jorelid@etraveli.com)
  */
 abstract class AbstractEnforcerRule(
 
@@ -194,7 +194,7 @@ abstract class AbstractEnforcerRule(
 /**
  * AbstractEnforcerRule implementation which implements a non-cacheable behaviour.
  *
- * @author [Lennart Jörelid](mailto:lj@jguru.se), jGuru Europe AB
+ * @author [Lennart J&ouml;relid](mailto:lennart.jorelid@etraveli.com)
  */
 abstract class AbstractNonCacheableEnforcerRule(
 
