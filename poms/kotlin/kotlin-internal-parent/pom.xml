@@ -270,6 +270,50 @@
             <plugins>
 
                 <!--
+                    Provides Plantuml integration into site deployments.
+
+                    Why:  Convert Plantuml documents to png images.
+                    Used: Site lifecycle, mvn site.
+                -->
+                <plugin>
+                    <groupId>com.github.jeluard</groupId>
+                    <artifactId>plantuml-maven-plugin</artifactId>
+                    <version>7954</version>
+                    <configuration>
+                        <sourceFiles>
+                            <directory>${basedir}</directory>
+                            <includes>
+                                <include>src/site/**/*.puml</include>
+                            </includes>
+                        </sourceFiles>
+                        <outputDirectory>${project.build.directory}/site/images/plantuml</outputDirectory>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>generate-plantuml-diagrams</id>
+                            <goals>
+                                <goal>generate</goal>
+                            </goals>
+                            <phase>pre-site</phase>
+                        </execution>
+                    </executions>
+                    <dependencies>
+                        <!--
+                            NOTE!
+
+                            Do not upgrade the plantuml dependency above version 8030, as those plantuml releases
+                            are not binary compatible with the plugin version 7954.
+                        -->
+                        <dependency>
+                            <groupId>net.sourceforge.plantuml</groupId>
+                            <artifactId>plantuml</artifactId>
+                            <version>8030</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+
+
+                <!--
                     Extracts dependency information from the build into a property file within the artifact.
 
                     Why:  Plugin used to generate a META-INF/maven/dependencies.properties file within the artifact.
@@ -740,6 +784,21 @@
                         <goals>
                             <goal>manifest</goal>
                         </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Generate png images from Plantuml source files. -->
+            <plugin>
+                <groupId>com.github.jeluard</groupId>
+                <artifactId>plantuml-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>generate-plantuml-diagrams</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <phase>pre-site</phase>
                     </execution>
                 </executions>
             </plugin>
