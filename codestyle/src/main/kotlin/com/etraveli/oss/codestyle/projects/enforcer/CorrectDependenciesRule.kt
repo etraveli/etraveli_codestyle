@@ -14,40 +14,33 @@ import org.apache.maven.project.MavenProject
  * Maven enforcement rule which ensures that Implementation [Artifact]s are not used as dependencies within
  * API, SPI or Model projects.
  *
- * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
+ * This rule uses the [CommonProjectTypes] enumeration to identify some of the more common structures.
+ *
+ * @constructor Creates a [CorrectDependenciesRule] object wrapping the supplied properties.
+ * Note that most properties are assigned default values if not supplied.
+ * @param ignoredProjectTypes List containing [ProjectType]s for which this rule should be ignored.
+ * @param evaluateGroupIds List containing [Regex]ps which indicate which Maven GroupIDs should be included in this
+ * Rule's evaluation.
+ * @param dontEvaluateGroupIds List containing [Regex]p patterns which indicate which Maven GroupIDs should not be
+ * included ("ignored") in this Rule's evaluation.
+ * @param projectConverter A projectConverter method to convert each [MavenProject] to a [ProjectType].
+ * Defaults to `CommonProjectTypes#getProjectType`.
+ * @param artifactConverter A Maven [Artifact] to [ProjectType] converter function.
+ *
+ * @author [Lennart J&ouml;relid](mailto:lennart.jorelid@etraveli.com)
+ * @see ProjectType
+ * @see CommonProjectTypes
  */
 class CorrectDependenciesRule(
-        /**
-         * List containing [ProjectType]s for which this rule should be ignored.
-         * Defaults to [IGNORED_PROJECT_TYPES] unless explicitly given.
-         */
+
         ignoredProjectTypes: List<ProjectType>?,
 
-        /**
-         * List containing [Regex]ps which indicate which Maven GroupIDs should be included in this Rule's evaluation.
-         * Defaults to [EVALUATE_GROUPIDS] unless explicitly given.
-         */
         evaluateGroupIds: List<String>?,
 
-        /**
-         * List containing [Regex]ps which indicate which Maven GroupIDs should not be included ("ignored") in this Rule's
-         * evaluation. Defaults to [IGNORE_GROUPIDS] unless explicitly given.
-         */
         dontEvaluateGroupIds: List<String>?,
 
-        /**
-         * A projectConverter method to convert each [MavenProject] to a [ProjectType].
-         * Defaults to `CommonProjectTypes#getProjectType`.
-         *
-         * @see CommonProjectTypes
-         */
         projectConverter: ((theProject: MavenProject) -> ProjectType)?,
 
-        /**
-         * A Maven [Artifact] to [ProjectType] converter function.
-         *
-         * @see CommonProjectTypes
-         */
         artifactConverter: ((theArtifact: Artifact) -> ProjectType)?) : AbstractNonCacheableEnforcerRule() {
 
     /**
@@ -56,16 +49,8 @@ class CorrectDependenciesRule(
     constructor() : this(null, null, null, null, null)
 
     // Internal state
-    private val ignoredProjectTypes: List<ProjectType> = ignoredProjectTypes ?: listOf(
-            CommonProjectTypes.JEE_APPLICATION,
-            CommonProjectTypes.PARENT,
-            CommonProjectTypes.ASSEMBLY,
-            CommonProjectTypes.REACTOR,
-            CommonProjectTypes.PROOF_OF_CONCEPT,
-            CommonProjectTypes.EXAMPLE,
-            CommonProjectTypes.TEST,
-            CommonProjectTypes.JAVA_AGENT,
-            CommonProjectTypes.STANDALONE_APPLICATION)
+    private val ignoredProjectTypes: List<ProjectType> = ignoredProjectTypes
+            ?: listOf(CommonProjectTypes.JEE_APPLICATION, CommonProjectTypes.PARENT, CommonProjectTypes.ASSEMBLY, CommonProjectTypes.REACTOR, CommonProjectTypes.PROOF_OF_CONCEPT, CommonProjectTypes.EXAMPLE, CommonProjectTypes.TEST, CommonProjectTypes.JAVA_AGENT, CommonProjectTypes.STANDALONE_APPLICATION)
 
     /**
      * List containing [Regex]ps which indicate which Maven GroupIDs should be included in this Rule's evaluation.
@@ -88,8 +73,7 @@ class CorrectDependenciesRule(
      * @return A human-readable short description for this AbstractEnforcerRule.
      * (Example: "No -impl dependencies permitted in this project")
      */
-    override fun getShortRuleDescription(): String = "Impl projects should only be injected in applications (not in " +
-            "Models, APIs or SPIs)."
+    override fun getShortRuleDescription(): String = "Impl projects should only be injected in applications (not in " + "Models, APIs or SPIs)."
 
     override fun performValidation(project: MavenProject, helper: EnforcerRuleHelper) {
 
@@ -103,8 +87,7 @@ class CorrectDependenciesRule(
         if (matches(project.groupId, getIgnoreEvaluationPatterns())) {
 
             // Log somewhat
-            helper.log.debug("Ignored [" + project.groupId + ":" + project.artifactId
-                    + "] since its groupId was excluded from enforcement.")
+            helper.log.debug("Ignored [" + project.groupId + ":" + project.artifactId + "] since its groupId was excluded from enforcement.")
             return
 
         }
@@ -113,8 +96,7 @@ class CorrectDependenciesRule(
         if (!matches(project.groupId, getEvaluationPatterns())) {
 
             // Log somewhat
-            helper.log.debug("Ignored [" + project.groupId + ":" + project.artifactId
-                    + "] since its groupId was not included in enforcement.")
+            helper.log.debug("Ignored [" + project.groupId + ":" + project.artifactId + "] since its groupId was not included in enforcement.")
             return
         }
 
@@ -142,8 +124,7 @@ class CorrectDependenciesRule(
                     throw RuleFailureException(prefix + "in compile scope for non-test artifacts.", current)
                 }
 
-                if (artifactProjectType === CommonProjectTypes.JEE_APPLICATION
-                        || artifactProjectType === CommonProjectTypes.PROOF_OF_CONCEPT) {
+                if (artifactProjectType === CommonProjectTypes.JEE_APPLICATION || artifactProjectType === CommonProjectTypes.PROOF_OF_CONCEPT) {
                     throw RuleFailureException(prefix + "in bundles.", current)
                 }
             }

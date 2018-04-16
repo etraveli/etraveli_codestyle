@@ -12,9 +12,14 @@ import java.io.FileFilter
 import java.util.*
 
 /**
- * Enforcer rule to enforce correct packaging for all source files within a project,
- * implying that all source files should be located within or under a package identical
- * to the groupId of the project itself.
+ * Enforcer rule to enforce correct packaging for all source files within a project.
+ *
+ * This rule implies that all source files should be located within or under a package
+ * identical to the groupID of the project itself.
+ *
+ * @param lvl The [EnforcerLevel] to use for this CorrectPackagingRule.
+ * @param packageExtractors A List of [PackageExtractor]s used to retrieve the package names of supplied code.
+ * Defaults to `DEFAULT_PACKAGE_EXTRACTORS`.
  *
  * @author [Lennart J&ouml;relid](mailto:lennart.jorelid@etraveli.com)
  */
@@ -58,9 +63,7 @@ class CorrectPackagingRule(lvl: EnforcerLevel = EnforcerLevel.ERROR,
         } else {
 
             // Correct packaging everywhere?
-            val incorrectPackages = pkg2SourceFilesMap.keys
-                    .filter { !it.startsWith(groupId) }
-                    .toCollection(TreeSet())
+            val incorrectPackages = pkg2SourceFilesMap.keys.filter { !it.startsWith(groupId) }.toCollection(TreeSet())
 
             if (incorrectPackages.isNotEmpty()) {
 
@@ -73,8 +76,7 @@ class CorrectPackagingRule(lvl: EnforcerLevel = EnforcerLevel.ERROR,
                     }
                 }
 
-                throw RuleFailureException("Incorrect packaging detected; required [" + groupId
-                        + "] but found package to file names: " + result, project.artifact)
+                throw RuleFailureException("Incorrect packaging detected; required [" + groupId + "] but found package to file names: " + result, project.artifact)
             }
         }
     }
@@ -105,9 +107,7 @@ class CorrectPackagingRule(lvl: EnforcerLevel = EnforcerLevel.ERROR,
                 // Fire, and handle any exceptions.
                 extractors.add(aClass.getDeclaredConstructor().newInstance() as PackageExtractor)
             } catch (e: Exception) {
-                throw IllegalArgumentException("Could not instantiate PackageExtractor from class ["
-                        + current + "]. Validate that implementation has a default constructor, and implements the"
-                        + PackageExtractor::class.java.simpleName + " interface.")
+                throw IllegalArgumentException("Could not instantiate PackageExtractor from class [" + current + "]. Validate that implementation has a default constructor, and implements the" + PackageExtractor::class.java.simpleName + " interface.")
             }
 
         }
@@ -130,8 +130,7 @@ class CorrectPackagingRule(lvl: EnforcerLevel = EnforcerLevel.ERROR,
      * recursively search for further source files.
      * @param package2FileNamesMap A Map relating package names extracted by the PackageExtractors.
      */
-    private fun addPackages(fileOrDirectory: File,
-                            package2FileNamesMap: SortedMap<String, SortedSet<String>>) {
+    private fun addPackages(fileOrDirectory: File, package2FileNamesMap: SortedMap<String, SortedSet<String>>) {
 
         packageExtractors.forEach { current ->
 
@@ -175,7 +174,6 @@ class CorrectPackagingRule(lvl: EnforcerLevel = EnforcerLevel.ERROR,
 
     companion object {
 
-        // Constants
         @JvmStatic
         private val DIRECTORY_FILTER = FileFilter { candidate -> candidate.isDirectory }
 
