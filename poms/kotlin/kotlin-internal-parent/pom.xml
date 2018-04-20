@@ -493,15 +493,6 @@
                 </plugin>
 
                 <!--
-                    Generate maven dependencies listing file
-                 -->
-                <plugin>
-                    <groupId>org.apache.servicemix.tooling</groupId>
-                    <artifactId>depends-maven-plugin</artifactId>
-                    <version>1.4.0</version>
-                </plugin>
-
-                <!--
                     Specify the version of the GPG plugin
 
                     Why:  Used to sign artifacts.
