@@ -107,7 +107,7 @@
         <aspectj-maven-plugin.version>1.11</aspectj-maven-plugin.version>
 
         <!-- Checkstyle configuration parameters. -->
-        <checkstyle.plugin.version>2.17</checkstyle.plugin.version>
+        <checkstyle.plugin.version>3.0.0</checkstyle.plugin.version>
         <checkstyle.config.location>codestyle/checkstyle.xml</checkstyle.config.location>
         <checkstyle.suppressions.location>codestyle/checkstyle-suppressions.xml</checkstyle.suppressions.location>
         <checkstyle.violationSeverity>error</checkstyle.violationSeverity>
@@ -950,6 +950,7 @@
                         <suppressionsFile>${checkstyle.suppressions.location}</suppressionsFile>
                         <failOnViolation>${breakOnFailure.checkstyle}</failOnViolation>
                         <violationSeverity>${checkstyle.violationSeverity}</violationSeverity>
+                        <sourceDirectories>${basedir}/src/main/java</sourceDirectories>
                     </configuration>
                     <executions>
                         <execution>

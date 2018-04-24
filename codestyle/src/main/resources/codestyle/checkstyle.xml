@@ -9,13 +9,25 @@
 <module name="Checker">
 
     <!--
+        Enable annotations and comments to suppress errors and warnings.
+    -->
+    <module name="SuppressWithNearbyCommentFilter"/>
+    <module name="SuppressWarningsFilter"/>
+    <module name="SuppressionCommentFilter">
+        <metadata name="net.sf.eclipsecs.core.comment" value="Single warning"/>
+        <property name="offCommentFormat" value="CHECKSTYLE\:OFF\: ([\w\|]+)"/>
+        <property name="onCommentFormat" value="CHECKSTYLE\:ON\: ([\w\|]+)"/>
+        <property name="checkFormat" value="$1"/>
+    </module>
+
+    <!--
         Define the file extensions for which this Checkstyle specification is valid.
     -->
     <property name="fileExtensions" value="java, properties, xml"/>
     <property name="severity" value="warning" default="error"/>
 
     <module name="TreeWalker">
-
+        
         <module name="JavadocMethod">
             <property name="scope" value="public"/>
             <property name="allowMissingPropertyJavadoc" value="true"/>
@@ -150,7 +162,17 @@
             <property name="format" value="^equals$|^compareTo$"/>
             <property name="max" value="3"/>
         </module>
+
+        <!--
+            Enable suppression of errors and warnings.
+            Make the @SuppressWarnings annotations available to Checkstyle
+        -->
+        <module name="SuppressWarningsHolder"/>
+        <module name="SuppressWarnings">
+            <property name="id" value="checkstyle:suppresswarnings"/>
+        </module>
     </module>
+
     <module name="FileLength"/>
     <module name="FileTabCharacter"/>
     <module name="Translation"/>
