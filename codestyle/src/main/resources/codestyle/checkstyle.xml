@@ -3,31 +3,32 @@
   ~ Copyright (c) Seat24 AB
   -->
 
-<!DOCTYPE module PUBLIC "-//Puppy Crawl//DTD Check Configuration 1.3//EN"
-        "http://www.puppycrawl.com/dtds/configuration_1_3.dtd">
+<!DOCTYPE module PUBLIC
+        "-//Puppy Crawl//DTD Check Configuration 1.3//EN"
+        "http://checkstyle.sourceforge.net/dtds/configuration_1_3.dtd">
 
 <module name="Checker">
 
     <!--
         Enable annotations and comments to suppress errors and warnings.
     -->
-    <module name="SuppressWithNearbyCommentFilter"/>
     <module name="SuppressWarningsFilter"/>
-    <module name="SuppressionCommentFilter">
+    <!-- module name="SuppressionCommentFilter">
         <metadata name="net.sf.eclipsecs.core.comment" value="Single warning"/>
         <property name="offCommentFormat" value="CHECKSTYLE\:OFF\: ([\w\|]+)"/>
         <property name="onCommentFormat" value="CHECKSTYLE\:ON\: ([\w\|]+)"/>
         <property name="checkFormat" value="$1"/>
-    </module>
+    </module -->
 
     <!--
         Define the file extensions for which this Checkstyle specification is valid.
     -->
+    <property name="charset" value="UTF-8"/>
     <property name="fileExtensions" value="java, properties, xml"/>
     <property name="severity" value="warning" default="error"/>
 
     <module name="TreeWalker">
-        
+
         <module name="JavadocMethod">
             <property name="scope" value="public"/>
             <property name="allowMissingPropertyJavadoc" value="true"/>

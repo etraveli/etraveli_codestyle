@@ -54,7 +54,7 @@ class CorrectDependenciesRule(
 
     /**
      * List containing [Regex]ps which indicate which Maven GroupIDs should be included in this Rule's evaluation.
-     * Defaults to [EVALUATE_GROUPIDS] unless explicitly given.
+     * Defaults to `^com\\.etraveli\\..*` unless explicitly given.
      */
     private var evaluateGroupIds: List<String> = evaluateGroupIds ?: listOf("^com\\.etraveli\\..*")
     private var dontEvaluateGroupIds: List<String> = dontEvaluateGroupIds
