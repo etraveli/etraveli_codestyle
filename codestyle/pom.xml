@@ -42,6 +42,13 @@
         </license>
     </licenses>
 
+    <repositories>
+        <repository>
+            <id>jcenter</id>
+            <url>https://jcenter.bintray.com/</url>
+        </repository>
+    </repositories>
+
     <properties>
         <!--
             Define the URL prefixes for Site Deployment and DistributionManagement.
