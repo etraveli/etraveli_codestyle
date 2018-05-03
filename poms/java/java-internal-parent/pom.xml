@@ -45,7 +45,14 @@
     <repositories>
         <repository>
             <id>jcenter</id>
-            <url>https://jcenter.bintray.com/</url>
+            <url>http://jcenter.bintray.com </url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+                <checksumPolicy>warn</checksumPolicy>
+            </releases>
         </repository>
     </repositories>
 
@@ -161,7 +168,7 @@
         <developer>
             <id>lj</id>
             <name>Lennart Jörelid</name>
-            <email>lj@jguru.se</email>
+            <email>lennart.jorelid@etraveli.com</email>
             <roles>
                 <role>Committer</role>
             </roles>
@@ -1516,24 +1523,6 @@
                             <packages>com.etraveli.oss.shared.*</packages>
                         </group>
                     </groups>
-                    <!-- doclet>nl.talsmasoftware.umldoclet.UMLDoclet</doclet>
-                    <docletArtifact>
-                        <groupId>nl.talsmasoftware</groupId>
-                        <artifactId>umldoclet</artifactId>
-                        <version>1.10.15</version>
-                    </docletArtifact>
-                    <additionalDependencies>
-                        <dependency>
-                            <groupId>javax.validation</groupId>
-                            <artifactId>validation-api</artifactId>
-                            <version>2.0.1.Final</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>com.google.code.findbugs</groupId>
-                            <artifactId>jsr305</artifactId>
-                            <version>3.0.2</version>
-                        </dependency>
-                    </additionalDependencies -->
                     <useStandardDocletOptions>true</useStandardDocletOptions>
                     <charset>${project.build.sourceEncoding}</charset>
                     <encoding>${project.build.sourceEncoding}</encoding>
@@ -1599,7 +1588,7 @@
                 <version>${checkstyle.plugin.version}</version>
                 <configuration>
                     <configLocation>${checkstyle.config.location}</configLocation>
-                    <suppressionsFile>${checkstyle.suppressions.location}</suppressionsFile>
+                    <suppressionsLocation>${checkstyle.suppressions.location}</suppressionsLocation>
                     <failOnViolation>${breakOnFailure.checkstyle}</failOnViolation>
                     <violationSeverity>${checkstyle.violationSeverity}</violationSeverity>
                 </configuration>

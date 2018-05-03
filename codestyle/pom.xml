@@ -102,7 +102,7 @@
         <developer>
             <id>lj</id>
             <name>Lennart Jörelid</name>
-            <email>lj@jguru.se</email>
+            <email>lennart.jorelid@etraveli.com</email>
             <roles>
                 <role>Committer</role>
             </roles>
@@ -616,7 +616,7 @@
     -->
     <ciManagement>
         <system>TravisCI</system>
-        <url>https://travis-ci.org/lennartj/jguru-codestyle</url>
+        <url>https://travis-ci.org/etraveli/etraveli-codestyle</url>
     </ciManagement>
 
     <!--
@@ -624,7 +624,7 @@
     -->
     <issueManagement>
         <system>github</system>
-        <url>https://github.com/lennartj/jguru-codestyle/issues</url>
+        <url>https://github.com/etraveli/etraveli-codestyle/issues</url>
     </issueManagement>
 
     <!--
@@ -644,7 +644,7 @@
         </snapshotRepository>
         <site>
             <id>github_site</id>
-            <name>GitHub Site for jGuru Codestyle</name>
+            <name>GitHub Site for Etraveli Codestyle</name>
             <url>${site.top.url}/${path.in.reactor}</url>
         </site>
     </distributionManagement>
@@ -735,7 +735,7 @@
         </profile>
 
         <!--
-            Release profile for jGuru (Nazgul-component-style) reactors.
+            Release profile for Etraveli (component-style) reactors.
         -->
         <profile>
             <id>etraveli-release</id>

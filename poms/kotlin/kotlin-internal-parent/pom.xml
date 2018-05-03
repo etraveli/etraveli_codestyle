@@ -44,7 +44,14 @@
     <repositories>
         <repository>
             <id>jcenter</id>
-            <url>https://jcenter.bintray.com/</url>
+            <url>http://jcenter.bintray.com </url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+                <checksumPolicy>warn</checksumPolicy>
+            </releases>
         </repository>
     </repositories>
 
@@ -130,7 +137,7 @@
         <developer>
             <id>lj</id>
             <name>Lennart Jörelid</name>
-            <email>lj@jguru.se</email>
+            <email>lennart.jorelid@etraveli.com</email>
             <roles>
                 <role>Committer</role>
             </roles>
@@ -348,7 +355,7 @@
                     <artifactId>maven-source-plugin</artifactId>
                     <version>3.0.1</version>
                 </plugin>
-                
+
                 <!--
                     Use a working version of the Maven versions plugin.
                     (TODO: Update the Codehaus versions plugin with the fine additions done by Lars.)
@@ -1027,7 +1034,7 @@
             <id>etraveli-release</id>
             <build>
                 <plugins>
-                    
+
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-source-plugin</artifactId>
@@ -1040,7 +1047,7 @@
                             </execution>
                         </executions>
                     </plugin>
-                    
+
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
@@ -1056,7 +1063,7 @@
                             </execution>
                         </executions>
                     </plugin>
-                    
+
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
@@ -1078,7 +1085,7 @@
                         <configuration>
                             <updateReleaseInfo>true</updateReleaseInfo>
                         </configuration>
-                        
+
                         <executions>
                             <execution>
                                 <id>deploy-to-repo</id>

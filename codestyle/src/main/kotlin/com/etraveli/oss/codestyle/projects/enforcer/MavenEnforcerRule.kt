@@ -187,7 +187,7 @@ abstract class AbstractEnforcerRule(
     }
 
     override fun toString(): String {
-        return "jGuru Codestyle MavenEnforcerRule: ${this.javaClass.simpleName}"
+        return "Etraveli Codestyle MavenEnforcerRule: ${this.javaClass.simpleName}"
     }
 }
 

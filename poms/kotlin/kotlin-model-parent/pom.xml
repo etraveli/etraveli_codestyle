@@ -237,7 +237,7 @@
 
             <properties>
                 <openjpa.version>2.4.0</openjpa.version>
-                <openjpa.includes>se/jguru/nazgul/**/*.class</openjpa.includes>
+                <openjpa.includes>com/etraveli/**/*.class</openjpa.includes>
                 <openjpa.excludes>se/jguru/nazgul/core/xmlbinding/spi/jaxb/transport/EntityWrapper.class</openjpa.excludes>
                 <openjpa.persistenceXmlPath>weaving/openjpa/v2/${project.artifactId}-persistence.xml</openjpa.persistenceXmlPath>
                 <openjpa.persistenceXmlFile>${project.basedir}/src/main/${openjpa.persistenceXmlPath}</openjpa.persistenceXmlFile>

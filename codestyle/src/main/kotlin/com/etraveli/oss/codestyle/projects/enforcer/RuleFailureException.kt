@@ -13,7 +13,7 @@ import org.apache.maven.artifact.Artifact
  * @param cause             the cause (which is saved for later retrieval by the [.getCause] method). (A
  * <tt>null</tt> value is permitted, and indicates that the cause is nonexistent or unknown.)
  * @param offendingArtifact The artifact which triggered this RuleFailureException.
- * @author <a href="mailto:lj@jguru.se">Lennart J&ouml;relid</a>, jGuru Europe AB
+ * @author <a href="mailto:lennart.jorelid@etraveli.com">Lennart J&ouml;relid</a>
  */
 class RuleFailureException(message: String? = null, cause: Throwable? = null, var offendingArtifact: Artifact?)
     : RuntimeException(message, cause) {
