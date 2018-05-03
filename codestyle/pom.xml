@@ -45,7 +45,14 @@
     <repositories>
         <repository>
             <id>jcenter</id>
-            <url>https://jcenter.bintray.com/</url>
+            <url>http://jcenter.bintray.com </url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+                <checksumPolicy>warn</checksumPolicy>
+            </releases>
         </repository>
     </repositories>
 
