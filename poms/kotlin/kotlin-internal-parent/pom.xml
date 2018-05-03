@@ -4,7 +4,8 @@
   -->
 
 <!--suppress MavenRedundantGroupId -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <!--
@@ -24,7 +25,8 @@
     <name>${project.artifactId}</name>
     <packaging>pom</packaging>
     <url>${site.top.url}/${path.in.reactor}</url>
-    <description>Etraveli Codestyle: Kotlin Internal Parent (${project.packaging}, version ${project.version})</description>
+    <description>Etraveli Codestyle: Kotlin Internal Parent (${project.packaging}, version ${project.version})
+    </description>
     <inceptionYear>2018</inceptionYear>
 
     <organization>
@@ -44,7 +46,7 @@
     <repositories>
         <repository>
             <id>jcenter</id>
-            <url>http://jcenter.bintray.com </url>
+            <url>http://jcenter.bintray.com</url>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
@@ -54,6 +56,13 @@
             </releases>
         </repository>
     </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>jcenter</id>
+            <name>jcenter</name>
+            <url>http://jcenter.bintray.com</url>
+        </pluginRepository>
+    </pluginRepositories>
 
     <properties>
         <!--
@@ -114,7 +123,8 @@
         <!-- Enforcer configuration parameters -->
         <enforcer.version>3.0.0-M1</enforcer.version>
         <enforcer.includedGroupIdPatterns>^com\\.etraveli\\..*</enforcer.includedGroupIdPatterns>
-        <enforcer.excludedGroupIdPatterns>^com\\.etraveli\\..*\\.generated\\..*,^com\\.etraveli\\.codestyle\\..*</enforcer.excludedGroupIdPatterns>
+        <enforcer.excludedGroupIdPatterns>^com\\.etraveli\\..*\\.generated\\..*,^com\\.etraveli\\.codestyle\\..*
+        </enforcer.excludedGroupIdPatterns>
 
         <!-- Surefire configuration parameters. -->
         <surefire.memconf>-Xmx1024m</surefire.memconf>
@@ -408,10 +418,13 @@
                             <plugin>sam-with-receiver</plugin>
                         </compilerPlugins>
                         <pluginOptions>
-                            <option>no-arg:annotation=com.etraveli.oss.codestyle.annotations.AddDefaultConstructor</option>
+                            <option>no-arg:annotation=com.etraveli.oss.codestyle.annotations.AddDefaultConstructor
+                            </option>
                             <option>spring:annotation=com.etraveli.oss.annotations.UsesSpringFramework</option>
                             <option>all-open:annotation=com.etraveli.oss.annotations.UseOpenMembers</option>
-                            <option>sam-with-receiver:annotation=com.etraveli.oss.annotations.ReceiverIsThisInSingleAbstractMethod</option>
+                            <option>
+                                sam-with-receiver:annotation=com.etraveli.oss.annotations.ReceiverIsThisInSingleAbstractMethod
+                            </option>
                             <!-- Call instance initializers in the synthetic constructor -->
                             <option>no-arg:invokeInitializers=true</option>
                         </pluginOptions>
@@ -472,7 +485,8 @@
                     <configuration>
                         <argLine>${surefire.argLine}</argLine>
                         <parallelOptimized>true</parallelOptimized>
-                        <workingDirectory>${basedir}/target/FAILSAFE_FORK_DIRECTORY_${surefire.forkNumber}</workingDirectory>
+                        <workingDirectory>${basedir}/target/FAILSAFE_FORK_DIRECTORY_${surefire.forkNumber}
+                        </workingDirectory>
                         <redirectTestOutputToFile>true</redirectTestOutputToFile>
                     </configuration>
                     <dependencies>
@@ -718,7 +732,7 @@
                         <id>default-deploy</id>
                         <phase>site-deploy</phase>
                         <goals>
-                            <goal />
+                            <goal/>
                         </goals>
                     </execution>
                 </executions>
