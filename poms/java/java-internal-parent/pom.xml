@@ -103,6 +103,7 @@
         <osgiVersion>6.0.0</osgiVersion>
         <slf4j.version>1.7.25</slf4j.version>
         <logback.version>1.2.3</logback.version>
+        <logback.logstash.version>5.1</logback.logstash.version>
         <kotlin.version>1.2.40</kotlin.version>
 
         <!-- Diverse plugin versions -->
@@ -201,7 +202,13 @@
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-classic</artifactId>
                 <version>${logback.version}</version>
-                <scope>test</scope>
+                <scope>runtime</scope>
+            </dependency>
+            <dependency>
+                <groupId>net.logstash.logback</groupId>
+                <artifactId>logstash-logback-encoder</artifactId>
+                <scope>runtime</scope>
+                <version>${logback.logstash.version}</version>
             </dependency>
 
             <!--
