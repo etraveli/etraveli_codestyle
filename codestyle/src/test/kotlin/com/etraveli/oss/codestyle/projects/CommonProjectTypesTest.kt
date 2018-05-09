@@ -39,26 +39,24 @@ class CommonProjectTypesTest {
         val mavenPlugin = MavenTestUtils.getStub("maven-plugin", "se.jguru.foo.bar.plugins.blah", "blah-maven-plugin")
 
         // Act & Assert
-        Assert.assertEquals(CommonProjectTypes.PARENT, CommonProjectTypes.getProjectType(parent))
-        Assert.assertEquals(CommonProjectTypes.REACTOR, CommonProjectTypes.getProjectType(reactor))
-        Assert.assertEquals(CommonProjectTypes.ASSEMBLY, CommonProjectTypes.getProjectType(assembly))
-        Assert.assertEquals(CommonProjectTypes.MODEL, CommonProjectTypes.getProjectType(model))
-        Assert.assertEquals(CommonProjectTypes.API, CommonProjectTypes.getProjectType(api))
-        Assert.assertEquals(CommonProjectTypes.SPI, CommonProjectTypes.getProjectType(spi))
-        Assert.assertEquals(CommonProjectTypes.IMPLEMENTATION, CommonProjectTypes.getProjectType(impl))
-        Assert.assertEquals(CommonProjectTypes.TEST, CommonProjectTypes.getProjectType(test))
-        Assert.assertEquals(CommonProjectTypes.PROOF_OF_CONCEPT, CommonProjectTypes.getProjectType(poc))
-        Assert.assertEquals(CommonProjectTypes.JEE_APPLICATION, CommonProjectTypes.getProjectType(war))
-        Assert.assertEquals(CommonProjectTypes.JEE_APPLICATION, CommonProjectTypes.getProjectType(ear))
-        Assert.assertEquals(CommonProjectTypes.JEE_APPLICATION, CommonProjectTypes.getProjectType(ejb))
-        Assert.assertEquals(CommonProjectTypes.JAVA_AGENT, CommonProjectTypes.getProjectType(javaAgent))
-        Assert.assertEquals(CommonProjectTypes.STANDALONE_APPLICATION,
-                CommonProjectTypes.getProjectType(standaloneApplication1))
-        Assert.assertEquals(CommonProjectTypes.STANDALONE_APPLICATION,
-                CommonProjectTypes.getProjectType(standaloneApplication2))
-        Assert.assertEquals(CommonProjectTypes.CODESTYLE, CommonProjectTypes.getProjectType(codestyle))
-        Assert.assertEquals(CommonProjectTypes.INTEGRATION_TEST, CommonProjectTypes.getProjectType(itest))
-        Assert.assertEquals(CommonProjectTypes.PLUGIN, CommonProjectTypes.getProjectType(mavenPlugin))
+        Assert.assertEquals(CommonProjectTypes.PARENT, getProjectType(parent))
+        Assert.assertEquals(CommonProjectTypes.REACTOR, getProjectType(reactor))
+        Assert.assertEquals(CommonProjectTypes.ASSEMBLY, getProjectType(assembly))
+        Assert.assertEquals(CommonProjectTypes.MODEL, getProjectType(model))
+        Assert.assertEquals(CommonProjectTypes.API, getProjectType(api))
+        Assert.assertEquals(CommonProjectTypes.SPI, getProjectType(spi))
+        Assert.assertEquals(CommonProjectTypes.IMPLEMENTATION, getProjectType(impl))
+        Assert.assertEquals(CommonProjectTypes.TEST, getProjectType(test))
+        Assert.assertEquals(CommonProjectTypes.PROOF_OF_CONCEPT, getProjectType(poc))
+        Assert.assertEquals(CommonProjectTypes.JEE_APPLICATION, getProjectType(war))
+        Assert.assertEquals(CommonProjectTypes.JEE_APPLICATION, getProjectType(ear))
+        Assert.assertEquals(CommonProjectTypes.JEE_APPLICATION, getProjectType(ejb))
+        Assert.assertEquals(CommonProjectTypes.JAVA_AGENT, getProjectType(javaAgent))
+        Assert.assertEquals(CommonProjectTypes.STANDALONE_APPLICATION, getProjectType(standaloneApplication1))
+        Assert.assertEquals(CommonProjectTypes.STANDALONE_APPLICATION, getProjectType(standaloneApplication2))
+        Assert.assertEquals(CommonProjectTypes.CODESTYLE, getProjectType(codestyle))
+        Assert.assertEquals(CommonProjectTypes.INTEGRATION_TEST, getProjectType(itest))
+        Assert.assertEquals(CommonProjectTypes.PLUGIN, getProjectType(mavenPlugin))
     }
 
     @Test
@@ -133,7 +131,7 @@ class CommonProjectTypesTest {
     @Test
     fun validateApiProjectPatterns() {
 
-        val apiArtifactRegex = Regex(".*-api$", DefaultProjectType.IGNORE_CASE_AND_COMMENTS)
+        val apiArtifactRegex = Regex(".*-api$", IGNORE_CASE_AND_COMMENTS)
         val result = apiArtifactRegex.matches("api-test")
         Assert.assertFalse("nopes: $result", result)
 

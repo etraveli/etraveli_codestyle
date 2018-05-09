@@ -6,6 +6,7 @@ package com.etraveli.oss.codestyle.projects.enforcer
 
 import com.etraveli.oss.codestyle.projects.CommonProjectTypes
 import com.etraveli.oss.codestyle.projects.ProjectType
+import com.etraveli.oss.codestyle.projects.getProjectType
 import org.apache.maven.artifact.Artifact
 import org.apache.maven.enforcer.rule.api.EnforcerRuleHelper
 import org.apache.maven.project.MavenProject
@@ -60,11 +61,9 @@ class CorrectDependenciesRule(
     private var dontEvaluateGroupIds: List<String> = dontEvaluateGroupIds
             ?: listOf("^com\\.etraveli\\..*\\.generated\\..*", "^com\\.etraveli\\.oss\\.codestyle\\..*")
 
-    private var projectConverter: (theProject: MavenProject) -> ProjectType = projectConverter
-            ?: { CommonProjectTypes.getProjectType(it) }
+    private var projectConverter: (theProject: MavenProject) -> ProjectType = projectConverter ?: { getProjectType(it) }
 
-    private var artifactConverter: (theArtifact: Artifact) -> ProjectType = artifactConverter
-            ?: { CommonProjectTypes.getProjectType(it) }
+    private var artifactConverter: (theArtifact: Artifact) -> ProjectType = artifactConverter ?: { getProjectType(it) }
 
     private fun getEvaluationPatterns(): List<Regex> = evaluateGroupIds.map { Regex(it) }
     private fun getIgnoreEvaluationPatterns(): List<Regex> = dontEvaluateGroupIds.map { Regex(it) }

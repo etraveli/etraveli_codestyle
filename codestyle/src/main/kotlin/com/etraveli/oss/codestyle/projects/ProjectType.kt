@@ -1,11 +1,24 @@
 /*
  * Copyright (c) Seat24 AB
  */
+@file:JvmMultifileClass
+@file:JvmName("ProjectTypes")
 
 package com.etraveli.oss.codestyle.projects
 
 import org.apache.maven.project.MavenProject
 import java.io.Serializable
+
+/**
+ * The set of [RegexOption]s permitting comments and ignoring case.
+ */
+val IGNORE_CASE_AND_COMMENTS = setOf(RegexOption.COMMENTS, RegexOption.IGNORE_CASE)
+
+/**
+ * Convenience function to create a [Regex] from the supplied pattern and using
+ * [IGNORE_CASE_AND_COMMENTS] for options.
+ */
+fun getDefaultRegexFor(pattern: String?): Regex = Regex(pattern ?: ".*", IGNORE_CASE_AND_COMMENTS)
 
 /**
  * Specification for how to classify Maven projects originating from their GAV.
@@ -171,19 +184,5 @@ open class DefaultProjectType(
         result = 31 * result + packagingRegex.hashCode()
         result = 31 * result + acceptNullValues.hashCode()
         return result
-    }
-
-    companion object {
-
-        /**
-         * The set of [RegexOption]s permitting comments and ignoring case.
-         */
-        val IGNORE_CASE_AND_COMMENTS = setOf(RegexOption.COMMENTS, RegexOption.IGNORE_CASE)
-
-        /**
-         * Convenience function to create a [Regex] from the supplied pattern and using
-         * [IGNORE_CASE_AND_COMMENTS] for options.
-         */
-        fun getDefaultRegexFor(pattern: String?): Regex = Regex(pattern ?: ".*", IGNORE_CASE_AND_COMMENTS)
     }
 }
