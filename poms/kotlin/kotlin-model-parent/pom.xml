@@ -35,7 +35,7 @@
 
         <!-- Version definitions -->
         <hsqldb.version>2.4.0</hsqldb.version>
-        <jaxb2.plugin.version>2.3.1</jaxb2.plugin.version>
+        <jaxb2.plugin.version>2.4</jaxb2.plugin.version>
     </properties>
 
     <!--
