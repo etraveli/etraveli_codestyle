@@ -112,6 +112,9 @@
         <logback.version>1.2.3</logback.version>
         <logback.logstash.version>5.1</logback.logstash.version>
         <xmlunit.version>2.5.1</xmlunit.version>
+        <jaxb2-maven-plugin.version>2.3.1</jaxb2-maven-plugin.version>
+        <depgraph-maven-plugin.version>3.1.0</depgraph-maven-plugin.version>
+        <depgraph.printStyleConfiguration>false</depgraph.printStyleConfiguration>
 
         <!-- Code style properties -->
         <pmd.plugin.version>3.8</pmd.plugin.version>
@@ -124,8 +127,7 @@
         <!-- Enforcer configuration parameters -->
         <enforcer.version>3.0.0-M1</enforcer.version>
         <enforcer.includedGroupIdPatterns>^com\\.etraveli\\..*</enforcer.includedGroupIdPatterns>
-        <enforcer.excludedGroupIdPatterns>^com\\.etraveli\\..*\\.generated\\..*,^com\\.etraveli\\.codestyle\\..*
-        </enforcer.excludedGroupIdPatterns>
+        <enforcer.excludedGroupIdPatterns>^com\\.etraveli\\..*\\.generated\\..*,^com\\.etraveli\\.codestyle\\..*</enforcer.excludedGroupIdPatterns>
 
         <!-- Surefire configuration parameters. -->
         <surefire.memconf>-Xmx1024m</surefire.memconf>
@@ -374,8 +376,46 @@
                 </plugin>
 
                 <!--
+                    Use the latest maven-assembly-plugin.
+
+                    Why:  Override the version in Maven's super pom.xml.
+                    Used: Assembly
+                -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <version>3.0.0</version>
+                </plugin>
+
+                <!--
+                    Dependency graph generation plugin
+                -->
+                <plugin>
+                    <groupId>com.github.ferstl</groupId>
+                    <artifactId>depgraph-maven-plugin</artifactId>
+                    <version>${depgraph-maven-plugin.version}</version>
+                    <configuration>
+                        <outputDirectory>${project.build.directory}/site/images</outputDirectory>
+                        <outputFileName>dependency_graph</outputFileName>
+                        <createImage>true</createImage>
+                        <dotExecutable>${path.to.dot}</dotExecutable>
+                        <showConflicts>true</showConflicts>
+                        <showGroupIds>true</showGroupIds>
+                        <showVersions>true</showVersions>
+                        <printStyleConfiguration>${depgraph.printStyleConfiguration}</printStyleConfiguration>
+                        <customStyleConfiguration>classpath:codestyle/depgraph-config.json</customStyleConfiguration>
+                    </configuration>
+                    <dependencies>
+                        <dependency>
+                            <groupId>com.etraveli.oss.codestyle</groupId>
+                            <artifactId>etraveli-codestyle</artifactId>
+                            <version>0.9.2-SNAPSHOT</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+
+                <!--
                     Use a working version of the Maven versions plugin.
-                    (TODO: Update the Codehaus versions plugin with the fine additions done by Lars.)
 
                     Why:  Workaround for https://jira.codehaus.org/browse/MVERSIONS-236
                     Used: Only when called.
