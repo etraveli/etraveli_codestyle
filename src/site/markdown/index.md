@@ -66,8 +66,36 @@ mechanics - we use [Markdown](https://daringfireball.net/projects/markdown/synta
 of [PlantUML](http://plantuml.com/) diagrams to render diagrams when needed.
 
 This requires you to install a `dot` executable normally found within the [Graphviz](http://graphviz.org) open-source 
-application. Simply download and install it within the standard path on your workstation to be able to build the 
-documentation and all its diagrams properly.  
+application. The section below provides installation instructions.
+
+#### a. Graphviz installation and Dot path setup
+
+To render the documentation graphics, you need to install `Graphviz` and place `dot` in your 
+operating system path. In addition, you need to create a globally available Maven property called 
+`path.to.dot` within your `$HOME/.m2/settings.xml` file. The property value should contain the 
+path to the dot executable, similar to the snippet below: 
+
+    <profiles>
+
+        <!--
+            Properties available for all builds.
+            Purpose: Contain paths to locally installed applications, or URIs of a semi-secret nature.
+        -->
+        <profile>
+            <id>injected_properties</id>
+            <properties>
+                <path.to.dot>/usr/bin/dot</path.to.dot>
+            </properties>
+        </profile>
+    </profiles>
+
+    <activeProfiles>
+        <activeProfile>injected_properties</activeProfile>        
+    </activeProfiles>
+
+With this setup you should be able to properly build the Maven site documentation.
+
+#### b. Building the Documentation
 
 After graphviz/dot is installed, simply build the documentation using:
 
@@ -79,4 +107,3 @@ Build the staged documentation for all modules using:
 	
 The staged documentation should land within the `/tmp/${reactor.name}/${version}` directory - typically something like
 `/tmp/etraveli_codestyle/1.2.3/`. 
-
