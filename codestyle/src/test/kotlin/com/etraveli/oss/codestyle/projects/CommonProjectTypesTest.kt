@@ -37,6 +37,7 @@ class CommonProjectTypesTest {
         val standaloneApplication2 = MavenTestUtils.getStub("jar", "se.jguru.foo.bar.application", "bar-application")
         val itest = MavenTestUtils.getStub("jar", "se.jguru.foo.it.bar", "bar-it")
         val mavenPlugin = MavenTestUtils.getStub("maven-plugin", "se.jguru.foo.bar.plugins.blah", "blah-maven-plugin")
+        val service = MavenTestUtils.getStub("jar", "se.jguru.foo.bar.service", "blah-service")
 
         // Act & Assert
         Assert.assertEquals(CommonProjectTypes.PARENT, getProjectType(parent))
@@ -57,6 +58,7 @@ class CommonProjectTypesTest {
         Assert.assertEquals(CommonProjectTypes.CODESTYLE, getProjectType(codestyle))
         Assert.assertEquals(CommonProjectTypes.INTEGRATION_TEST, getProjectType(itest))
         Assert.assertEquals(CommonProjectTypes.PLUGIN, getProjectType(mavenPlugin))
+        Assert.assertEquals(CommonProjectTypes.MICROSERVICE, getProjectType(service))
     }
 
     @Test

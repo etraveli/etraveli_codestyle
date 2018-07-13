@@ -77,6 +77,28 @@ class KotlinPackageExtractorTest {
         unitUnderTest.getPackage(File(resource.path))
     }
 
+    @Test
+    fun validateKotlinFilesUsesPackageAnnotation() {
+
+        // Assemble
+        val baseDir = File(Thread.currentThread().contextClassLoader.getResource("pointOfOrigin.txt").path)
+                .parentFile // test-classes
+                .parentFile // target
+                .parentFile // basedir
+
+        val theFile = File(baseDir, "src/test/kotlin/" + KotlinClassOutsideOfPackageDirStructure::class.java
+                .simpleName + ".kt")
+
+        // println("Got: " + theFile.path)
+        val unitUnderTest = KotlinPackageExtractor()
+
+        // Act
+        val thePackage = unitUnderTest.getPackage(theFile)
+
+        // Assert
+        Assert.assertEquals(KotlinClassOutsideOfPackageDirStructure::class.java.`package`.name, thePackage)
+    }
+
     //
     // Private helpers
     //

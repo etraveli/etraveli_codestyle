@@ -32,7 +32,7 @@ import org.apache.maven.project.MavenProject
  * @see ProjectType
  * @see CommonProjectTypes
  */
-class CorrectDependenciesRule(
+open class CorrectDependenciesRule(
 
         ignoredProjectTypes: List<ProjectType>?,
 
