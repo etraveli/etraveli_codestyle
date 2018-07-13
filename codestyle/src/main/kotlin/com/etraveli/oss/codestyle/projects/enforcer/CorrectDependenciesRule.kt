@@ -8,6 +8,8 @@ import com.etraveli.oss.codestyle.projects.CommonProjectTypes
 import com.etraveli.oss.codestyle.projects.ProjectType
 import com.etraveli.oss.codestyle.projects.getProjectType
 import org.apache.maven.artifact.Artifact
+import org.apache.maven.artifact.DefaultArtifact
+import org.apache.maven.artifact.handler.DefaultArtifactHandler
 import org.apache.maven.enforcer.rule.api.EnforcerRuleHelper
 import org.apache.maven.project.MavenProject
 
@@ -68,11 +70,7 @@ open class CorrectDependenciesRule(
     private fun getEvaluationPatterns(): List<Regex> = evaluateGroupIds.map { Regex(it) }
     private fun getIgnoreEvaluationPatterns(): List<Regex> = dontEvaluateGroupIds.map { Regex(it) }
 
-    /**
-     * @return A human-readable short description for this AbstractEnforcerRule.
-     * (Example: "No -impl dependencies permitted in this project")
-     */
-    override fun getShortRuleDescription(): String = "Impl projects should only be injected in applications (not in " + "Models, APIs or SPIs)."
+    override fun getShortRuleDescription(): String = "Incorrect Dependency found within project."
 
     override fun performValidation(project: MavenProject, helper: EnforcerRuleHelper) {
 
@@ -100,7 +98,18 @@ open class CorrectDependenciesRule(
         }
 
         // Acquire all project dependencies.
-        for (current in project.dependencyArtifacts) {
+        val artifactList = project.dependencyArtifacts
+                ?: project.model.dependencies?.map {
+                    DefaultArtifact(it.groupId,
+                            it.artifactId,
+                            it.version,
+                            it.scope,
+                            it.type,
+                            it.classifier,
+                            DefaultArtifactHandler())
+                } ?: emptyList()
+
+        for (current in artifactList) {
 
             // Don't evaluate for test-scope dependencies.
             if (Artifact.SCOPE_TEST.equals(current.scope, ignoreCase = true)) {
@@ -126,7 +135,13 @@ open class CorrectDependenciesRule(
                 if (artifactProjectType === CommonProjectTypes.JEE_APPLICATION || artifactProjectType === CommonProjectTypes.PROOF_OF_CONCEPT) {
                     throw RuleFailureException(prefix + "in bundles.", current)
                 }
+
+                if (artifactProjectType === CommonProjectTypes.BILL_OF_MATERIALS) {
+                    throw RuleFailureException(prefix + "in Dependency block. (Use only as DependencyManagement " +
+                            "import-scoped dependencies).")
+                }
             }
+
         }
     }
 }
