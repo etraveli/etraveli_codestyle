@@ -762,6 +762,11 @@
 
                 <plugins>
 
+                    <!--
+                       Release Plugin configuration.
+
+                       Use a custom id for the deploy-to-repo operation.
+                   -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-deploy-plugin</artifactId>
@@ -769,8 +774,23 @@
                         <configuration>
                             <updateReleaseInfo>true</updateReleaseInfo>
                         </configuration>
+                        <executions>
+                            <execution>
+                                <id>default-deploy</id>
+                                <phase>none</phase>
+                            </execution>
+                            <execution>
+                                <id>deploy-to-repo</id>
+                                <goals>
+                                    <goal>deploy</goal>
+                                </goals>
+                            </execution>
+                        </executions>
                     </plugin>
-                    
+
+                    <!--
+                        Always include a source JAR.
+                    -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-source-plugin</artifactId>
@@ -783,7 +803,29 @@
                             </execution>
                         </executions>
                     </plugin>
-                    
+
+                    <!--
+                        Use the JavaDoc plugin to attach a JavaDoc JAR to release artifacts.
+                    -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <configuration>
+                            <failOnError>false</failOnError>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!--
+                        Sign the artifacts with the GPG plugin.
+                    -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>

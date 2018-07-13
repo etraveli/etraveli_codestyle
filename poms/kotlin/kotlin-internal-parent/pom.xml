@@ -4,7 +4,8 @@
   -->
 
 <!--suppress MavenRedundantGroupId -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <!--
@@ -126,7 +127,8 @@
         <!-- Enforcer configuration parameters -->
         <enforcer.version>3.0.0-M1</enforcer.version>
         <enforcer.includedGroupIdPatterns>^com\\.etraveli\\..*</enforcer.includedGroupIdPatterns>
-        <enforcer.excludedGroupIdPatterns>^com\\.etraveli\\..*\\.generated\\..*,^com\\.etraveli\\.codestyle\\..*</enforcer.excludedGroupIdPatterns>
+        <enforcer.excludedGroupIdPatterns>^com\\.etraveli\\..*\\.generated\\..*,^com\\.etraveli\\.codestyle\\..*
+        </enforcer.excludedGroupIdPatterns>
 
         <!-- Surefire configuration parameters. -->
         <surefire.memconf>-Xmx1024m</surefire.memconf>
@@ -528,7 +530,8 @@
                     <configuration>
                         <argLine>${surefire.argLine}</argLine>
                         <parallelOptimized>true</parallelOptimized>
-                        <workingDirectory>${basedir}/target/FAILSAFE_FORK_DIRECTORY_${surefire.forkNumber}</workingDirectory>
+                        <workingDirectory>${basedir}/target/FAILSAFE_FORK_DIRECTORY_${surefire.forkNumber}
+                        </workingDirectory>
                         <redirectTestOutputToFile>true</redirectTestOutputToFile>
                     </configuration>
                     <dependencies>
@@ -592,6 +595,12 @@
                     <configuration>
                         <updateReleaseInfo>true</updateReleaseInfo>
                     </configuration>
+                    <executions>
+                        <execution>
+                            <id>default-deploy</id>
+                            <phase>none</phase>
+                        </execution>
+                    </executions>
                 </plugin>
 
 
@@ -614,13 +623,14 @@
                                     <requireJavaVersion>
                                         <version>${jdk.version}</version>
                                     </requireJavaVersion>
-                                    <requireUpperBoundDeps />
+                                    <requireUpperBoundDeps/>
 
                                     <!--
                                         Enforce the ProjectType structure, implying that all projects
                                         must comply with the project template definitions.
                                     -->
-                                    <validateProjectTypes implementation="com.etraveli.oss.codestyle.projects.enforcer.PermittedProjectTypeRule" />
+                                    <validateProjectTypes
+                                            implementation="com.etraveli.oss.codestyle.projects.enforcer.PermittedProjectTypeRule"/>
 
                                     <!--
                                         Enforce the implementation rules for dependencies, to enforce that
@@ -632,7 +642,8 @@
                                         reproduced her to serve as an example of how to configure this enforcement rule
                                         in child reactors - where needs are likely different than here.
                                     -->
-                                    <restrictImplDependencies implementation="com.etraveli.oss.codestyle.projects.enforcer.CorrectDependenciesRule">
+                                    <restrictImplDependencies
+                                            implementation="com.etraveli.oss.codestyle.projects.enforcer.CorrectDependenciesRule">
                                         <evaluateGroupIds>${enforcer.includedGroupIdPatterns}</evaluateGroupIds>
                                         <dontEvaluateGroupIds>${enforcer.excludedGroupIdPatterns}</dontEvaluateGroupIds>
                                     </restrictImplDependencies>
@@ -646,7 +657,8 @@
                                         then all code within that project must reside within the "com.acme.foobar" package,
                                         or in any subpackage thereof.
                                     -->
-                                    <correctPackaging implementation="com.etraveli.oss.codestyle.projects.enforcer.CorrectPackagingRule" />
+                                    <correctPackaging
+                                            implementation="com.etraveli.oss.codestyle.projects.enforcer.CorrectPackagingRule"/>
                                 </rules>
                             </configuration>
                         </execution>
@@ -771,7 +783,7 @@
                         <id>default-deploy</id>
                         <phase>site-deploy</phase>
                         <goals>
-                            <goal />
+                            <goal/>
                         </goals>
                     </execution>
                 </executions>
@@ -1088,6 +1100,35 @@
             <build>
                 <plugins>
 
+                    <!--
+                        Release Plugin configuration.
+
+                        Use a custom id for the deploy-to-repo operation.
+                    -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-deploy-plugin</artifactId>
+                        <version>${maven-deploy-plugin.version}</version>
+                        <configuration>
+                            <updateReleaseInfo>true</updateReleaseInfo>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>default-deploy</id>
+                                <phase>none</phase>
+                            </execution>
+                            <execution>
+                                <id>deploy-to-repo</id>
+                                <goals>
+                                    <goal>deploy</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!--
+                        Always include a source JAR.
+                    -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-source-plugin</artifactId>
@@ -1101,6 +1142,9 @@
                         </executions>
                     </plugin>
 
+                    <!--
+                        Use the JavaDoc plugin to attach a JavaDoc JAR to release artifacts.
+                    -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
@@ -1117,6 +1161,9 @@
                         </executions>
                     </plugin>
 
+                    <!--
+                        Sign the artifacts with the GPG plugin.
+                    -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
@@ -1126,24 +1173,6 @@
                                 <phase>verify</phase>
                                 <goals>
                                     <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-deploy-plugin</artifactId>
-                        <version>${maven-deploy-plugin.version}</version>
-                        <configuration>
-                            <updateReleaseInfo>true</updateReleaseInfo>
-                        </configuration>
-
-                        <executions>
-                            <execution>
-                                <id>deploy-to-repo</id>
-                                <goals>
-                                    <goal>deploy</goal>
                                 </goals>
                             </execution>
                         </executions>

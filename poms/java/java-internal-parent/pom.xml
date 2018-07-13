@@ -104,6 +104,7 @@
         <logback.version>1.2.3</logback.version>
         <logback.logstash.version>5.1</logback.logstash.version>
         <kotlin.version>1.2.51</kotlin.version>
+        <maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
 
         <!-- Diverse plugin versions -->
         <maven-project-info-reports-plugin.version>2.9</maven-project-info-reports-plugin.version>
@@ -803,16 +804,26 @@
                     </configuration>
                 </plugin>
 
-                <!--
-                    Define deploy plugin version.
 
-                    Why:  Version definition only.
-                    Used: Standard lifecycle, mvn deploy
+                <!--
+                    Specify the version of the Deploy plugin
+
+                    Why:  Used to deploy artifacts to repositories.
+                    Used: To copy/upload artifacts to repos.
                 -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-deploy-plugin</artifactId>
-                    <version>2.8.2</version>
+                    <version>${maven-deploy-plugin.version}</version>
+                    <configuration>
+                        <updateReleaseInfo>true</updateReleaseInfo>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>default-deploy</id>
+                            <phase>none</phase>
+                        </execution>
+                    </executions>
                 </plugin>
 
                 <!--
@@ -1767,13 +1778,36 @@
             <id>etraveli-release</id>
             <build>
                 <plugins>
+
+                    <!--
+                        Release Plugin configuration.
+
+                        Use a custom id for the deploy-to-repo operation.
+                    -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-deploy-plugin</artifactId>
+                        <version>${maven-deploy-plugin.version}</version>
                         <configuration>
                             <updateReleaseInfo>true</updateReleaseInfo>
                         </configuration>
+                        <executions>
+                            <execution>
+                                <id>default-deploy</id>
+                                <phase>none</phase>
+                            </execution>
+                            <execution>
+                                <id>deploy-to-repo</id>
+                                <goals>
+                                    <goal>deploy</goal>
+                                </goals>
+                            </execution>
+                        </executions>
                     </plugin>
+
+                    <!--
+                        Always include a source JAR.
+                    -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-source-plugin</artifactId>
@@ -1786,6 +1820,10 @@
                             </execution>
                         </executions>
                     </plugin>
+
+                    <!--
+                        Use the JavaDoc plugin to attach a JavaDoc JAR to release artifacts.
+                    -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
@@ -1801,6 +1839,10 @@
                             </execution>
                         </executions>
                     </plugin>
+
+                    <!--
+                        Sign the artifacts with the GPG plugin.
+                    -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
