@@ -74,7 +74,7 @@ abstract class AbstractSimplePackageExtractor : PackageExtractor {
  *
  * @author [Lennart J&ouml;relid](mailto:lennart.jorelid@etraveli.com)
  */
-class KotlinPackageExtractor : AbstractSimplePackageExtractor() {
+open class KotlinPackageExtractor : AbstractSimplePackageExtractor() {
 
     // Internal state
     private val packageRegEx = getPackageRegExp(true)
@@ -109,7 +109,7 @@ class KotlinPackageExtractor : AbstractSimplePackageExtractor() {
  *
  * @author [Lennart J&ouml;relid](mailto:lennart.jorelid@etraveli.com)
  */
-class JavaPackageExtractor : AbstractSimplePackageExtractor() {
+open class JavaPackageExtractor : AbstractSimplePackageExtractor() {
 
     // Internal state
     private val packageRegEx = getPackageRegExp(false)

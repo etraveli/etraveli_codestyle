@@ -18,7 +18,9 @@ import org.apache.maven.project.MavenProject
  * @see ProjectType
  * @author [Lennart J&ouml;relid](mailto:lennart.jorelid@etraveli.com)
  */
-class PermittedProjectTypeRule(val permittedProjectTypes: List<ProjectType> = CommonProjectTypes.values().asList())
+open class PermittedProjectTypeRule(
+
+        val permittedProjectTypes: List<ProjectType> = CommonProjectTypes.values().asList())
 
     : AbstractNonCacheableEnforcerRule() {
 

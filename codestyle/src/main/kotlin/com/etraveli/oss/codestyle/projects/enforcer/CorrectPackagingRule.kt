@@ -2,6 +2,7 @@
  * Copyright (c) Seat24 AB
  */
 @file:JvmName("CorrectPackagingRules")
+
 package com.etraveli.oss.codestyle.projects.enforcer
 
 import org.apache.maven.enforcer.rule.api.EnforcerLevel
@@ -30,8 +31,8 @@ val DEFAULT_PACKAGE_EXTRACTORS = listOf(JavaPackageExtractor(), KotlinPackageExt
  *
  * @author [Lennart J&ouml;relid](mailto:lennart.jorelid@etraveli.com)
  */
-class CorrectPackagingRule(lvl: EnforcerLevel = EnforcerLevel.ERROR,
-                           private var packageExtractors: List<PackageExtractor> = DEFAULT_PACKAGE_EXTRACTORS)
+open class CorrectPackagingRule(lvl: EnforcerLevel = EnforcerLevel.ERROR,
+                                private var packageExtractors: List<PackageExtractor> = DEFAULT_PACKAGE_EXTRACTORS)
     : AbstractNonCacheableEnforcerRule(lvl) {
 
     /**

@@ -169,6 +169,12 @@ enum class CommonProjectTypes(artifactIdPattern: String?,
     STANDALONE_APPLICATION(".*-application$", ".*\\.application$", "bundle|jar", false),
 
     /**
+     * (Micro)Service project defining runnable Java applications.
+     * Injections of implementation projects are permitted here.
+     */
+    MICROSERVICE(".*-service$", ".*\\.service$", "bundle|jar", false),
+
+    /**
      * Example project providing runnable example code for showing the
      * typical scenarios of the component. Should contain relevant documentation
      * as well as cut-and-paste code. No dependency rules.
