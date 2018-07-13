@@ -1020,7 +1020,7 @@
                 <dokka.outputFormat>javadoc</dokka.outputFormat>
             </properties>
 
-            <dependencyManagement>
+            <!-- dependencyManagement>
                 <dependencies>
                     <dependency>
                         <groupId>org.jetbrains.kotlin</groupId>
@@ -1033,7 +1033,7 @@
                         <version>${kotlin.version}</version>
                     </dependency>
                 </dependencies>
-            </dependencyManagement>
+            </dependencyManagement -->
 
             <build>
                 <pluginManagement>
