@@ -19,8 +19,8 @@
         <relativePath>../../poms/tools-parent</relativePath>
     </parent>
 
-    <groupId>se.jguru.nazgul.tools.validation.aspect</groupId>
-    <artifactId>nazgul-tools-validation-aspect</artifactId>
+    <groupId>com.etraveli.oss.foo.aspect</groupId>
+    <artifactId>etraveli-foo-aspect</artifactId>
     <version>1.0.0</version>
     <packaging>bundle</packaging>
     <name>${project.groupId}.${project.artifactId}</name>

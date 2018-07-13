@@ -79,8 +79,10 @@ abstract class AbstractEnforcerRule(
                     + "\n# Structure rule failure:"
                     + "\n# " + getShortRuleDescription()
                     + "\n# "
-                    + "\n# Message: " + e.getLocalizedMessage()
-                    + "\n# " + "\n# Offending project [" + project.groupId + ":"
+                    + "\n# Message:"
+                    + "\n# " + e.localizedMessage
+                    + "\n# "
+                    + "\n# Offending project [" + project.groupId + ":"
                     + project.artifactId + ":" + project.version + "]" + "\n#")
 
             val art = e.offendingArtifact
