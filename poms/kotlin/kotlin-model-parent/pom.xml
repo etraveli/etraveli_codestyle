@@ -34,7 +34,7 @@
         <path.in.reactor>poms/kotlin/kotlin-model-parent</path.in.reactor>
 
         <!-- Version definitions -->
-        <hsqldb.version>2.4.0</hsqldb.version>
+        <hsqldb.version>2.4.1</hsqldb.version>
         <jaxb2.plugin.version>2.4</jaxb2.plugin.version>
     </properties>
 
@@ -136,8 +136,8 @@
 
                 <!-- Eclipselink versions -->
                 <org.eclipse.persistence.osgi.version>2.2.0</org.eclipse.persistence.osgi.version>
-                <org.eclipse.persistence.version>2.7.1</org.eclipse.persistence.version>
-                <hibernate.validator.version>6.0.7.Final</hibernate.validator.version>
+                <org.eclipse.persistence.version>2.7.2</org.eclipse.persistence.version>
+                <hibernate.validator.version>6.0.11.Final</hibernate.validator.version>
             </properties>
 
             <dependencyManagement>

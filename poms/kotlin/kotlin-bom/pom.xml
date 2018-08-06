@@ -102,11 +102,11 @@
         <site.staging.localDirectory>/tmp/${reactor.name}</site.staging.localDirectory>
 
         <!-- Kotlin constants -->
-        <kotlin.version>1.2.51</kotlin.version>
+        <kotlin.version>1.2.60</kotlin.version>
         <jdk.version>1.8</jdk.version>
 
         <!-- Site plugin properties -->
-        <maven-site-plugin.version>3.7</maven-site-plugin.version>
+        <maven-site-plugin.version>3.7.1</maven-site-plugin.version>
         <versions-maven-plugin.version>2.5</versions-maven-plugin.version>
     </properties>
 
@@ -182,7 +182,7 @@
             </dependency>
             <dependency>
                 <groupId>org.jetbrains.kotlin</groupId>
-                <artifactId>kotlin-scripting-util</artifactId>
+                <artifactId>kotlin-script-util</artifactId>
                 <version>${kotlin.version}</version>
             </dependency>
 

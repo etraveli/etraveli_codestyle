@@ -87,7 +87,7 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>license-maven-plugin</artifactId>
-                    <version>1.14</version>
+                    <version>1.16</version>
                     <configuration>
                         <encoding>${project.build.sourceEncoding}</encoding>
                         <descriptionTemplate>/codestyle/license/${license.id}/licenseDescriptionTemplate.ftl

@@ -98,21 +98,21 @@
         <maven.version>3.3.1</maven.version>
         <openjpa.version>2.4.0</openjpa.version>
         <maven.release.plugin.version>2.5.3</maven.release.plugin.version>
-        <maven.compiler.plugin.version>3.6.1</maven.compiler.plugin.version>
+        <maven.compiler.plugin.version>3.8.0</maven.compiler.plugin.version>
         <osgiVersion>6.0.0</osgiVersion>
         <slf4j.version>1.7.25</slf4j.version>
         <logback.version>1.2.3</logback.version>
         <logback.logstash.version>5.1</logback.logstash.version>
-        <kotlin.version>1.2.51</kotlin.version>
+        <kotlin.version>1.2.60</kotlin.version>
         <maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
 
         <!-- Diverse plugin versions -->
-        <maven-project-info-reports-plugin.version>2.9</maven-project-info-reports-plugin.version>
-        <maven-javadoc-plugin.version>3.0.0</maven-javadoc-plugin.version>
-        <dependency.plugin.version>3.0.2</dependency.plugin.version>
+        <maven-project-info-reports-plugin.version>3.0.0</maven-project-info-reports-plugin.version>
+        <maven-javadoc-plugin.version>3.0.1</maven-javadoc-plugin.version>
+        <dependency.plugin.version>3.1.1</dependency.plugin.version>
         <versions-maven-plugin.version>2.5</versions-maven-plugin.version>
         <jaxb2-maven-plugin.version>2.3.1</jaxb2-maven-plugin.version>
-        <depgraph-maven-plugin.version>3.1.0</depgraph-maven-plugin.version>
+        <depgraph-maven-plugin.version>3.2.0</depgraph-maven-plugin.version>
         <depgraph.printStyleConfiguration>false</depgraph.printStyleConfiguration>
 
         <!-- Code style properties -->
@@ -120,12 +120,12 @@
         <skip.verify.code>false</skip.verify.code>
 
         <!-- Enforcer configuration parameters -->
-        <enforcer.version>3.0.0-M1</enforcer.version>
+        <enforcer.version>3.0.0-M2</enforcer.version>
         <enforcer.includedGroupIdPatterns>^com\\.etraveli\\..*</enforcer.includedGroupIdPatterns>
         <enforcer.excludedGroupIdPatterns>^com\\.etraveli\\..*\\.generated\\..*,^com\\.etraveli\\.codestyle\\..*</enforcer.excludedGroupIdPatterns>
 
         <!-- Openclover configuration parameters -->
-        <clover.plugin.version>4.2.1</clover.plugin.version>
+        <clover.plugin.version>4.3.0</clover.plugin.version>
         <clover.plugin.required.percentage>80%</clover.plugin.required.percentage>
 
         <!-- AspectJ Properties -->
@@ -140,11 +140,11 @@
         <checkstyle.excludes>**/generated/**/*,**/grammars/**/*</checkstyle.excludes>
 
         <!-- PMD configuration parameters. -->
-        <pmd.plugin.version>3.8</pmd.plugin.version>
+        <pmd.plugin.version>3.10.0</pmd.plugin.version>
         <pmd.ruleset>/codestyle/pmd-rules.xml</pmd.ruleset>
 
         <!-- Spotbugs configuration parameters. -->
-        <spotbugs.plugin.version>3.1.1</spotbugs.plugin.version>
+        <spotbugs.plugin.version>3.1.6</spotbugs.plugin.version>
         <spotbugs.only.analyze>com.etraveli.*</spotbugs.only.analyze>
         <spotbugs.includeFilterFile>codestyle/spotbugs.xml</spotbugs.includeFilterFile>
         <spotbugs.excludeFilterFile>codestyle/spotbugs-excludes.xml</spotbugs.excludeFilterFile>
@@ -165,12 +165,12 @@
         <breakOnFailure.license>true</breakOnFailure.license>
 
         <!-- Site plugin properties -->
-        <maven-site-plugin.version>3.7</maven-site-plugin.version>
+        <maven-site-plugin.version>3.7.1</maven-site-plugin.version>
         <doxia-modules.version>1.8</doxia-modules.version>
         <wagon-modules.version>2.10</wagon-modules.version>
 
         <!-- Resource-controlling properties -->
-        <maven-resources-plugin.version>3.0.2</maven-resources-plugin.version>
+        <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
         <maven-resources-plugin.includeEmptyDirs>true</maven-resources-plugin.includeEmptyDirs>
         <apiviz.version>1.3.4</apiviz.version>
     </properties>
@@ -1142,7 +1142,7 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>license-maven-plugin</artifactId>
-                    <version>1.14</version>
+                    <version>1.16</version>
                     <configuration>
                         <descriptionTemplate>/codestyle/license/${license.id}/licenseDescriptionTemplate.ftl</descriptionTemplate>
                         <failOnMissingHeader>${breakOnFailure.license}</failOnMissingHeader>

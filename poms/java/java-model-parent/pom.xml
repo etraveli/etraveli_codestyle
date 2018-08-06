@@ -29,7 +29,7 @@
 
         <!-- Version number properties -->
         <nazgul-core.version>3.0.0</nazgul-core.version>
-        <xmlunit.version>2.5.1</xmlunit.version>
+        <xmlunit.version>2.6.0</xmlunit.version>
         <jaxb2.plugin.version>2.4</jaxb2.plugin.version>
     </properties>
 
@@ -157,8 +157,8 @@
                 <surefire.argLine>-javaagent:${basedir}/target/eclipselink.jar -Dfile.encoding=UTF-8 -Xmx1024m -XX:MaxPermSize=512m</surefire.argLine>
 
                 <!-- Eclipselink versions -->
-                <org.eclipse.persistence.osgi.version>2.2.0</org.eclipse.persistence.osgi.version>
-                <org.eclipse.persistence.version>2.7.1</org.eclipse.persistence.version>
+                <org.eclipse.persistence.osgi.version>2.2.1</org.eclipse.persistence.osgi.version>
+                <org.eclipse.persistence.version>2.7.2</org.eclipse.persistence.version>
             </properties>
 
             <dependencyManagement>
