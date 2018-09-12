@@ -673,6 +673,32 @@
                     </dependencies>
                 </plugin>
 
+                <!--
+                    Configures the WAR plugin to properly use the generated OSGi-compliant manifest.
+
+                    Why:  Assigns some manifest data within the WARs in WAR projects. Reads bundle-generated manifest.
+                    Used: Standard lifecycle, mvn package.
+                -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>3.2.2</version>
+                    <configuration>
+                        <archive>
+                            <manifest>
+                                <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                            </manifest>
+                            <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+                            <manifestEntries>
+                                <name>${project.name}</name>
+                                <description>${project.description}</description>
+                                <groupId>${project.groupId}</groupId>
+                                <artifactId>${project.artifactId}</artifactId>
+                            </manifestEntries>
+                        </archive>
+                    </configuration>
+                </plugin>
+
             </plugins>
         </pluginManagement>
 
