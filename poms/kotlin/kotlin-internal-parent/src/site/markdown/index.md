@@ -68,6 +68,16 @@ which create artifacts, and non-leaf projects which create the build reactor by 
 **Reactor** poms define the build reactor, implying that they are parents for POMs which have
 POM packaging and defines modules.
 
+## Override the Kotlin version
+
+This parent import the Kotlin BOM which declare `dependencyManagement` entries for most Kotlin libraries.
+All such dependencies use the same version variable, namely
+
+    <kotlin.version>1.2.61</kotlin.version>
+    
+To use another version of Kotlin in your leaf project, simply override
+this version constant with the desired Kotlin version.
+
 ### Dependency Graph
 
 The dependency graph for this project is shown below:

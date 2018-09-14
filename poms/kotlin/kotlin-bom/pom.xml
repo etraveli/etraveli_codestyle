@@ -102,7 +102,7 @@
         <site.staging.localDirectory>/tmp/${reactor.name}</site.staging.localDirectory>
 
         <!-- Kotlin constants -->
-        <kotlin.version>1.2.60</kotlin.version>
+        <kotlin.version>1.2.61</kotlin.version>
         <jdk.version>1.8</jdk.version>
 
         <!-- Site plugin properties -->

@@ -103,7 +103,7 @@
         <slf4j.version>1.7.25</slf4j.version>
         <logback.version>1.2.3</logback.version>
         <logback.logstash.version>5.1</logback.logstash.version>
-        <kotlin.version>1.2.60</kotlin.version>
+        <kotlin.version>1.2.61</kotlin.version>
         <maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
 
         <!-- Diverse plugin versions -->
@@ -838,7 +838,6 @@
                     <version>${maven-project-info-reports-plugin.version}</version>
                     <configuration>
                         <dependencyDetailsEnabled>false</dependencyDetailsEnabled>
-                        <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
                     </configuration>
                 </plugin>
 
@@ -908,7 +907,7 @@
                         <dependency>
                             <groupId>org.apache.maven.surefire</groupId>
                             <artifactId>surefire-junit47</artifactId>
-                            <version>2.21.0</version>
+                            <version>2.22.0</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -926,8 +925,8 @@
                 </plugin>
 
                 <!--
-                    Configures the site plugin to properly cope with link relativization, staging and deployment
-                    in a controlled and extensible manner.
+                    Configures the site plugin to properly cope with link relativization, staging
+                    and deployment in a controlled and extensible manner.
 
                     Why:  Generates site documentation. Adds wagon remote deployment capability.
                     Used: Standard lifecycle, mvn site, mvn site:stage.
@@ -947,7 +946,7 @@
                             <id>default-deploy</id>
                             <phase>site-deploy</phase>
                             <goals>
-                                <goal />
+                                <goal/>
                             </goals>
                         </execution>
                     </executions>
@@ -1027,7 +1026,7 @@
                         <skip>${skip.verify.code}</skip>
                         <configLocation>${checkstyle.config.location}</configLocation>
                         <excludes>${checkstyle.excludes}</excludes>
-                        <suppressionsFile>${checkstyle.suppressions.location}</suppressionsFile>
+                        <suppressionsLocation>${checkstyle.suppressions.location}</suppressionsLocation>
                         <failOnViolation>${breakOnFailure.checkstyle}</failOnViolation>
                         <violationSeverity>${checkstyle.violationSeverity}</violationSeverity>
                         <sourceDirectories>${basedir}/src/main/java</sourceDirectories>
@@ -1554,7 +1553,6 @@
                 <version>${maven-project-info-reports-plugin.version}</version>
                 <configuration>
                     <dependencyDetailsEnabled>false</dependencyDetailsEnabled>
-                    <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
                 </configuration>
             </plugin>
 
