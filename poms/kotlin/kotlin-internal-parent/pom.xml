@@ -4,7 +4,8 @@
   -->
 
 <!--suppress MavenRedundantGroupId -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <!--
@@ -605,9 +606,34 @@
 
                 <!-- Enforce not importing incorrect projects. -->
                 <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-enforcer-plugin</artifactId>
                     <version>${enforcer.version}</version>
                     <executions>
+                        <execution>
+                            <id>enforce-maven</id>
+                            <goals>
+                                <goal>enforce</goal>
+                            </goals>
+                            <phase>none</phase>
+                        </execution>
+                        <execution>
+                            <id>enforce-correct-maven</id>
+                            <goals>
+                                <goal>enforce</goal>
+                            </goals>
+                            <phase>validate</phase>
+                            <configuration combine.self="override">
+                                <rules>
+                                    <requireMavenVersion>
+                                        <version>(,2.1.0),(2.1.0,2.2.0),(2.2.0,)</version>
+                                        <message>Maven 2.1.0 and 2.2.0 produce incorrect GPG signatures and checksums
+                                            respectively.
+                                        </message>
+                                    </requireMavenVersion>
+                                </rules>
+                            </configuration>
+                        </execution>
                         <execution>
                             <id>enforce-imports</id>
                             <goals>
@@ -622,13 +648,14 @@
                                     <requireJavaVersion>
                                         <version>${jdk.version}</version>
                                     </requireJavaVersion>
-                                    <requireUpperBoundDeps />
+                                    <requireUpperBoundDeps/>
 
                                     <!--
                                         Enforce the ProjectType structure, implying that all projects
                                         must comply with the project template definitions.
                                     -->
-                                    <validateProjectTypes implementation="com.etraveli.oss.codestyle.projects.enforcer.PermittedProjectTypeRule" />
+                                    <validateProjectTypes
+                                            implementation="com.etraveli.oss.codestyle.projects.enforcer.PermittedProjectTypeRule"/>
 
                                     <!--
                                         Enforce the implementation rules for dependencies, to enforce that
@@ -640,7 +667,8 @@
                                         reproduced her to serve as an example of how to configure this enforcement rule
                                         in child reactors - where needs are likely different than here.
                                     -->
-                                    <restrictImplDependencies implementation="com.etraveli.oss.codestyle.projects.enforcer.CorrectDependenciesRule">
+                                    <restrictImplDependencies
+                                            implementation="com.etraveli.oss.codestyle.projects.enforcer.CorrectDependenciesRule">
                                         <evaluateGroupIds>${enforcer.includedGroupIdPatterns}</evaluateGroupIds>
                                         <dontEvaluateGroupIds>${enforcer.excludedGroupIdPatterns}</dontEvaluateGroupIds>
                                     </restrictImplDependencies>
@@ -654,7 +682,8 @@
                                         then all code within that project must reside within the "com.acme.foobar" package,
                                         or in any subpackage thereof.
                                     -->
-                                    <correctPackaging implementation="com.etraveli.oss.codestyle.projects.enforcer.CorrectPackagingRule" />
+                                    <correctPackaging
+                                            implementation="com.etraveli.oss.codestyle.projects.enforcer.CorrectPackagingRule"/>
                                 </rules>
                             </configuration>
                         </execution>
@@ -805,7 +834,7 @@
                         <id>default-deploy</id>
                         <phase>site-deploy</phase>
                         <goals>
-                            <goal />
+                            <goal/>
                         </goals>
                     </execution>
                 </executions>
@@ -898,6 +927,12 @@
                         <phase>pre-site</phase>
                     </execution>
                 </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>${enforcer.version}</version>
             </plugin>
         </plugins>
     </build>

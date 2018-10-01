@@ -101,6 +101,8 @@
         <scm.url>${git.repo.url.prefix}/${reactor.name}.git</scm.url>
         <site.staging.localDirectory>/tmp/${reactor.name}</site.staging.localDirectory>
 
+        <enforcer.version>3.0.0-M2</enforcer.version>
+
         <!-- Kotlin constants -->
         <kotlin.version>1.2.61</kotlin.version>
         <jdk.version>1.8</jdk.version>
@@ -531,7 +533,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
-                <version>1.4.1</version>
+                <version>${enforcer.version}</version>
                 <executions>
                     <execution>
                         <id>enforce-imports</id>
