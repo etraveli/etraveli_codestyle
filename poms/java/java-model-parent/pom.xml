@@ -154,7 +154,7 @@
 
             <properties>
                 <jpa.provider.class>org.eclipse.persistence.jpa.PersistenceProvider</jpa.provider.class>
-                <surefire.argLine>-javaagent:${basedir}/target/eclipselink.jar -Dfile.encoding=UTF-8 -Xmx1024m -XX:MaxPermSize=512m</surefire.argLine>
+                <surefire.argLine>-javaagent:${basedir}/target/eclipselink.jar ${surefire.memconf}</surefire.argLine>
 
                 <!-- Eclipselink versions -->
                 <org.eclipse.persistence.osgi.version>2.2.1</org.eclipse.persistence.osgi.version>
