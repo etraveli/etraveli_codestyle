@@ -13,7 +13,7 @@
     <parent>
         <groupId>com.etraveli.oss.codestyle.poms.java</groupId>
         <artifactId>etraveli-codestyle-java-parent</artifactId>
-        <version>0.9.4-SNAPSHOT</version>
+        <version>0.9.4</version>
         <relativePath>../java-parent</relativePath>
     </parent>
 
@@ -80,6 +80,6 @@
         <connection>${scm.connection.url}</connection>
         <developerConnection>${scm.devConnection.url}</developerConnection>
         <url>${scm.url}</url>
-      <tag>HEAD</tag>
+      <tag>etraveli-codestyle-0.9.4</tag>
   </scm>
 </project>
