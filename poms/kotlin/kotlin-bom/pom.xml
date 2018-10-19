@@ -104,7 +104,7 @@
         <enforcer.version>3.0.0-M2</enforcer.version>
 
         <!-- Kotlin constants -->
-        <kotlin.version>1.2.61</kotlin.version>
+        <kotlin.version>1.2.71</kotlin.version>
         <jdk.version>1.8</jdk.version>
 
         <!-- Site plugin properties -->
