@@ -21,7 +21,7 @@
 
     <groupId>com.etraveli.oss.codestyle</groupId>
     <artifactId>etraveli-codestyle</artifactId>
-    <version>0.9.5-SNAPSHOT</version>
+    <version>0.9.5</version>
     <name>${project.artifactId}</name>
     <packaging>jar</packaging>
     <url>${site.top.url}/${path.in.reactor}</url>
@@ -136,7 +136,7 @@
             <dependency>
                 <groupId>com.etraveli.oss.codestyle.poms.kotlin</groupId>
                 <artifactId>etraveli-codestyle-kotlin-bom</artifactId>
-                <version>0.9.5-SNAPSHOT</version>
+                <version>0.9.5</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
@@ -674,7 +674,7 @@
         <connection>${scm.connection.url}</connection>
         <developerConnection>${scm.devConnection.url}</developerConnection>
         <url>${scm.url}</url>
-        <tag>HEAD</tag>
+        <tag>etraveli-codestyle-0.9.5</tag>
     </scm>
 
     <!--
