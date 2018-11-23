@@ -21,7 +21,7 @@
 
     <groupId>com.etraveli.oss.codestyle.poms.kotlin</groupId>
     <artifactId>etraveli-codestyle-kotlin-internal-parent</artifactId>
-    <version>0.9.6-SNAPSHOT</version>
+    <version>0.9.6</version>
     <name>${project.artifactId}</name>
     <packaging>pom</packaging>
     <url>${site.top.url}/${path.in.reactor}</url>
@@ -197,7 +197,7 @@
             <dependency>
                 <groupId>com.etraveli.oss.codestyle.poms.kotlin</groupId>
                 <artifactId>etraveli-codestyle-kotlin-bom</artifactId>
-                <version>0.9.6-SNAPSHOT</version>
+                <version>0.9.6</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -294,7 +294,7 @@
         <dependency>
             <groupId>com.etraveli.oss.codestyle.annotations</groupId>
             <artifactId>etraveli-codestyle-annotations</artifactId>
-            <version>0.9.6-SNAPSHOT</version>
+            <version>0.9.6</version>
         </dependency>
     </dependencies>
 
@@ -413,7 +413,7 @@
                         <dependency>
                             <groupId>com.etraveli.oss.codestyle</groupId>
                             <artifactId>etraveli-codestyle</artifactId>
-                            <version>0.9.6-SNAPSHOT</version>
+                            <version>0.9.6</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -500,7 +500,7 @@
                         <dependency>
                             <groupId>com.etraveli.oss.codestyle</groupId>
                             <artifactId>etraveli-codestyle</artifactId>
-                            <version>0.9.6-SNAPSHOT</version>
+                            <version>0.9.6</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -695,7 +695,7 @@
                         <dependency>
                             <groupId>com.etraveli.oss.codestyle</groupId>
                             <artifactId>etraveli-codestyle</artifactId>
-                            <version>0.9.6-SNAPSHOT</version>
+                            <version>0.9.6</version>
                         </dependency>
                         <dependency>
                             <groupId>org.apache.maven.enforcer</groupId>
@@ -1026,7 +1026,7 @@
         <connection>${scm.connection.url}</connection>
         <developerConnection>${scm.devConnection.url}</developerConnection>
         <url>${scm.url}</url>
-        <tag>HEAD</tag>
+        <tag>etraveli-codestyle-0.9.6</tag>
     </scm>
 
     <!--
