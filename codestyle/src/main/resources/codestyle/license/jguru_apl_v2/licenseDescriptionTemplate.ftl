@@ -1,1 +1,0 @@
-Nazgul Project: ${project.name}
