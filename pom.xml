@@ -13,7 +13,7 @@
     -->
     <groupId>com.etraveli.oss.codestyle</groupId>
     <artifactId>etraveli-codestyle-reactor</artifactId>
-    <version>0.9.7-SNAPSHOT</version>
+    <version>0.9.7</version>
     <name>${project.artifactId}</name>
     <url>${site.top.url}/${path.in.reactor}</url>
     <description>Etraveli Codestyle: Reactor (POM, version ${project.version})</description>
@@ -414,7 +414,7 @@
         <connection>${scm.connection.url}</connection>
         <developerConnection>${scm.devConnection.url}</developerConnection>
         <url>${scm.url}</url>
-        <tag>HEAD</tag>
+        <tag>etraveli-codestyle-0.9.7</tag>
     </scm>
 
     <!--
