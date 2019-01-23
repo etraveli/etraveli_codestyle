@@ -15,7 +15,7 @@
     <parent>
         <groupId>com.etraveli.oss.codestyle.poms.kotlin</groupId>
         <artifactId>etraveli-codestyle-kotlin-parent</artifactId>
-        <version>0.9.7</version>
+        <version>0.9.8-SNAPSHOT</version>
         <relativePath>../kotlin-parent</relativePath>
     </parent>
 
@@ -125,7 +125,7 @@
         <connection>${scm.connection.url}</connection>
         <developerConnection>${scm.devConnection.url}</developerConnection>
         <url>${scm.url}</url>
-        <tag>etraveli-codestyle-0.9.7</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <!--
