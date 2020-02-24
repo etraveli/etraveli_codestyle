@@ -17,13 +17,7 @@
     <module name="LineLength">
         <property name="max" value="120"/>
     </module>
-    <!-- module name="SuppressionCommentFilter">
-        <metadata name="net.sf.eclipsecs.core.comment" value="Single warning"/>
-        <property name="offCommentFormat" value="CHECKSTYLE\:OFF\: ([\w\|]+)"/>
-        <property name="onCommentFormat" value="CHECKSTYLE\:ON\: ([\w\|]+)"/>
-        <property name="checkFormat" value="$1"/>
-    </module -->
-
+  
   <!--
       Define the file extensions for which this Checkstyle specification is valid.
   -->
