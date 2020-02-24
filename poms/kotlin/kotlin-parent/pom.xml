@@ -50,21 +50,6 @@
     # Section 2:  Dependency (management) settings
     ################################################
     -->
-    <dependencies>
-        <dependency>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
-        </dependency>
-
-        <!--
-            Test-scope dependencies.
-        -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
 
     <!--
     ################################################
@@ -86,7 +71,7 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>license-maven-plugin</artifactId>
-                    <version>1.16</version>
+                    <version>2.0.0</version>
                     <configuration>
                         <encoding>${project.build.sourceEncoding}</encoding>
                         <descriptionTemplate>/codestyle/license/${license.id}/licenseDescriptionTemplate.ftl
@@ -243,32 +228,6 @@
     ################################################
     -->
     <profiles>
-        <profile>
-            <id>use-cdi-validation</id>
-            <activation>
-                <property>
-                    <name>!validation</name>
-                </property>
-            </activation>
-
-            <properties />
-
-            <dependencies>
-                <dependency>
-                    <groupId>se.jguru.nazgul.tools.validation.api</groupId>
-                    <artifactId>nazgul-tools-validation-api</artifactId>
-                    <version>${nazgul-tools.version}</version>
-                </dependency>
-                <dependency>
-                    <groupId>javax.validation</groupId>
-                    <artifactId>validation-api</artifactId>
-                </dependency>
-                <!-- dependency>
-                    <groupId>javax</groupId>
-                    <artifactId>javaee-api</artifactId>
-                </dependency -->
-            </dependencies>
-        </profile>
 
         <!--
             Includes static AspectJ Weaving into bytecode, wherever Validatable classes are encountered.

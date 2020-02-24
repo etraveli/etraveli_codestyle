@@ -30,7 +30,6 @@
         <!-- Version number properties -->
         <nazgul-core.version>3.0.0</nazgul-core.version>
         <xmlunit.version>2.6.0</xmlunit.version>
-        <jaxb2.plugin.version>2.4</jaxb2.plugin.version>
     </properties>
 
     <!-- +=============================================== -->
@@ -110,7 +109,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>jaxb2-maven-plugin</artifactId>
-                <version>${jaxb2.plugin.version}</version>
+                <version>${jaxb2-maven-plugin.version}</version>
                 <executions>
                     <execution>
                         <id>schemagen</id>
@@ -158,7 +157,7 @@
 
                 <!-- Eclipselink versions -->
                 <org.eclipse.persistence.osgi.version>2.2.1</org.eclipse.persistence.osgi.version>
-                <org.eclipse.persistence.version>2.7.2</org.eclipse.persistence.version>
+                <org.eclipse.persistence.version>2.7.6</org.eclipse.persistence.version>
             </properties>
 
             <dependencyManagement>

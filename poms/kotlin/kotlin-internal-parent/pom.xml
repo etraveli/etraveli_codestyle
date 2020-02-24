@@ -74,7 +74,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <!-- Kotlin constants -->
-        <kotlin.version>1.3.10</kotlin.version>
+        <kotlin.version>1.3.61</kotlin.version>
         <kotlin.jvm.target>1.8</kotlin.jvm.target>
 
         <!-- Define code-breaking constants -->
@@ -115,22 +115,21 @@
         <xmlunit.version>2.6.0</xmlunit.version>
         <jaxb2-maven-plugin.version>2.3.1</jaxb2-maven-plugin.version>
         <jaxb-api.version>2.3.1</jaxb-api.version>
-        <depgraph-maven-plugin.version>3.2.0</depgraph-maven-plugin.version>
+        <depgraph-maven-plugin.version>3.3.0</depgraph-maven-plugin.version>
         <depgraph.printStyleConfiguration>false</depgraph.printStyleConfiguration>
 
         <!-- Code style properties -->
-        <pmd.plugin.version>3.10.0</pmd.plugin.version>
+        <pmd.plugin.version>3.13.0</pmd.plugin.version>
         <clover.plugin.version>4.3.0</clover.plugin.version>
         <spotbugs.plugin.version>3.1.6</spotbugs.plugin.version>
-        <checkstyle.plugin.version>2.17</checkstyle.plugin.version>
+        <checkstyle.plugin.version>3.1.1</checkstyle.plugin.version>
         <checkstyle.header.java.file>codestyle/copyright/header_java.txt</checkstyle.header.java.file>
         <clean.plugin.version>2.6.1</clean.plugin.version>
 
         <!-- Enforcer configuration parameters -->
-        <enforcer.version>3.0.0-M2</enforcer.version>
+        <enforcer.version>3.0.0-M3</enforcer.version>
         <enforcer.includedGroupIdPatterns>^com\\.etraveli\\..*</enforcer.includedGroupIdPatterns>
-        <enforcer.excludedGroupIdPatterns>^com\\.etraveli\\..*\\.generated\\..*,^com\\.etraveli\\.codestyle\\..*
-        </enforcer.excludedGroupIdPatterns>
+        <enforcer.excludedGroupIdPatterns>^com\\.etraveli\\..*\\.generated\\..*,^com\\.etraveli\\.codestyle\\..*</enforcer.excludedGroupIdPatterns>
 
         <!-- Surefire configuration parameters. -->
         <surefire.memconf>-Xmx1024m</surefire.memconf>
@@ -138,14 +137,11 @@
         <surefire.plugin.version>2.20.1</surefire.plugin.version>
 
         <!-- Site plugin properties -->
-        <maven-site-plugin.version>3.7.1</maven-site-plugin.version>
+        <maven-project-info-reports-plugin.version>3.0.0</maven-project-info-reports-plugin.version>
+        <maven-site-plugin.version>3.8.2</maven-site-plugin.version>
         <doxia-modules.version>1.8</doxia-modules.version>
         <wagon-modules.version>2.10</wagon-modules.version>
         <versions-maven-plugin.version>2.7</versions-maven-plugin.version>
-
-        <!-- Standard test-scope properties -->
-        <junit.version>4.12</junit.version>
-        <cdi-unit.version>4.0.1</cdi-unit.version>
     </properties>
 
     <developers>
@@ -167,125 +163,6 @@
     # Section 2:  Dependency (management) settings
     ################################################
     -->
-    <dependencyManagement>
-        <dependencies>
-
-            <!--
-                Logging framework
-            -->
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-api</artifactId>
-                <version>${slf4j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>ch.qos.logback</groupId>
-                <artifactId>logback-classic</artifactId>
-                <version>${logback.version}</version>
-                <scope>runtime</scope>
-            </dependency>
-            <dependency>
-                <groupId>net.logstash.logback</groupId>
-                <artifactId>logstash-logback-encoder</artifactId>
-                <scope>runtime</scope>
-                <version>${logback.logstash.version}</version>
-            </dependency>
-
-            <!--
-                Kotlin dependencies
-            -->
-            <dependency>
-                <groupId>com.etraveli.oss.codestyle.poms.kotlin</groupId>
-                <artifactId>etraveli-codestyle-kotlin-bom</artifactId>
-                <version>0.9.8-SNAPSHOT</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <!--
-                JavaEE specification.
-            -->
-            <dependency>
-                <groupId>javax</groupId>
-                <artifactId>javaee-api</artifactId>
-                <version>${javaee-api.version}</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>javax.xml.bind</groupId>
-                <artifactId>jaxb-api</artifactId>
-                <version>${jaxb-api.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>javax.validation</groupId>
-                <artifactId>validation-api</artifactId>
-                <version>${validation-api.version}</version>
-                <scope>provided</scope>
-            </dependency>
-
-            <!--
-                AOP dependencies.
-            -->
-            <dependency>
-                <groupId>org.aspectj</groupId>
-                <artifactId>aspectjrt</artifactId>
-                <version>${aspectj.runtime.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.aspectj</groupId>
-                <artifactId>aspectjtools</artifactId>
-                <version>${aspectj.runtime.version}</version>
-            </dependency>
-
-            <!--
-                OSGi dependencies
-            -->
-            <dependency>
-                <groupId>org.osgi</groupId>
-                <artifactId>org.osgi.core</artifactId>
-                <version>${osgi.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.osgi</groupId>
-                <artifactId>osgi.cmpn</artifactId>
-                <version>${osgi.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-lang3</artifactId>
-                <version>3.7</version>
-            </dependency>
-
-            <!--
-               Test framework dependencies
-            -->
-            <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <scope>test</scope>
-                <version>${junit.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jglue.cdi-unit</groupId>
-                <artifactId>cdi-unit</artifactId>
-                <version>${cdi-unit.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.xmlunit</groupId>
-                <artifactId>xmlunit-matchers</artifactId>
-                <version>${xmlunit.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.xmlunit</groupId>
-                <artifactId>xmlunit-core</artifactId>
-                <version>${xmlunit.version}</version>
-                <scope>test</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <dependencies>
         <!--
@@ -376,7 +253,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-source-plugin</artifactId>
-                    <version>3.0.1</version>
+                    <version>3.2.1</version>
                 </plugin>
 
                 <!--
@@ -469,13 +346,10 @@
                             <plugin>sam-with-receiver</plugin>
                         </compilerPlugins>
                         <pluginOptions>
-                            <option>no-arg:annotation=com.etraveli.oss.codestyle.annotations.AddDefaultConstructor
-                            </option>
+                            <option>no-arg:annotation=com.etraveli.oss.codestyle.annotations.AddDefaultConstructor</option>
                             <option>spring:annotation=com.etraveli.oss.annotations.UsesSpringFramework</option>
                             <option>all-open:annotation=com.etraveli.oss.annotations.UseOpenMembers</option>
-                            <option>
-                                sam-with-receiver:annotation=com.etraveli.oss.annotations.ReceiverIsThisInSingleAbstractMethod
-                            </option>
+                            <option>sam-with-receiver:annotation=com.etraveli.oss.annotations.ReceiverIsThisInSingleAbstractMethod</option>
                             <!-- Call instance initializers in the synthetic constructor -->
                             <option>no-arg:invokeInitializers=true</option>
                         </pluginOptions>
@@ -558,7 +432,7 @@
                 <plugin>
                     <groupId>org.apache.felix</groupId>
                     <artifactId>maven-bundle-plugin</artifactId>
-                    <version>3.3.0</version>
+                    <version>4.2.1</version>
                     <configuration>
                         <supportedProjectTypes>
                             <supportedProjectType>ejb</supportedProjectType>
@@ -905,7 +779,7 @@
             <plugin>
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-bundle-plugin</artifactId>
-                <version>3.3.0</version>
+                <version>4.2.1</version>
                 <executions>
                     <execution>
                         <id>bundle-manifest</id>
@@ -947,17 +821,16 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>2.9</version>
+                <version>${maven-project-info-reports-plugin.version}</version>
                 <configuration>
                     <dependencyDetailsEnabled>false</dependencyDetailsEnabled>
-                    <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
                 </configuration>
             </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jxr-plugin</artifactId>
-                <version>2.5</version>
+                <version>3.0.0</version>
             </plugin>
 
             <!--
@@ -1122,7 +995,7 @@
             <properties>
 
                 <!-- Include Dokka -->
-                <dokka.version>0.9.17</dokka.version>
+                <dokka.version>0.10.1</dokka.version>
                 <dokka.outputFormat>javadoc</dokka.outputFormat>
             </properties>
 

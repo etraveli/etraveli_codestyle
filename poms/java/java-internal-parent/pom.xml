@@ -105,24 +105,25 @@
         <slf4j.version>1.7.25</slf4j.version>
         <logback.version>1.2.3</logback.version>
         <logback.logstash.version>5.1</logback.logstash.version>
-        <kotlin.version>1.3.10</kotlin.version>
+        <kotlin.version>1.3.61</kotlin.version>
         <maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
 
         <!-- Diverse plugin versions -->
         <maven-project-info-reports-plugin.version>3.0.0</maven-project-info-reports-plugin.version>
-        <maven-javadoc-plugin.version>3.0.1</maven-javadoc-plugin.version>
+        <maven-javadoc-plugin.version>3.1.1</maven-javadoc-plugin.version>
         <dependency.plugin.version>3.1.1</dependency.plugin.version>
         <versions-maven-plugin.version>2.7</versions-maven-plugin.version>
-        <jaxb2-maven-plugin.version>2.3.1</jaxb2-maven-plugin.version>
-        <depgraph-maven-plugin.version>3.2.0</depgraph-maven-plugin.version>
+        <jaxb2-maven-plugin.version>2.5.0</jaxb2-maven-plugin.version>
+        <depgraph-maven-plugin.version>3.3.0</depgraph-maven-plugin.version>
         <depgraph.printStyleConfiguration>false</depgraph.printStyleConfiguration>
 
         <!-- Code style properties -->
         <wtp.version>2.0</wtp.version>
         <skip.verify.code>false</skip.verify.code>
+        <skip.sign.code>false</skip.sign.code>
 
         <!-- Enforcer configuration parameters -->
-        <enforcer.version>3.0.0-M2</enforcer.version>
+        <enforcer.version>3.0.0-M3</enforcer.version>
         <enforcer.includedGroupIdPatterns>^com\\.etraveli\\..*</enforcer.includedGroupIdPatterns>
         <enforcer.excludedGroupIdPatterns>^com\\.etraveli\\..*\\.generated\\..*,^com\\.etraveli\\.codestyle\\..*</enforcer.excludedGroupIdPatterns>
 
@@ -135,14 +136,14 @@
         <aspectj-maven-plugin.version>1.11</aspectj-maven-plugin.version>
 
         <!-- Checkstyle configuration parameters. -->
-        <checkstyle.plugin.version>3.0.0</checkstyle.plugin.version>
+        <checkstyle.plugin.version>3.1.1</checkstyle.plugin.version>
         <checkstyle.config.location>codestyle/checkstyle.xml</checkstyle.config.location>
         <checkstyle.suppressions.location>codestyle/checkstyle-suppressions.xml</checkstyle.suppressions.location>
         <checkstyle.violationSeverity>error</checkstyle.violationSeverity>
         <checkstyle.excludes>**/generated/**/*,**/grammars/**/*</checkstyle.excludes>
 
         <!-- PMD configuration parameters. -->
-        <pmd.plugin.version>3.10.0</pmd.plugin.version>
+        <pmd.plugin.version>3.13.0</pmd.plugin.version>
         <pmd.ruleset>/codestyle/pmd-rules.xml</pmd.ruleset>
 
         <!-- Spotbugs configuration parameters. -->
@@ -166,7 +167,7 @@
         <breakOnFailure.license>true</breakOnFailure.license>
 
         <!-- Site plugin properties -->
-        <maven-site-plugin.version>3.7.1</maven-site-plugin.version>
+        <maven-site-plugin.version>3.8.2</maven-site-plugin.version>
         <doxia-modules.version>1.8</doxia-modules.version>
         <wagon-modules.version>2.10</wagon-modules.version>
 
@@ -601,7 +602,7 @@
                 <plugin>
                     <groupId>org.apache.felix</groupId>
                     <artifactId>maven-bundle-plugin</artifactId>
-                    <version>3.3.0</version>
+                    <version>4.2.1</version>
                     <executions>
                         <execution>
                             <id>bundle-manifest</id>
@@ -907,7 +908,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-source-plugin</artifactId>
-                    <version>3.0.1</version>
+                    <version>3.2.1</version>
                 </plugin>
 
                 <!--
@@ -1016,6 +1017,7 @@
                         <failOnViolation>${breakOnFailure.checkstyle}</failOnViolation>
                         <violationSeverity>${checkstyle.violationSeverity}</violationSeverity>
                         <sourceDirectories>${basedir}/src/main/java</sourceDirectories>
+                        <propertyExpansion>checkstyle.config.path=${basedir}</propertyExpansion>
                     </configuration>
                     <executions>
                         <execution>
@@ -1132,7 +1134,7 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>license-maven-plugin</artifactId>
-                    <version>1.16</version>
+                    <version>2.0.0</version>
                     <configuration>
                         <descriptionTemplate>/codestyle/license/${license.id}/licenseDescriptionTemplate.ftl</descriptionTemplate>
                         <failOnMissingHeader>${breakOnFailure.license}</failOnMissingHeader>
@@ -1565,7 +1567,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jxr-plugin</artifactId>
-                <version>2.5</version>
+                <version>3.0.0</version>
             </plugin>
 
             <!--
@@ -1906,6 +1908,9 @@
                                 <goals>
                                     <goal>sign</goal>
                                 </goals>
+                                <configuration>
+                                    <skip>${skip.sign.code}</skip>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
