@@ -95,7 +95,7 @@
         <maven.version>3.0</maven.version>
         <enforcer.version>3.0.0-M3</enforcer.version>
         <jdk.version>1.8</jdk.version>
-        <release.signWithGpg>true</release.signWithGpg>
+        <release.skipGpgSigning>true</release.skipGpgSigning>
 
         <!-- Code style properties -->
         <pmd.plugin.version>3.13.0</pmd.plugin.version>
@@ -289,7 +289,7 @@
                     <artifactId>maven-gpg-plugin</artifactId>
                     <version>1.6</version>
                     <configuration>
-                        <skip>${release.signWithGpg}</skip>
+                        <skip>${release.skipGpgSigning}</skip>
                     </configuration>
                 </plugin>
 

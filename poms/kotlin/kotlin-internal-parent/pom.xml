@@ -82,7 +82,7 @@
         <breakOnFailure.pmd>true</breakOnFailure.pmd>
         <breakOnFailure.enforcer>true</breakOnFailure.enforcer>
         <breakOnFailure.license>true</breakOnFailure.license>
-        <release.signWithGpg>true</release.signWithGpg>
+        <release.skipGpgSigning>true</release.skipGpgSigning>
 
         <!--
             Define URL prefixes used in the various URL settings of the POM.
@@ -462,7 +462,7 @@
                     <artifactId>maven-gpg-plugin</artifactId>
                     <version>1.6</version>
                     <configuration>
-                        <skip>${release.signWithGpg}</skip>
+                        <skip>${release.skipGpgSigning}</skip>
                     </configuration>
                 </plugin>
 
