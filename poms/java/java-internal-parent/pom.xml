@@ -1904,6 +1904,9 @@
                                 </goals>
                             </execution>
                         </executions>
+                        <configuration>
+                            <skip>${release.skipGpgSigning}</skip>
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>
