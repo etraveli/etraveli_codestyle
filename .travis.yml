@@ -1,22 +1,31 @@
 language: java
 env:
-  - MAVEN_VERSION=3.5.2
+  - MAVEN_VERSION=3.5.4
+
 jdk:
   - openjdk8
+
+# see https://blog.travis-ci.com/2014-12-17-faster-builds-with-container-based-infrastructure
+sudo: false
+
 addons:
   apt:
     packages:
       - graphviz
+
 install:
   - "mvn -N io.takari:maven:wrapper -Dmaven=${MAVEN_VERSION}"
+
 script: "./mvnw --show-version --errors --batch-mode clean install site"
+
 cache:
     directories:
     - $HOME/.m2
+
 branches:
     except:
         - gh-pages
+
 notifications:
     email:
-        - lennart.jorelid@etraveli.com
-        - jonas.holmer@etraveli.com
+        - lennart.jorelid@etraveligroup.com
