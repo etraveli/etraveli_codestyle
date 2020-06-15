@@ -45,4 +45,18 @@ class CorrectDependenciesRuleTest {
                             "block. (Use only as DependencyManagement import-scoped dependencies)."))
         }
     }
+
+    @Test
+    fun validateNoExceptionOnBomHavingIgnoredDependencies() {
+
+        // Assemble
+        val project = MavenTestUtils.readPom("testdata/poms/correct-bom-with-ignored-dependencies.xml")
+        val mockHelper = MockEnforcerRuleHelper(project)
+        val unitUnderTest = CorrectDependenciesRule(
+          dontEvaluateGroupIds = listOf("^com\\.etraveli\\..*\\.generated\\..*", "^com\\.etraveli\\.oss\\.codestyle\\..*")
+        )
+
+        // Act & Assert
+        unitUnderTest.execute(mockHelper)
+    }
 }

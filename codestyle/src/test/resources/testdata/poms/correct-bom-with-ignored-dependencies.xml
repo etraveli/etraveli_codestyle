@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) Seat24 AB
+  -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!--
+    ################################################
+    # Section 1:  Project information
+    ################################################
+    -->
+    <parent>
+        <groupId>com.etraveli.oss.codestyle.poms.kotlin</groupId>
+        <artifactId>etraveli-codestyle-kotlin-api-parent</artifactId>
+        <version>1.0.0</version>
+        <relativePath>../../poms/tools-parent</relativePath>
+    </parent>
+
+    <groupId>com.etraveli.oss.shared</groupId>
+    <artifactId>etraveli-shared-bom</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0.0</version>
+    <name>${project.groupId}.${project.artifactId}</name>
+
+    <!--
+    ################################################
+    # Section 2:  Dependencies
+    ################################################
+    -->
+    <dependencies>
+
+        <!--
+            Internal dependencies
+        -->
+        <dependency>
+            <groupId>com.etraveli.oss.codestyle.annotations</groupId>
+            <artifactId>etraveli-codestyle-annotations</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+    </dependencies>
+</project>

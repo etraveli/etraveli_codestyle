@@ -5,6 +5,10 @@
 package com.etraveli.oss.codestyle.projects.enforcer
 
 import com.etraveli.oss.codestyle.projects.MavenTestUtils
+import com.etraveli.oss.codestyle.projects.enforcer.com.etraveli.oss.codestyle.projects.extractor.IncorrectNoDefaultConstructorPackageExtractor
+import com.etraveli.oss.codestyle.projects.enforcer.com.etraveli.oss.codestyle.projects.extractor.SillyPackageExtractor
+import com.etraveli.oss.codestyle.projects.extractor.JavaPackageExtractor
+import com.etraveli.oss.codestyle.projects.extractor.PackageExtractor
 import org.junit.Assert
 import org.junit.Test
 
@@ -64,7 +68,8 @@ class CorrectPackagingRuleTest {
         val unitUnderTest = CorrectPackagingRule()
 
         // Act & Assert
-        unitUnderTest.setPackageExtractors(IncorrectNoDefaultConstructorPackageExtractor::class.java!!.getName())
+        unitUnderTest.setPackageExtractors(
+          IncorrectNoDefaultConstructorPackageExtractor::class.java!!.getName())
     }
 
     @Test
@@ -75,7 +80,8 @@ class CorrectPackagingRuleTest {
         val unitUnderTest = CorrectPackagingRule()
 
         // Act
-        unitUnderTest.setPackageExtractors(SillyPackageExtractor::class.java.name + "," +
+        unitUnderTest.setPackageExtractors(
+          SillyPackageExtractor::class.java.name + "," +
             "" + JavaPackageExtractor::class.java.name)
 
         // Assert
@@ -84,7 +90,8 @@ class CorrectPackagingRuleTest {
 
         val extractors = packageExtractors.get(unitUnderTest) as List<PackageExtractor>
         Assert.assertEquals(2, extractors.size.toLong())
-        Assert.assertEquals(SillyPackageExtractor::class.java.name, extractors[0].javaClass.name)
+        Assert.assertEquals(
+          SillyPackageExtractor::class.java.name, extractors[0].javaClass.name)
         Assert.assertEquals(JavaPackageExtractor::class.java.name, extractors[1].javaClass.name)
 
         Assert.assertNotNull(unitUnderTest.getShortRuleDescription())

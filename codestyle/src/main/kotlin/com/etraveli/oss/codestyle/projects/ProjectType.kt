@@ -1,24 +1,10 @@
 /*
  * Copyright (c) Seat24 AB
  */
-@file:JvmMultifileClass
-@file:JvmName("ProjectTypes")
-
 package com.etraveli.oss.codestyle.projects
 
 import org.apache.maven.project.MavenProject
 import java.io.Serializable
-
-/**
- * The set of [RegexOption]s permitting comments and ignoring case.
- */
-val IGNORE_CASE_AND_COMMENTS = setOf(RegexOption.COMMENTS, RegexOption.IGNORE_CASE)
-
-/**
- * Convenience function to create a [Regex] from the supplied pattern and using
- * [IGNORE_CASE_AND_COMMENTS] for options.
- */
-fun getDefaultRegexFor(pattern: String?): Regex = Regex(pattern ?: ".*", IGNORE_CASE_AND_COMMENTS)
 
 /**
  * Specification for how to classify Maven projects originating from their GAV.
@@ -63,126 +49,42 @@ interface ProjectType : Serializable {
      *
      * @param project The MavenProject to ascertain compliance for this ProjectType.
      */
-    fun isCompliantWith(project: MavenProject): Boolean {
+    fun isCompliantWith(project: MavenProject, ignoredGroupIds : List<String>? = null): Boolean {
 
         return isCompliantGroupID(project.groupId) &&
                 isCompliantArtifactID(project.artifactId) &&
                 isCompliantPackaging(project.packaging)
     }
-}
 
-/**
- * Default ProjectType implementation which uses a [Regex] to determine if the groupID, artifactID
- * and packaging matches required presets.
- */
-open class DefaultProjectType(
+    companion object {
 
         /**
-         * The [Regex] to identify matching Aether GroupIDs for this [ProjectType]
+         * The set of [RegexOption]s permitting comments, ignoring case and permitting Canonical Equivalence.
          */
-        protected val groupIdRegex: Regex,
+        @JvmStatic
+        val STANDARD_REGEX_OPTIONS = setOf(
+          RegexOption.COMMENTS,
+          RegexOption.IGNORE_CASE,
+          RegexOption.CANON_EQ)
 
         /**
-         * The [Regex] to identify matching Aether ArtifactIDs for this [ProjectType]
+         * Convenience function to create a [Regex] from the supplied pattern and using
+         * [STANDARD_REGEX_OPTIONS] for options.
+         *
+         * @param pattern The regex pattern
          */
-        protected val artifactIdRegex: Regex,
+        @JvmStatic
+        fun getDefaultRegexFor(pattern: String?): Regex {
 
-        /**
-         * The [Regex] to identify matching Aether packaging for this [ProjectType]
-         */
-        protected val packagingRegex: Regex,
+            // Use clear, not clever, code.
+            // This could be written in shorter, but more difficult-to-read ways.
+            val effectivePattern = when(pattern == null) {
+                true -> ".*"
+                else -> pattern
+            }
 
-        /**
-         * Indicates if received [null]s should be accepted or rejected.
-         */
-        protected val acceptNullValues: Boolean = false) : ProjectType {
-
-    /**
-     * Convenience constructor using the pure String `Pattern`s instead of the full [Regex] objects.
-     *
-     * @see #getDefaultRegexFor
-     * @see #IGNORE_CASE_AND_COMMENTS
-     */
-    constructor(groupIdPattern: String? = null,
-                artifactIdPattern: String? = null,
-                packagingPattern: String? = null,
-                acceptNullValues: Boolean = false) : this(
-            getDefaultRegexFor(groupIdPattern),
-            getDefaultRegexFor(artifactIdPattern),
-            getDefaultRegexFor(packagingPattern),
-            acceptNullValues)
-
-    /**
-     * Default implementation validates that the received [artifactID] matches the [artifactIdRegex]
-     * or - if null - returns a value corresponding to the [acceptNullValues] constructor argument.
-     *
-     * @param artifactID The value of the `project.artifactID` element from a Maven POM.
-     * @return `true` if the artifactID is compliant with this ProjectType.
-     */
-    override fun isCompliantArtifactID(artifactID: String?): Boolean = when (artifactID) {
-        null -> acceptNullValues
-        else -> artifactIdRegex.matches(artifactID)
-    }
-
-    /**
-     * Default implementation validates that the received [groupID] matches the [groupIdRegex]
-     * or - if null - returns a value corresponding to the [acceptNullValues] constructor argument.
-     *
-     * @param groupID The value of the `project.groupId` element from a Maven POM.
-     * @return `true` if the groupID is compliant with this ProjectType.
-     */
-    override fun isCompliantGroupID(groupID: String?): Boolean = when (groupID) {
-        null -> acceptNullValues
-        else -> groupIdRegex.matches(groupID)
-    }
-
-    /**
-     * Default implementation validates that the received [packaging] matches the [packagingRegex]
-     * or - if null - returns a value corresponding to the [acceptNullValues] constructor argument.
-     *
-     * @param packaging The value of the `project.packaging` element from a Maven POM.
-     * @return `true` if the packaging is compliant with this ProjectType.
-     */
-    override fun isCompliantPackaging(packaging: String?): Boolean = when (packaging) {
-        null -> acceptNullValues
-        else -> packagingRegex.matches(packaging)
-    }
-
-    /**
-     * Packages a representation for this ProjectType, including its regular expressions.
-     */
-    override fun toString(): String {
-        return "[ProjectType: ${javaClass.name}] - GroupIdRegex: ${groupIdRegex.pattern}, " +
-                "ArtifactIdRegex: ${artifactIdRegex.pattern}, " +
-                "PackagingRegex: ${packagingRegex.pattern}"
-    }
-
-    /**
-     * Validates equality by comparing the [Regex] members of both [DefaultProjectType] objects.
-     */
-    override fun equals(other: Any?): Boolean {
-
-        // Fail fast
-        if (this === other) return true
-        if (other !is DefaultProjectType) return false
-
-        // Delegate to internal state
-        if (groupIdRegex != other.groupIdRegex) return false
-        if (artifactIdRegex != other.artifactIdRegex) return false
-        if (packagingRegex != other.packagingRegex) return false
-        if (acceptNullValues != other.acceptNullValues) return false
-
-        return true
-    }
-
-    /**
-     * Simply delegates the hashCode to the internal [Regex] objects and the [acceptNullValues].
-     */
-    override fun hashCode(): Int {
-        var result = groupIdRegex.hashCode()
-        result = 31 * result + artifactIdRegex.hashCode()
-        result = 31 * result + packagingRegex.hashCode()
-        result = 31 * result + acceptNullValues.hashCode()
-        return result
+            // All Done.
+            return Regex(effectivePattern, STANDARD_REGEX_OPTIONS)
+        }
     }
 }

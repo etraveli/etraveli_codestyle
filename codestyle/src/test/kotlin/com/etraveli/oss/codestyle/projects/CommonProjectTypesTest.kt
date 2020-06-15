@@ -4,6 +4,8 @@
 
 package com.etraveli.oss.codestyle.projects
 
+import com.etraveli.oss.codestyle.projects.CommonProjectTypes.Companion.getProjectType
+import com.etraveli.oss.codestyle.projects.ProjectType.Companion.STANDARD_REGEX_OPTIONS
 import org.junit.Assert
 import org.junit.Test
 
@@ -135,7 +137,7 @@ class CommonProjectTypesTest {
     @Test
     fun validateApiProjectPatterns() {
 
-        val apiArtifactRegex = Regex(".*-api$", IGNORE_CASE_AND_COMMENTS)
+        val apiArtifactRegex = Regex(".*-api$", STANDARD_REGEX_OPTIONS)
         val result = apiArtifactRegex.matches("api-test")
         Assert.assertFalse("nopes: $result", result)
 

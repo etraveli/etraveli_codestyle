@@ -1,23 +1,18 @@
 /*
  * Copyright (c) Seat24 AB
  */
-@file:JvmName("CorrectPackagingRules")
 
 package com.etraveli.oss.codestyle.projects.enforcer
 
+import com.etraveli.oss.codestyle.projects.extractor.JavaPackageExtractor
+import com.etraveli.oss.codestyle.projects.extractor.KotlinPackageExtractor
+import com.etraveli.oss.codestyle.projects.extractor.PackageExtractor
 import org.apache.maven.enforcer.rule.api.EnforcerLevel
 import org.apache.maven.enforcer.rule.api.EnforcerRuleHelper
 import org.apache.maven.project.MavenProject
 import java.io.File
 import java.io.FileFilter
 import java.util.*
-
-private val DIRECTORY_FILTER = FileFilter { candidate -> candidate.isDirectory }
-
-/**
- * The default List of PackageExtractors used to identify packages within found source files.
- */
-val DEFAULT_PACKAGE_EXTRACTORS = listOf(JavaPackageExtractor(), KotlinPackageExtractor())
 
 /**
  * Enforcer rule to enforce correct packaging for all source files within a project.
@@ -178,5 +173,17 @@ open class CorrectPackagingRule(lvl: EnforcerLevel = EnforcerLevel.ERROR,
                 }
             }
         }
+    }
+
+    companion object {
+
+        @JvmStatic
+        private val DIRECTORY_FILTER = FileFilter { candidate -> candidate.isDirectory }
+
+        /**
+         * The default List of PackageExtractors used to identify packages within found source files.
+         */
+        @JvmStatic
+        val DEFAULT_PACKAGE_EXTRACTORS = listOf(JavaPackageExtractor(), KotlinPackageExtractor())
     }
 }

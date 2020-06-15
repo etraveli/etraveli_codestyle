@@ -2,8 +2,10 @@
  * Copyright (c) Seat24 AB
  */
 
-package com.etraveli.oss.codestyle.projects.enforcer
+package com.etraveli.oss.codestyle.projects.enforcer.com.etraveli.oss.codestyle.projects.extractor
 
+import com.etraveli.oss.codestyle.projects.extractor.AbstractPackageExtractor
+import com.etraveli.oss.codestyle.projects.extractor.JavaPackageExtractor
 import org.junit.Assert
 import org.junit.Test
 import java.io.File
@@ -103,7 +105,7 @@ class JavaPackageExtractorTest {
     // Private helpers
     //
 
-    fun getRegexFrom(packageExtractor: AbstractSimplePackageExtractor): Regex {
+    fun getRegexFrom(packageExtractor: AbstractPackageExtractor): Regex {
 
         val propName = "packageRegEx"
         val props = packageExtractor::class.declaredMemberProperties.filter { it.name == propName }

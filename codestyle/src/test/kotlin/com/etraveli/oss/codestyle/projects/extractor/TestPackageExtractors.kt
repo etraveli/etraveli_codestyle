@@ -2,8 +2,9 @@
  * Copyright (c) Seat24 AB
  */
 
-package com.etraveli.oss.codestyle.projects.enforcer
+package com.etraveli.oss.codestyle.projects.enforcer.com.etraveli.oss.codestyle.projects.extractor
 
+import com.etraveli.oss.codestyle.projects.extractor.PackageExtractor
 import java.io.File
 import java.io.FileFilter
 

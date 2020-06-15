@@ -1,124 +1,12 @@
 /*
  * Copyright (c) Seat24 AB
  */
-@file:JvmMultifileClass
-@file:JvmName("ProjectTypes")
-
 package com.etraveli.oss.codestyle.projects
 
 import org.apache.maven.artifact.Artifact
 import org.apache.maven.model.Dependency
 import org.apache.maven.project.MavenProject
-
-/**
- * Acquires the ProjectType instance for the provided internal Artifact, or throws an
- * IllegalArgumentException holding an exception message if a ProjectType could not be
- * found for the provided [Artifact].
- *
- * @param anArtifact The Maven Artifact for which a [CommonProjectTypes] object should be retrieved.
- * @return The [ProjectType] corresponding to the given [Artifact].
- * @throws IllegalArgumentException if [anArtifact] did not match any [CommonProjectTypes]
- */
-@Throws(IllegalArgumentException::class)
-fun getProjectType(anArtifact: Artifact): CommonProjectTypes {
-
-    val matches = CommonProjectTypes
-            .values()
-            .filter {
-                it.isCompliantArtifactID(anArtifact.artifactId) &&
-                        it.isCompliantGroupID(anArtifact.groupId) &&
-                        it.isCompliantPackaging(anArtifact.type)
-            }
-
-    val errorPrefix = "Incorrect Artifact type definition for [${anArtifact.groupId} :: " +
-            "${anArtifact.artifactId} :: ${anArtifact.version} ]: "
-
-    // Check sanity
-    if (matches.isEmpty()) {
-        throw IllegalArgumentException("$errorPrefix Not matching any CommonProjectTypes.")
-    }
-    if (matches.size > 1) {
-        throw IllegalArgumentException("$errorPrefix Matching several project types ($matches).")
-    }
-
-    // All done.
-    return matches[0]
-}
-
-/**
- * Acquires the ProjectType instance for the provided MavenProject,
- * or throws an IllegalArgumentException holding an exception message
- * if a ProjectType could not be found for the provided MavenProject.
- *
- * @param project The MavenProject to classify.
- * @return The corresponding ProjectType.
- * @throws IllegalArgumentException if the given project could not be mapped to a [single] ProjectType.
- * The exception message holds
- */
-@Throws(IllegalArgumentException::class)
-fun getProjectType(project: MavenProject): CommonProjectTypes {
-
-    val matches = CommonProjectTypes
-            .values()
-            .filter {
-                it.isCompliantArtifactID(project.artifactId) &&
-                        it.isCompliantGroupID(project.groupId) &&
-                        it.isCompliantPackaging(project.packaging)
-            }
-
-    val errorPrefix = "Incorrect project type definition for [${project.groupId} " +
-            ":: ${project.artifactId} :: ${project.version}]: "
-
-    // Check sanity
-    if (matches.isEmpty()) {
-        throw IllegalArgumentException("$errorPrefix Not matching any CommonProjectTypes.")
-    }
-    if (matches.size > 1) {
-        throw IllegalArgumentException("$errorPrefix Matching several project types ($matches).")
-    }
-
-    // Validate the internal requirements for the two different pom projects.
-    val toReturn = matches[0]
-    when (toReturn) {
-
-        CommonProjectTypes.PARENT, CommonProjectTypes.ASSEMBLY ->
-
-            // This project should not contain modules.
-            if (project.modules != null && !project.modules.isEmpty()) {
-                throw IllegalArgumentException("${toReturn.name} projects may not contain " +
-                                                       "module definitions. (Modules are reserved for reactor projects).")
-            }
-
-        CommonProjectTypes.REACTOR, CommonProjectTypes.BILL_OF_MATERIALS -> {
-
-            val errorText = "${toReturn.name} projects may not contain " +
-                    "dependency [incl. Management] definitions. (Dependencies should be defined " +
-                    "within parent projects)."
-
-            fun containsElements(depList: List<Dependency>?): Boolean = depList != null && !depList.isEmpty()
-
-            // This project not contain Dependency definitions.
-            if (containsElements(project.dependencies)) {
-                throw IllegalArgumentException(errorText)
-            }
-
-            // This kind of project should not contain DependencyManagement definitions.
-            val dependencyManagement = project.dependencyManagement
-            if (dependencyManagement != null && containsElements(dependencyManagement.dependencies)) {
-                throw IllegalArgumentException(errorText)
-            }
-        }
-
-        else -> {
-
-            // Do nothing:
-            // No action should be taken for other project types.
-        }
-    }
-
-    // All done.
-    return toReturn
-}
+import java.util.regex.Pattern
 
 /**
  * Commonly known and used ProjectTypes, collected within an enum.
@@ -265,13 +153,42 @@ enum class CommonProjectTypes(artifactIdPattern: String?,
     /**
      * Special handling to separate PARENT, REACTOR and ASSEMBLY pom types.
      */
-    override fun isCompliantWith(project: MavenProject): Boolean {
+    override fun isCompliantWith(project: MavenProject, ignoredGroupIds : List<String>?): Boolean {
 
         // First, check standard compliance.
-        val standardCompliance = super.isCompliantWith(project)
+        val standardCompliance = super.isCompliantWith(project, ignoredGroupIds)
 
         // Define a helper function
-        fun containsElements(depList: List<Dependency>?): Boolean = depList != null && !depList.isEmpty()
+        fun containsNonIgnoredElements(depList: List<Dependency>?): Boolean {
+
+            if(depList == null || depList.isEmpty()) {
+                return false;
+            }
+
+            // Any of the dependencies non-ignored?
+            val ignoreRegexp = ignoredGroupIds?.map { ProjectType.getDefaultRegexFor(it) }?.toList()
+
+            println("=== [${ignoreRegexp?.size?:0}] CompiledIgnorePatterns: $ignoreRegexp")
+
+            return when(ignoreRegexp == null) {
+                true -> true
+                else -> {
+
+                    val foundAtLeastOneNonIgnoredMatch = depList.map { aDependency ->
+                        ignoreRegexp.any { pattern ->
+
+                            val match = pattern.matches(aDependency.groupId.trim())
+                            println("=== GroupID: [${aDependency.groupId}] matches [${pattern.pattern}]: $match")
+
+                            match
+                        }
+                    }.any { it }
+
+                    println("=== Found at least 1 non-ignored GroupID match: $foundAtLeastOneNonIgnoredMatch")
+                    foundAtLeastOneNonIgnoredMatch
+                }
+            }
+        }
 
         // All Done.
         return standardCompliance && when (this) {
@@ -279,28 +196,28 @@ enum class CommonProjectTypes(artifactIdPattern: String?,
             BILL_OF_MATERIALS -> {
 
                 // This project not contain Dependency definitions.
-                val hasNoDependencies = !containsElements(project.dependencies)
+                val hasNoRelevantDependencies = !containsNonIgnoredElements(project.dependencies)
 
                 // This project *should* contain DependencyManagement definitions.
                 val hasDependencyManagementDefinitions = project.dependencyManagement != null
-                        && containsElements(project.dependencyManagement.dependencies)
+                        && containsNonIgnoredElements(project.dependencyManagement.dependencies)
 
                 // All Done.
-                hasNoDependencies && hasDependencyManagementDefinitions
+                hasNoRelevantDependencies && hasDependencyManagementDefinitions
             }
 
             REACTOR -> {
 
                 // This project not contain Dependency definitions.
-                val hasNoDependencies = !containsElements(project.dependencies)
+                val hasNoRelevantDependencies = !containsNonIgnoredElements(project.dependencies)
 
                 // This kind of project should not contain DependencyManagement definitions.
                 val dependencyManagement = project.dependencyManagement
                 val hasNoManagementDependencies = dependencyManagement == null
-                        || !containsElements(dependencyManagement.dependencies)
+                        || !containsNonIgnoredElements(dependencyManagement.dependencies)
 
                 // All Done.
-                hasNoDependencies && hasNoManagementDependencies
+                hasNoRelevantDependencies && hasNoManagementDependencies
             }
             PARENT, ASSEMBLY -> {
 
@@ -308,6 +225,137 @@ enum class CommonProjectTypes(artifactIdPattern: String?,
                 project.modules.isEmpty()
             }
             else -> true
+        }
+    }
+
+    companion object {
+
+        /**
+         * Acquires the ProjectType instance for the provided internal Artifact, or throws an
+         * IllegalArgumentException holding an exception message if a ProjectType could not be
+         * found for the provided [Artifact].
+         *
+         * @param anArtifact The Maven Artifact for which a [CommonProjectTypes] object should be retrieved.
+         * @return The [ProjectType] corresponding to the given [Artifact].
+         * @throws IllegalArgumentException if [anArtifact] did not match any [CommonProjectTypes]
+         */
+        @JvmStatic
+        @Throws(IllegalArgumentException::class)
+        fun getProjectType(anArtifact: Artifact): CommonProjectTypes {
+
+            val matches = CommonProjectTypes
+              .values()
+              .filter {
+                  it.isCompliantArtifactID(anArtifact.artifactId) &&
+                    it.isCompliantGroupID(anArtifact.groupId) &&
+                    it.isCompliantPackaging(anArtifact.type)
+              }
+
+            val errorPrefix = "Incorrect Artifact type definition for [${anArtifact.groupId} :: " +
+              "${anArtifact.artifactId} :: ${anArtifact.version} ]: "
+
+            // Check sanity
+            if (matches.isEmpty()) {
+                throw IllegalArgumentException("$errorPrefix Not matching any CommonProjectTypes.")
+            }
+            if (matches.size > 1) {
+                throw IllegalArgumentException("$errorPrefix Matching several project types ($matches).")
+            }
+
+            // All done.
+            return matches[0]
+        }
+
+        /**
+         * Acquires the ProjectType instance for the provided MavenProject,
+         * or throws an IllegalArgumentException holding an exception message
+         * if a ProjectType could not be found for the provided MavenProject.
+         *
+         * @param project The MavenProject to classify.
+         * @return The corresponding ProjectType.
+         * @throws IllegalArgumentException if the given project could not be mapped to a [single] ProjectType.
+         * The exception message holds
+         */
+        @Throws(IllegalArgumentException::class)
+        @JvmStatic
+        @JvmOverloads
+        fun getProjectType(project: MavenProject, ignorePatterns: List<String> = emptyList()): CommonProjectTypes {
+
+            val matches = CommonProjectTypes
+              .values()
+              .filter {
+                  it.isCompliantArtifactID(project.artifactId) &&
+                    it.isCompliantGroupID(project.groupId) &&
+                    it.isCompliantPackaging(project.packaging)
+              }
+
+            val errorPrefix = "Incorrect project type definition for [${project.groupId} " +
+              ":: ${project.artifactId} :: ${project.version}]: "
+
+            // Check sanity
+            if (matches.isEmpty()) {
+                throw IllegalArgumentException("$errorPrefix Not matching any CommonProjectTypes.")
+            }
+            if (matches.size > 1) {
+                throw IllegalArgumentException("$errorPrefix Matching several project types ($matches).")
+            }
+
+            // Validate the internal requirements for the two different pom projects.
+            val toReturn = matches[0]
+            when (toReturn) {
+
+                CommonProjectTypes.PARENT, CommonProjectTypes.ASSEMBLY ->
+
+                    // This project should not contain modules.
+                    if (project.modules != null && project.modules.isNotEmpty()) {
+                        throw IllegalArgumentException("${toReturn.name} projects may not contain " +
+                                                         "module definitions. (Modules are reserved for reactor projects).")
+                    }
+
+                CommonProjectTypes.REACTOR, CommonProjectTypes.BILL_OF_MATERIALS -> {
+
+                    val errorText = "${toReturn.name} projects may not contain " +
+                      "dependency [incl. Management] definitions. (Dependencies should be defined " +
+                      "within parent projects)."
+
+                    fun containsNonIgnoredElements(depList: List<Dependency>?): Boolean {
+
+                        if(depList == null || depList.isEmpty()) {
+                            return false;
+                        }
+
+                        // Any of the dependencies non-ignored?
+                        val compiledIgnorePatterns = ignorePatterns.map { Pattern.compile(it) }.toList()
+
+                        return depList.map { aDependency ->
+                            compiledIgnorePatterns.any { pattern ->
+                                pattern.matcher(aDependency.groupId)
+                                  .matches()
+                            }
+                        }.any { !it }
+                    }
+
+                    // This project not contain Dependency definitions.
+                    if (containsNonIgnoredElements(project.dependencies)) {
+                        throw IllegalArgumentException(errorText)
+                    }
+
+                    // This kind of project should not contain DependencyManagement definitions.
+                    val dependencyManagement = project.dependencyManagement
+                    if (dependencyManagement != null && containsNonIgnoredElements(dependencyManagement.dependencies)) {
+                        throw IllegalArgumentException(errorText)
+                    }
+                }
+
+                else -> {
+
+                    // Do nothing:
+                    // No action should be taken for other project types.
+                }
+            }
+
+            // All done.
+            return toReturn
         }
     }
 }

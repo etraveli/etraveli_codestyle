@@ -4,1155 +4,1158 @@
   -->
 
 <!--suppress MavenRedundantGroupId -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <!--
+  ################################################
+  # Section 1:  Project information
+  ################################################
+  -->
+  <parent>
+    <groupId>org.sonatype.oss</groupId>
+    <artifactId>oss-parent</artifactId>
+    <version>9</version>
+    <relativePath/>
+  </parent>
+
+  <groupId>com.etraveli.oss.codestyle.poms.kotlin</groupId>
+  <artifactId>etraveli-codestyle-kotlin-internal-parent</artifactId>
+  <version>0.9.8-SNAPSHOT</version>
+  <name>${project.artifactId}</name>
+  <packaging>pom</packaging>
+  <url>${site.top.url}/${path.in.reactor}</url>
+  <description>Etraveli Codestyle: Kotlin Internal Parent (${project.packaging}, version ${project.version})
+  </description>
+  <inceptionYear>2018</inceptionYear>
+
+  <organization>
+    <name>Etraveli</name>
+    <url>http://www.etraveli.com/</url>
+  </organization>
+
+  <licenses>
+    <license>
+      <name>Seat24 Travel Corporate Open Source License, based on The Apache Software License, Version 2.0</name>
+      <url>http://www.seat24.se/tech/licenses/seat24CorporateOpenSourceLicense-2.0.txt</url>
+      <distribution>repo</distribution>
+      <comments>A business-friendly OSS license</comments>
+    </license>
+  </licenses>
+
+  <repositories>
+    <repository>
+      <id>jcenter</id>
+      <url>http://jcenter.bintray.com</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <releases>
+        <enabled>true</enabled>
+        <checksumPolicy>warn</checksumPolicy>
+      </releases>
+    </repository>
+  </repositories>
+  <pluginRepositories>
+    <pluginRepository>
+      <id>jcenter</id>
+      <name>jcenter</name>
+      <url>http://jcenter.bintray.com</url>
+    </pluginRepository>
+  </pluginRepositories>
+
+  <properties>
+    <!--
+        Define the URL prefixes for Site Deployment and DistributionManagement.
+        These can be overridden in sub-reactors to tailor releases to other locations.
+    -->
+    <reactor.name>etraveli_codestyle</reactor.name>
+    <path.in.reactor>poms/kotlin/kotlin-internal-parent</path.in.reactor>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+    <!-- Kotlin constants -->
+    <kotlin.version>1.3.72</kotlin.version>
+    <kotlin.jvm.target>1.8</kotlin.jvm.target>
+
+    <!-- Define code-breaking constants -->
+    <breakOnFailure.checkstyle>true</breakOnFailure.checkstyle>
+    <breakOnFailure.pmd>true</breakOnFailure.pmd>
+    <breakOnFailure.enforcer>true</breakOnFailure.enforcer>
+    <breakOnFailure.license>true</breakOnFailure.license>
+    <release.skipGpgSigning>true</release.skipGpgSigning>
 
     <!--
-    ################################################
-    # Section 1:  Project information
-    ################################################
+        Define URL prefixes used in the various URL settings of the POM.
     -->
-    <parent>
-        <groupId>org.sonatype.oss</groupId>
-        <artifactId>oss-parent</artifactId>
-        <version>9</version>
-        <relativePath />
-    </parent>
+    <git.repo.owner>etraveli</git.repo.owner>
+    <git.repo.url.prefix>https://github.com/${git.repo.owner}</git.repo.url.prefix>
+    <git.scm.url.prefix>scm:git:ssh://git@github.com/${git.repo.owner}</git.scm.url.prefix>
+    <site.url.prefix>http://${git.repo.owner}.github.io</site.url.prefix>
+    <site.top.url>${site.url.prefix}/${reactor.name}/Documentation/${project.version}</site.top.url>
 
-    <groupId>com.etraveli.oss.codestyle.poms.kotlin</groupId>
-    <artifactId>etraveli-codestyle-kotlin-internal-parent</artifactId>
-    <version>0.9.8-SNAPSHOT</version>
-    <name>${project.artifactId}</name>
-    <packaging>pom</packaging>
-    <url>${site.top.url}/${path.in.reactor}</url>
-    <description>Etraveli Codestyle: Kotlin Internal Parent (${project.packaging}, version ${project.version})
-    </description>
-    <inceptionYear>2018</inceptionYear>
+    <scm.connection.url>scm:git:${git.repo.url.prefix}/${reactor.name}.git</scm.connection.url>
+    <scm.devConnection.url>${git.scm.url.prefix}/${reactor.name}.git</scm.devConnection.url>
+    <distroManagement.url>${site.top.url}/${path.in.reactor}</distroManagement.url>
+    <scm.url>${git.repo.url.prefix}/${reactor.name}.git</scm.url>
+    <site.staging.localDirectory>/tmp/${reactor.name}</site.staging.localDirectory>
 
-    <organization>
-        <name>Etraveli</name>
-        <url>http://www.etraveli.com/</url>
-    </organization>
+    <maven.version>3.0</maven.version>
+    <enforcer.api.version>1.4.1</enforcer.api.version>
+    <jdk.version>1.8</jdk.version>
+    <javaee-api.version>8.0</javaee-api.version>
+    <validation-api.version>1.1.0.Final</validation-api.version>
+    <maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
 
-    <licenses>
-        <license>
-            <name>Seat24 Travel Corporate Open Source License, based on The Apache Software License, Version 2.0</name>
-            <url>http://www.seat24.se/tech/licenses/seat24CorporateOpenSourceLicense-2.0.txt</url>
-            <distribution>repo</distribution>
-            <comments>A business-friendly OSS license</comments>
-        </license>
-    </licenses>
+    <!-- Commonly controlled version properties -->
+    <aspectj.runtime.version>1.8.13</aspectj.runtime.version>
+    <aspectj-maven-plugin.version>1.11</aspectj-maven-plugin.version>
+    <osgi.version>6.0.0</osgi.version>
+    <slf4j.version>1.7.25</slf4j.version>
+    <logback.version>1.2.3</logback.version>
+    <logback.logstash.version>5.1</logback.logstash.version>
+    <xmlunit.version>2.6.0</xmlunit.version>
+    <jaxb2-maven-plugin.version>2.3.1</jaxb2-maven-plugin.version>
+    <jaxb-api.version>2.3.1</jaxb-api.version>
+    <depgraph-maven-plugin.version>3.3.0</depgraph-maven-plugin.version>
+    <depgraph.printStyleConfiguration>false</depgraph.printStyleConfiguration>
 
-    <repositories>
-        <repository>
-            <id>jcenter</id>
-            <url>http://jcenter.bintray.com</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <releases>
-                <enabled>true</enabled>
-                <checksumPolicy>warn</checksumPolicy>
-            </releases>
-        </repository>
-    </repositories>
-    <pluginRepositories>
-        <pluginRepository>
-            <id>jcenter</id>
-            <name>jcenter</name>
-            <url>http://jcenter.bintray.com</url>
-        </pluginRepository>
-    </pluginRepositories>
+    <!-- Code style properties -->
+    <pmd.plugin.version>3.13.0</pmd.plugin.version>
+    <clover.plugin.version>4.3.0</clover.plugin.version>
+    <spotbugs.plugin.version>3.1.6</spotbugs.plugin.version>
+    <checkstyle.plugin.version>3.1.1</checkstyle.plugin.version>
+    <checkstyle.header.java.file>codestyle/copyright/header_java.txt</checkstyle.header.java.file>
+    <clean.plugin.version>2.6.1</clean.plugin.version>
 
-    <properties>
-        <!--
-            Define the URL prefixes for Site Deployment and DistributionManagement.
-            These can be overridden in sub-reactors to tailor releases to other locations.
-        -->
-        <reactor.name>etraveli_codestyle</reactor.name>
-        <path.in.reactor>poms/kotlin/kotlin-internal-parent</path.in.reactor>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <!-- Enforcer configuration parameters -->
+    <enforcer.version>3.0.0-M3</enforcer.version>
+    <enforcer.includedGroupIdPatterns>^com\\.etraveli\\..*</enforcer.includedGroupIdPatterns>
+    <enforcer.excludedGroupIdPatterns>^com\\.etraveli\\..*\\.generated\\..*,^com\\.etraveli\\.oss\\.codestyle\\..*</enforcer.excludedGroupIdPatterns>
 
-        <!-- Kotlin constants -->
-        <kotlin.version>1.3.72</kotlin.version>
-        <kotlin.jvm.target>1.8</kotlin.jvm.target>
+    <!-- Surefire configuration parameters. -->
+    <surefire.memconf>-Xmx1024m</surefire.memconf>
+    <surefire.argLine>${surefire.memconf}</surefire.argLine>
+    <surefire.plugin.version>2.20.1</surefire.plugin.version>
 
-        <!-- Define code-breaking constants -->
-        <breakOnFailure.checkstyle>true</breakOnFailure.checkstyle>
-        <breakOnFailure.pmd>true</breakOnFailure.pmd>
-        <breakOnFailure.enforcer>true</breakOnFailure.enforcer>
-        <breakOnFailure.license>true</breakOnFailure.license>
-        <release.skipGpgSigning>true</release.skipGpgSigning>
+    <!-- Site plugin properties -->
+    <maven-project-info-reports-plugin.version>3.0.0</maven-project-info-reports-plugin.version>
+    <maven-site-plugin.version>3.8.2</maven-site-plugin.version>
+    <doxia-modules.version>1.8</doxia-modules.version>
+    <wagon-modules.version>2.10</wagon-modules.version>
+    <versions-maven-plugin.version>2.7</versions-maven-plugin.version>
+  </properties>
 
-        <!--
-            Define URL prefixes used in the various URL settings of the POM.
-        -->
-        <git.repo.owner>etraveli</git.repo.owner>
-        <git.repo.url.prefix>https://github.com/${git.repo.owner}</git.repo.url.prefix>
-        <git.scm.url.prefix>scm:git:ssh://git@github.com/${git.repo.owner}</git.scm.url.prefix>
-        <site.url.prefix>http://${git.repo.owner}.github.io</site.url.prefix>
-        <site.top.url>${site.url.prefix}/${reactor.name}/Documentation/${project.version}</site.top.url>
+  <developers>
+    <developer>
+      <id>lj</id>
+      <name>Lennart Jörelid</name>
+      <email>lennart.jorelid@etraveli.com</email>
+      <roles>
+        <role>Committer</role>
+      </roles>
+      <organization>Etraveli</organization>
+      <organizationUrl>http://www.etraveli.com</organizationUrl>
+      <timezone>+1</timezone>
+    </developer>
+  </developers>
 
-        <scm.connection.url>scm:git:${git.repo.url.prefix}/${reactor.name}.git</scm.connection.url>
-        <scm.devConnection.url>${git.scm.url.prefix}/${reactor.name}.git</scm.devConnection.url>
-        <distroManagement.url>${site.top.url}/${path.in.reactor}</distroManagement.url>
-        <scm.url>${git.repo.url.prefix}/${reactor.name}.git</scm.url>
-        <site.staging.localDirectory>/tmp/${reactor.name}</site.staging.localDirectory>
+  <!--
+  ################################################
+  # Section 2:  Dependency (management) settings
+  ################################################
+  -->
 
-        <maven.version>3.0</maven.version>
-        <enforcer.api.version>1.4.1</enforcer.api.version>
-        <jdk.version>1.8</jdk.version>
-        <javaee-api.version>8.0</javaee-api.version>
-        <validation-api.version>1.1.0.Final</validation-api.version>
-        <maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
-
-        <!-- Commonly controlled version properties -->
-        <aspectj.runtime.version>1.8.13</aspectj.runtime.version>
-        <aspectj-maven-plugin.version>1.11</aspectj-maven-plugin.version>
-        <osgi.version>6.0.0</osgi.version>
-        <slf4j.version>1.7.25</slf4j.version>
-        <logback.version>1.2.3</logback.version>
-        <logback.logstash.version>5.1</logback.logstash.version>
-        <xmlunit.version>2.6.0</xmlunit.version>
-        <jaxb2-maven-plugin.version>2.3.1</jaxb2-maven-plugin.version>
-        <jaxb-api.version>2.3.1</jaxb-api.version>
-        <depgraph-maven-plugin.version>3.3.0</depgraph-maven-plugin.version>
-        <depgraph.printStyleConfiguration>false</depgraph.printStyleConfiguration>
-
-        <!-- Code style properties -->
-        <pmd.plugin.version>3.13.0</pmd.plugin.version>
-        <clover.plugin.version>4.3.0</clover.plugin.version>
-        <spotbugs.plugin.version>3.1.6</spotbugs.plugin.version>
-        <checkstyle.plugin.version>3.1.1</checkstyle.plugin.version>
-        <checkstyle.header.java.file>codestyle/copyright/header_java.txt</checkstyle.header.java.file>
-        <clean.plugin.version>2.6.1</clean.plugin.version>
-
-        <!-- Enforcer configuration parameters -->
-        <enforcer.version>3.0.0-M3</enforcer.version>
-        <enforcer.includedGroupIdPatterns>^com\\.etraveli\\..*</enforcer.includedGroupIdPatterns>
-        <enforcer.excludedGroupIdPatterns>^com\\.etraveli\\..*\\.generated\\..*,^com\\.etraveli\\.codestyle\\..*</enforcer.excludedGroupIdPatterns>
-
-        <!-- Surefire configuration parameters. -->
-        <surefire.memconf>-Xmx1024m</surefire.memconf>
-        <surefire.argLine>${surefire.memconf}</surefire.argLine>
-        <surefire.plugin.version>2.20.1</surefire.plugin.version>
-
-        <!-- Site plugin properties -->
-        <maven-project-info-reports-plugin.version>3.0.0</maven-project-info-reports-plugin.version>
-        <maven-site-plugin.version>3.8.2</maven-site-plugin.version>
-        <doxia-modules.version>1.8</doxia-modules.version>
-        <wagon-modules.version>2.10</wagon-modules.version>
-        <versions-maven-plugin.version>2.7</versions-maven-plugin.version>
-    </properties>
-
-    <developers>
-        <developer>
-            <id>lj</id>
-            <name>Lennart Jörelid</name>
-            <email>lennart.jorelid@etraveli.com</email>
-            <roles>
-                <role>Committer</role>
-            </roles>
-            <organization>Etraveli</organization>
-            <organizationUrl>http://www.etraveli.com</organizationUrl>
-            <timezone>+1</timezone>
-        </developer>
-    </developers>
-
+  <dependencies>
     <!--
-    ################################################
-    # Section 2:  Dependency (management) settings
-    ################################################
+        Always have the Codestyle Annotations available.
     -->
+    <dependency>
+      <groupId>com.etraveli.oss.codestyle.annotations</groupId>
+      <artifactId>etraveli-codestyle-annotations</artifactId>
+      <version>0.9.8-SNAPSHOT</version>
+    </dependency>
+  </dependencies>
 
-    <dependencies>
+  <!--
+  ################################################
+  # Section 3:  Build settings
+  ################################################
+  -->
+  <build>
+    <!-- We use kotlin only here. -->
+    <sourceDirectory>src/main/kotlin</sourceDirectory>
+    <testSourceDirectory>src/test/kotlin</testSourceDirectory>
+
+    <pluginManagement>
+      <plugins>
+
         <!--
-            Always have the Codestyle Annotations available.
+            Provides Plantuml integration into site deployments.
+
+            Why:  Convert Plantuml documents to png images.
+            Used: Site lifecycle, mvn site.
         -->
-        <dependency>
-            <groupId>com.etraveli.oss.codestyle.annotations</groupId>
-            <artifactId>etraveli-codestyle-annotations</artifactId>
-            <version>0.9.8-SNAPSHOT</version>
-        </dependency>
-    </dependencies>
+        <plugin>
+          <groupId>com.github.jeluard</groupId>
+          <artifactId>plantuml-maven-plugin</artifactId>
+          <version>7954</version>
+          <configuration>
+            <sourceFiles>
+              <directory>${basedir}</directory>
+              <includes>
+                <include>src/site/**/*.puml</include>
+              </includes>
+            </sourceFiles>
+            <outputDirectory>${project.build.directory}/site/images/plantuml</outputDirectory>
+          </configuration>
+          <executions>
+            <execution>
+              <id>generate-plantuml-diagrams</id>
+              <goals>
+                <goal>generate</goal>
+              </goals>
+              <phase>pre-site</phase>
+            </execution>
+          </executions>
+          <dependencies>
+            <!--
+                NOTE!
 
-    <!--
-    ################################################
-    # Section 3:  Build settings
-    ################################################
-    -->
-    <build>
-        <!-- We use kotlin only here. -->
-        <sourceDirectory>src/main/kotlin</sourceDirectory>
-        <testSourceDirectory>src/test/kotlin</testSourceDirectory>
+                Do not upgrade the plantuml dependency above version 8030, as those plantuml releases
+                are not binary compatible with the plugin version 7954.
+            -->
+            <dependency>
+              <groupId>net.sourceforge.plantuml</groupId>
+              <artifactId>plantuml</artifactId>
+              <version>8030</version>
+            </dependency>
+          </dependencies>
+        </plugin>
 
+        <!--
+            Extracts dependency information from the build into a property file within the artifact.
+
+            Why:  Plugin used to generate a META-INF/maven/dependencies.properties file within the artifact.
+            Used: In all projects; generate-resources phase.
+        -->
+        <plugin>
+          <groupId>org.apache.servicemix.tooling</groupId>
+          <artifactId>depends-maven-plugin</artifactId>
+          <version>1.4.0</version>
+        </plugin>
+
+        <!--
+            Up the version of the source plugin.
+
+            Why:  Use a newer source plugin version.
+            Used: Only when called, typically release profile.
+        -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-source-plugin</artifactId>
+          <version>3.2.1</version>
+        </plugin>
+
+        <!--
+            Use the latest maven-assembly-plugin.
+
+            Why:  Override the version in Maven's super pom.xml.
+            Used: Assembly
+        -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-assembly-plugin</artifactId>
+          <version>3.0.0</version>
+        </plugin>
+
+        <!--
+            Dependency graph generation plugin
+        -->
+        <plugin>
+          <groupId>com.github.ferstl</groupId>
+          <artifactId>depgraph-maven-plugin</artifactId>
+          <version>${depgraph-maven-plugin.version}</version>
+          <configuration>
+            <outputDirectory>${project.build.directory}/site/images</outputDirectory>
+            <outputFileName>dependency_graph</outputFileName>
+            <createImage>true</createImage>
+            <dotExecutable>${path.to.dot}</dotExecutable>
+            <showConflicts>true</showConflicts>
+            <showGroupIds>true</showGroupIds>
+            <showVersions>true</showVersions>
+            <printStyleConfiguration>${depgraph.printStyleConfiguration}</printStyleConfiguration>
+            <customStyleConfiguration>classpath:codestyle/depgraph-config.json</customStyleConfiguration>
+          </configuration>
+          <dependencies>
+            <dependency>
+              <groupId>com.etraveli.oss.codestyle</groupId>
+              <artifactId>etraveli-codestyle</artifactId>
+              <version>0.9.8-SNAPSHOT</version>
+            </dependency>
+          </dependencies>
+        </plugin>
+
+        <!--
+            Use a working version of the Maven versions plugin.
+
+            Why:  Workaround for https://jira.codehaus.org/browse/MVERSIONS-236
+            Used: Only when called.
+        -->
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>versions-maven-plugin</artifactId>
+          <version>${versions-maven-plugin.version}</version>
+        </plugin>
+
+        <!--
+            Upgrade the Compiler plugin to the latest version.
+
+            Why:  Use the latest compiler plugin version for upwards JDK compliance.
+            Used: For compiling all source code to binaries.
+        -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.7.0</version>
+          <configuration>
+            <source>${jdk.version}</source>
+            <target>${jdk.version}</target>
+            <showWarnings>true</showWarnings>
+            <showDeprecation>true</showDeprecation>
+            <encoding>UTF-8</encoding>
+          </configuration>
+        </plugin>
+
+        <!--
+            Ensure that the kotlin-maven-plugin uses the standard src/main/kotlin
+            and src/test/kotlin directories.
+
+            Why:  Ensures standard placement for Kotlin sources.
+            Used: Standard lifecycle, mvn compile / test-compile.
+        -->
+        <plugin>
+          <groupId>org.jetbrains.kotlin</groupId>
+          <artifactId>kotlin-maven-plugin</artifactId>
+          <version>${kotlin.version}</version>
+          <configuration>
+            <compilerPlugins>
+              <plugin>all-open</plugin>
+              <plugin>spring</plugin>
+              <plugin>no-arg</plugin>
+              <plugin>jpa</plugin>
+              <plugin>sam-with-receiver</plugin>
+            </compilerPlugins>
+            <pluginOptions>
+              <option>no-arg:annotation=com.etraveli.oss.codestyle.annotations.AddDefaultConstructor</option>
+              <option>spring:annotation=com.etraveli.oss.annotations.UsesSpringFramework</option>
+              <option>all-open:annotation=com.etraveli.oss.annotations.UseOpenMembers</option>
+              <option>sam-with-receiver:annotation=com.etraveli.oss.annotations.ReceiverIsThisInSingleAbstractMethod</option>
+              <!-- Call instance initializers in the synthetic constructor -->
+              <option>no-arg:invokeInitializers=true</option>
+            </pluginOptions>
+            <jvmTarget>${jdk.version}</jvmTarget>
+          </configuration>
+          <dependencies>
+            <dependency>
+              <groupId>org.jetbrains.kotlin</groupId>
+              <artifactId>kotlin-maven-noarg</artifactId>
+              <version>${kotlin.version}</version>
+            </dependency>
+            <dependency>
+              <groupId>org.jetbrains.kotlin</groupId>
+              <artifactId>kotlin-maven-allopen</artifactId>
+              <version>${kotlin.version}</version>
+            </dependency>
+            <dependency>
+              <groupId>org.jetbrains.kotlin</groupId>
+              <artifactId>kotlin-maven-sam-with-receiver</artifactId>
+              <version>${kotlin.version}</version>
+            </dependency>
+            <dependency>
+              <groupId>com.etraveli.oss.codestyle</groupId>
+              <artifactId>etraveli-codestyle</artifactId>
+              <version>0.9.8-SNAPSHOT</version>
+            </dependency>
+          </dependencies>
+        </plugin>
+
+        <!--
+            Define the version of the Surefire plugin
+
+            Why:  Ensure we have a recent enough surefire to use parallelism properly
+            When: Standard lifecycle, test phase
+        -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>2.22.0</version>
+          <configuration>
+            <argLine>${surefire.argLine}</argLine>
+            <parallelOptimized>true</parallelOptimized>
+            <workingDirectory>${basedir}/target/FORK_DIRECTORY_${surefire.forkNumber}</workingDirectory>
+            <redirectTestOutputToFile>true</redirectTestOutputToFile>
+          </configuration>
+        </plugin>
+
+        <!--
+            Define the version of the Failsafe plugin
+
+            Why:  Ensure we have a recent enough surefire to use parallelism properly
+            When: Standard lifecycle, integration-test phases
+        -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-failsafe-plugin</artifactId>
+          <version>2.22.0</version>
+          <configuration>
+            <argLine>${surefire.argLine}</argLine>
+            <parallelOptimized>true</parallelOptimized>
+            <workingDirectory>${basedir}/target/FAILSAFE_FORK_DIRECTORY_${surefire.forkNumber}
+            </workingDirectory>
+            <redirectTestOutputToFile>true</redirectTestOutputToFile>
+          </configuration>
+          <dependencies>
+            <dependency>
+              <groupId>org.apache.maven.surefire</groupId>
+              <artifactId>surefire-junit47</artifactId>
+              <version>2.22.0</version>
+            </dependency>
+          </dependencies>
+        </plugin>
+
+        <!--
+            Define OSGi bundle plugin version.
+
+            Why:  Plugin used to generate OSGi Manifest headers in JARs.
+            Used: As included in [sub]projects.
+        -->
+        <plugin>
+          <groupId>org.apache.felix</groupId>
+          <artifactId>maven-bundle-plugin</artifactId>
+          <version>4.2.1</version>
+          <configuration>
+            <supportedProjectTypes>
+              <supportedProjectType>ejb</supportedProjectType>
+              <supportedProjectType>jar</supportedProjectType>
+              <supportedProjectType>bundle</supportedProjectType>
+              <supportedProjectType>war</supportedProjectType>
+              <supportedProjectType>ear</supportedProjectType>
+            </supportedProjectTypes>
+            <instructions>
+              <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+              <Embed-Directory>osgi/embedded</Embed-Directory>
+              <_consumer-policy><![CDATA[$<range;[===,+)>]]></_consumer-policy>
+              <_provider-policy><![CDATA[$<range;[===,=+)>]]></_provider-policy>
+            </instructions>
+          </configuration>
+        </plugin>
+
+        <!--
+            Specify the version of the GPG plugin
+
+            Why:  Used to sign artifacts.
+            Used: To sign artifacts, using GPG.
+        -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-gpg-plugin</artifactId>
+          <version>1.6</version>
+          <configuration>
+            <skip>${release.skipGpgSigning}</skip>
+          </configuration>
+        </plugin>
+
+        <!--
+            Specify the version of the Deploy plugin
+
+            Why:  Used to deploy artifacts to repositories.
+            Used: To copy/upload artifacts to repos.
+        -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-deploy-plugin</artifactId>
+          <version>${maven-deploy-plugin.version}</version>
+          <configuration>
+            <updateReleaseInfo>true</updateReleaseInfo>
+          </configuration>
+          <executions>
+            <execution>
+              <id>default-deploy</id>
+              <phase>none</phase>
+            </execution>
+          </executions>
+        </plugin>
+
+        <!-- Enforce not importing incorrect projects. -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-enforcer-plugin</artifactId>
+          <version>${enforcer.version}</version>
+          <executions>
+            <execution>
+              <id>enforce-maven</id>
+              <goals>
+                <goal>enforce</goal>
+              </goals>
+              <phase>none</phase>
+            </execution>
+            <execution>
+              <id>enforce-correct-maven</id>
+              <goals>
+                <goal>enforce</goal>
+              </goals>
+              <phase>validate</phase>
+              <configuration combine.self="override">
+                <rules>
+                  <requireMavenVersion>
+                    <version>(,2.1.0),(2.1.0,2.2.0),(2.2.0,)</version>
+                    <message>Maven 2.1.0 and 2.2.0 produce incorrect GPG signatures and checksums
+                      respectively.
+                    </message>
+                  </requireMavenVersion>
+                </rules>
+              </configuration>
+            </execution>
+            <execution>
+              <id>enforce-imports</id>
+              <goals>
+                <goal>enforce</goal>
+              </goals>
+              <configuration>
+                <fail>${breakOnFailure.enforcer}</fail>
+                <rules>
+                  <requireMavenVersion>
+                    <version>[3.0.5,)</version>
+                  </requireMavenVersion>
+                  <requireJavaVersion>
+                    <version>${jdk.version}</version>
+                  </requireJavaVersion>
+                  <requireUpperBoundDeps/>
+
+                  <!--
+                      Enforce the ProjectType structure, implying that all projects
+                      must comply with the project template definitions.
+                  -->
+                  <validateProjectTypes
+                    implementation="com.etraveli.oss.codestyle.projects.enforcer.PermittedProjectTypeRule">
+                    <dontEvaluateGroupIds>${enforcer.excludedGroupIdPatterns}</dontEvaluateGroupIds>
+                  </validateProjectTypes>
+
+                  <!--
+                      Enforce the implementation rules for dependencies, to enforce that
+                      the level of dependency tanglement is not increased. This implies that
+                      implementation projects cannot import other implementation projects (but
+                      instead should import APIs).
+
+                      While the configuration below reflect the default settings, it is
+                      reproduced her to serve as an example of how to configure this enforcement rule
+                      in child reactors - where needs are likely different than here.
+                  -->
+                  <restrictImplDependencies
+                    implementation="com.etraveli.oss.codestyle.projects.enforcer.CorrectDependenciesRule">
+                    <evaluateGroupIds>${enforcer.includedGroupIdPatterns}</evaluateGroupIds>
+                    <dontEvaluateGroupIds>${enforcer.excludedGroupIdPatterns}</dontEvaluateGroupIds>
+                  </restrictImplDependencies>
+
+                  <!--
+                      Enforce using correct packages for classes within a NSC project.
+                      The root package of any project should be identical to its groupId.
+                      Any package below the root package can safely be used - so ...
+
+                      if the groupId of a project is "com.acme.foobar",
+                      then all code within that project must reside within the "com.acme.foobar" package,
+                      or in any subpackage thereof.
+                  -->
+                  <correctPackaging implementation="com.etraveli.oss.codestyle.projects.enforcer.CorrectPackagingRule"/>
+                </rules>
+              </configuration>
+            </execution>
+          </executions>
+          <dependencies>
+            <dependency>
+              <groupId>com.etraveli.oss.codestyle</groupId>
+              <artifactId>etraveli-codestyle</artifactId>
+              <version>0.9.8-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+              <groupId>org.apache.maven.enforcer</groupId>
+              <artifactId>enforcer-api</artifactId>
+              <version>${enforcer.version}</version>
+            </dependency>
+          </dependencies>
+        </plugin>
+
+        <!--
+            Configures the WAR plugin to properly use the generated OSGi-compliant manifest.
+
+            Why:  Assigns some manifest data within the WARs in WAR projects. Reads bundle-generated manifest.
+            Used: Standard lifecycle, mvn package.
+        -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-war-plugin</artifactId>
+          <version>3.2.2</version>
+          <configuration>
+            <archive>
+              <manifest>
+                <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+              </manifest>
+              <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+              <manifestEntries>
+                <name>${project.name}</name>
+                <description>${project.description}</description>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>${project.artifactId}</artifactId>
+              </manifestEntries>
+            </archive>
+          </configuration>
+        </plugin>
+
+      </plugins>
+    </pluginManagement>
+
+    <plugins>
+
+      <!--
+           Ensure that the kotlin-maven-plugin uses the standard src/main/kotlin
+           and src/test/kotlin directories.
+
+           Why:  Ensures standard placement for Kotlin sources.
+           Used: Standard lifecycle, mvn compile / test-compile.
+       -->
+      <plugin>
+        <groupId>org.jetbrains.kotlin</groupId>
+        <artifactId>kotlin-maven-plugin</artifactId>
+        <version>${kotlin.version}</version>
+        <executions>
+          <execution>
+            <id>compile</id>
+            <phase>compile</phase>
+            <goals>
+              <goal>compile</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>test-compile</id>
+            <phase>test-compile</phase>
+            <goals>
+              <goal>test-compile</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!--
+          Ensure that the compiler plugin ignores the Java directories.
+      -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <executions>
+          <!--
+              Replacing default-compile as it is treated specially by maven
+           -->
+          <execution>
+            <id>default-compile</id>
+            <phase>none</phase>
+          </execution>
+          <!--
+              Replacing default-testCompile as it is treated specially by maven
+           -->
+          <execution>
+            <id>default-testCompile</id>
+            <phase>none</phase>
+          </execution>
+          <execution>
+            <id>java-compile</id>
+            <phase>compile</phase>
+            <goals>
+              <goal>compile</goal>
+            </goals>
+            <!-- configuration>
+                <compileSourceRoots>
+                    <sourceRoot>src/main/java</sourceRoot>
+                    <sourceRoot>src/main/kotlin</sourceRoot>
+                </compileSourceRoots>
+            </configuration -->
+          </execution>
+          <execution>
+            <id>java-test-compile</id>
+            <phase>test-compile</phase>
+            <goals>
+              <goal>testCompile</goal>
+            </goals>
+            <!-- configuration>
+                <compileSourceRoots>
+                    <sourceRoot>src/main/java</sourceRoot>
+                    <sourceRoot>src/main/kotlin</sourceRoot>
+                </compileSourceRoots>
+            </configuration -->
+          </execution>
+        </executions>
+      </plugin>
+
+      <!--
+          Configures the site plugin. Its use is further documented in the site documentation itself.
+
+          Why:  Make compile and publish the Codestyle documentation.
+          Used: Site lifecycle, mvn site.
+      -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-site-plugin</artifactId>
+        <version>${maven-site-plugin.version}</version>
+        <executions>
+          <execution>
+            <id>attach-descriptor</id>
+            <phase>package</phase>
+            <goals>
+              <goal>attach-descriptor</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>default-deploy</id>
+            <phase>site-deploy</phase>
+            <goals>
+              <goal/>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <topSiteURL>${site.url.prefix}/${reactor.name}</topSiteURL>
+          <stagingSiteURL>${site.url.prefix}/${reactor.name}</stagingSiteURL>
+          <stagingDirectory>${site.staging.localDirectory}</stagingDirectory>
+          <generateSitemap>true</generateSitemap>
+          <inputEncoding>${project.build.sourceEncoding}</inputEncoding>
+          <outputEncoding>${project.reporting.outputEncoding}</outputEncoding>
+        </configuration>
+      </plugin>
+
+      <!--
+          Generate maven dependencies listing file
+
+          Used: Standard lifecycle, mvn compile.
+      -->
+      <plugin>
+        <groupId>org.apache.servicemix.tooling</groupId>
+        <artifactId>depends-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>generate-depends-file</id>
+            <goals>
+              <goal>generate-depends-file</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!--
+
+          Configures the release plugin to use a custom release profile.
+
+          Why:  Release artifacts
+          Used: Normal lifecycle, release goal
+      -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-release-plugin</artifactId>
+        <version>2.5.3</version>
+        <configuration>
+          <arguments>-Petraveli-release</arguments>
+          <mavenExecutorId>forked-path</mavenExecutorId>
+          <useReleaseProfile>false</useReleaseProfile>
+          <tagNameFormat>${reactor.name}-@{project.version}</tagNameFormat>
+          <goals>deploy</goals>
+        </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>org.apache.maven.scm</groupId>
+            <artifactId>maven-scm-providers-git</artifactId>
+            <version>1.9.4</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+
+      <!--
+          Define OSGi bundle plugin version.
+
+          Why:  Plugin used to generate OSGi Manifest headers in JARs.
+          Used: As included in [sub]projects.
+      -->
+      <plugin>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-bundle-plugin</artifactId>
+        <version>4.2.1</version>
+        <executions>
+          <execution>
+            <id>bundle-manifest</id>
+            <phase>process-classes</phase>
+            <goals>
+              <goal>manifest</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- Generate png images from Plantuml source files. -->
+      <plugin>
+        <groupId>com.github.jeluard</groupId>
+        <artifactId>plantuml-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>generate-plantuml-diagrams</id>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+            <phase>pre-site</phase>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <version>${enforcer.version}</version>
+      </plugin>
+    </plugins>
+  </build>
+
+  <reporting>
+    <excludeDefaults>true</excludeDefaults>
+    <outputDirectory>${project.build.directory}/site</outputDirectory>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+        <version>${maven-project-info-reports-plugin.version}</version>
+        <configuration>
+          <dependencyDetailsEnabled>false</dependencyDetailsEnabled>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jxr-plugin</artifactId>
+        <version>3.0.0</version>
+      </plugin>
+
+      <!--
+
+          Use a working version of the Maven versions plugin.
+
+          Why:  Workaround for https://jira.codehaus.org/browse/MVERSIONS-236
+          Used: Only when called.
+      -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>versions-maven-plugin</artifactId>
+        <version>${versions-maven-plugin.version}</version>
+      </plugin>
+    </plugins>
+  </reporting>
+
+  <!--
+  ################################################
+  # Section 4:  External systems
+  ################################################
+  -->
+
+  <!--
+      Define the Continuous Build server address.
+  -->
+  <ciManagement>
+    <system>TravisCI</system>
+    <url>https://travis-ci.org/etraveli/etraveli-codestyle</url>
+  </ciManagement>
+
+  <!--
+      Define the issue management system.
+  -->
+  <issueManagement>
+    <system>github</system>
+    <url>https://github.com/etraveli/etraveli-codestyle/issues</url>
+  </issueManagement>
+
+  <!--
+      Define repository settings for Maven's deploy and release plugins.
+      Move parts to settings.xml, as per recommendation within Maven specs.
+  -->
+  <distributionManagement>
+    <repository>
+      <id>ossrh-staging</id>
+      <name>Sonatype OSS Nexus: Releases</name>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+    </repository>
+    <snapshotRepository>
+      <id>ossrh-snapshots</id>
+      <name>Sonatype OSS Nexus: Snapshots</name>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
+    <site>
+      <id>github_site</id>
+      <name>GitHub Site for Etraveli Codestyle</name>
+      <url>${site.top.url}/${path.in.reactor}</url>
+    </site>
+  </distributionManagement>
+
+  <!--
+      Define connections for Maven's VCS integration.
+  -->
+  <scm>
+    <connection>${scm.connection.url}</connection>
+    <developerConnection>${scm.devConnection.url}</developerConnection>
+    <url>${scm.url}</url>
+    <tag>HEAD</tag>
+  </scm>
+
+  <!--
+  ################################################
+  # Section 5:  Profiles
+  ################################################
+  -->
+  <profiles>
+    <profile>
+      <id>jdk9</id>
+      <activation>
+        <jdk>[9,11)</jdk>
+      </activation>
+
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <configuration>
+              <compilerArgs>
+                <arg>--add-modules=java.xml.bind</arg>
+              </compilerArgs>
+              <!-- without forking compilation happens in the
+                  same process, so no arguments are applied -->
+              <fork>true</fork>
+            </configuration>
+          </plugin>
+          <plugin>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <configuration>
+              <argLine>
+                --add-modules java.xml.bind
+                --illegal-access=deny
+              </argLine>
+            </configuration>
+          </plugin>
+          <plugin>
+            <artifactId>maven-failsafe-plugin</artifactId>
+            <configuration>
+              <argLine>
+                --add-modules java.xml.bind
+                --illegal-access=deny
+              </argLine>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+
+    </profile>
+
+    <profile>
+      <id>jdk11</id>
+      <activation>
+        <jdk>[11,)</jdk>
+      </activation>
+
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <configuration>
+              <!--
+                  without forking compilation happens in the
+                  same process, so no arguments are applied
+               -->
+              <fork>true</fork>
+            </configuration>
+          </plugin>
+
+          <plugin>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <configuration>
+              <argLine>--illegal-access=deny</argLine>
+            </configuration>
+          </plugin>
+
+          <plugin>
+            <artifactId>maven-failsafe-plugin</artifactId>
+            <configuration>
+              <argLine>--illegal-access=deny</argLine>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <profile>
+      <id>jdk8</id>
+      <activation>
+        <jdk>8</jdk>
+      </activation>
+
+      <properties>
+
+        <!-- Include Dokka -->
+        <dokka.version>0.10.1</dokka.version>
+        <dokka.outputFormat>javadoc</dokka.outputFormat>
+      </properties>
+
+      <!-- dependencyManagement>
+          <dependencies>
+              <dependency>
+                  <groupId>org.jetbrains.kotlin</groupId>
+                  <artifactId>kotlin-stdlib-jdk8</artifactId>
+                  <version>${kotlin.version}</version>
+              </dependency>
+              <dependency>
+                  <groupId>org.jetbrains.kotlin</groupId>
+                  <artifactId>kotlin-reflect</artifactId>
+                  <version>${kotlin.version}</version>
+              </dependency>
+          </dependencies>
+      </dependencyManagement -->
+
+      <build>
         <pluginManagement>
-            <plugins>
+          <plugins>
 
-                <!--
-                    Provides Plantuml integration into site deployments.
-
-                    Why:  Convert Plantuml documents to png images.
-                    Used: Site lifecycle, mvn site.
-                -->
-                <plugin>
-                    <groupId>com.github.jeluard</groupId>
-                    <artifactId>plantuml-maven-plugin</artifactId>
-                    <version>7954</version>
-                    <configuration>
-                        <sourceFiles>
-                            <directory>${basedir}</directory>
-                            <includes>
-                                <include>src/site/**/*.puml</include>
-                            </includes>
-                        </sourceFiles>
-                        <outputDirectory>${project.build.directory}/site/images/plantuml</outputDirectory>
-                    </configuration>
-                    <executions>
-                        <execution>
-                            <id>generate-plantuml-diagrams</id>
-                            <goals>
-                                <goal>generate</goal>
-                            </goals>
-                            <phase>pre-site</phase>
-                        </execution>
-                    </executions>
-                    <dependencies>
-                        <!--
-                            NOTE!
-
-                            Do not upgrade the plantuml dependency above version 8030, as those plantuml releases
-                            are not binary compatible with the plugin version 7954.
-                        -->
-                        <dependency>
-                            <groupId>net.sourceforge.plantuml</groupId>
-                            <artifactId>plantuml</artifactId>
-                            <version>8030</version>
-                        </dependency>
-                    </dependencies>
-                </plugin>
-
-
-                <!--
-                    Extracts dependency information from the build into a property file within the artifact.
-
-                    Why:  Plugin used to generate a META-INF/maven/dependencies.properties file within the artifact.
-                    Used: In all projects; generate-resources phase.
-                -->
-                <plugin>
-                    <groupId>org.apache.servicemix.tooling</groupId>
-                    <artifactId>depends-maven-plugin</artifactId>
-                    <version>1.4.0</version>
-                </plugin>
-
-                <!--
-                    Up the version of the source plugin.
-
-                    Why:  Use a newer source plugin version.
-                    Used: Only when called, typically release profile.
-                -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-source-plugin</artifactId>
-                    <version>3.2.1</version>
-                </plugin>
-
-                <!--
-                    Use the latest maven-assembly-plugin.
-
-                    Why:  Override the version in Maven's super pom.xml.
-                    Used: Assembly
-                -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-assembly-plugin</artifactId>
-                    <version>3.0.0</version>
-                </plugin>
-
-                <!--
-                    Dependency graph generation plugin
-                -->
-                <plugin>
-                    <groupId>com.github.ferstl</groupId>
-                    <artifactId>depgraph-maven-plugin</artifactId>
-                    <version>${depgraph-maven-plugin.version}</version>
-                    <configuration>
-                        <outputDirectory>${project.build.directory}/site/images</outputDirectory>
-                        <outputFileName>dependency_graph</outputFileName>
-                        <createImage>true</createImage>
-                        <dotExecutable>${path.to.dot}</dotExecutable>
-                        <showConflicts>true</showConflicts>
-                        <showGroupIds>true</showGroupIds>
-                        <showVersions>true</showVersions>
-                        <printStyleConfiguration>${depgraph.printStyleConfiguration}</printStyleConfiguration>
-                        <customStyleConfiguration>classpath:codestyle/depgraph-config.json</customStyleConfiguration>
-                    </configuration>
-                    <dependencies>
-                        <dependency>
-                            <groupId>com.etraveli.oss.codestyle</groupId>
-                            <artifactId>etraveli-codestyle</artifactId>
-                            <version>0.9.8-SNAPSHOT</version>
-                        </dependency>
-                    </dependencies>
-                </plugin>
-
-                <!--
-                    Use a working version of the Maven versions plugin.
-
-                    Why:  Workaround for https://jira.codehaus.org/browse/MVERSIONS-236
-                    Used: Only when called.
-                -->
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>versions-maven-plugin</artifactId>
-                    <version>${versions-maven-plugin.version}</version>
-                </plugin>
-
-                <!--
-                    Upgrade the Compiler plugin to the latest version.
-
-                    Why:  Use the latest compiler plugin version for upwards JDK compliance.
-                    Used: For compiling all source code to binaries.
-                -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.7.0</version>
-                    <configuration>
-                        <source>${jdk.version}</source>
-                        <target>${jdk.version}</target>
-                        <showWarnings>true</showWarnings>
-                        <showDeprecation>true</showDeprecation>
-                        <encoding>UTF-8</encoding>
-                    </configuration>
-                </plugin>
-
-                <!--
-                    Ensure that the kotlin-maven-plugin uses the standard src/main/kotlin
-                    and src/test/kotlin directories.
-
-                    Why:  Ensures standard placement for Kotlin sources.
-                    Used: Standard lifecycle, mvn compile / test-compile.
-                -->
-                <plugin>
-                    <groupId>org.jetbrains.kotlin</groupId>
-                    <artifactId>kotlin-maven-plugin</artifactId>
-                    <version>${kotlin.version}</version>
-                    <configuration>
-                        <compilerPlugins>
-                            <plugin>all-open</plugin>
-                            <plugin>spring</plugin>
-                            <plugin>no-arg</plugin>
-                            <plugin>jpa</plugin>
-                            <plugin>sam-with-receiver</plugin>
-                        </compilerPlugins>
-                        <pluginOptions>
-                            <option>no-arg:annotation=com.etraveli.oss.codestyle.annotations.AddDefaultConstructor</option>
-                            <option>spring:annotation=com.etraveli.oss.annotations.UsesSpringFramework</option>
-                            <option>all-open:annotation=com.etraveli.oss.annotations.UseOpenMembers</option>
-                            <option>sam-with-receiver:annotation=com.etraveli.oss.annotations.ReceiverIsThisInSingleAbstractMethod</option>
-                            <!-- Call instance initializers in the synthetic constructor -->
-                            <option>no-arg:invokeInitializers=true</option>
-                        </pluginOptions>
-                        <jvmTarget>${jdk.version}</jvmTarget>
-                    </configuration>
-                    <dependencies>
-                        <dependency>
-                            <groupId>org.jetbrains.kotlin</groupId>
-                            <artifactId>kotlin-maven-noarg</artifactId>
-                            <version>${kotlin.version}</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>org.jetbrains.kotlin</groupId>
-                            <artifactId>kotlin-maven-allopen</artifactId>
-                            <version>${kotlin.version}</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>org.jetbrains.kotlin</groupId>
-                            <artifactId>kotlin-maven-sam-with-receiver</artifactId>
-                            <version>${kotlin.version}</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>com.etraveli.oss.codestyle</groupId>
-                            <artifactId>etraveli-codestyle</artifactId>
-                            <version>0.9.8-SNAPSHOT</version>
-                        </dependency>
-                    </dependencies>
-                </plugin>
-
-                <!--
-                    Define the version of the Surefire plugin
-
-                    Why:  Ensure we have a recent enough surefire to use parallelism properly
-                    When: Standard lifecycle, test phase
-                -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.22.0</version>
-                    <configuration>
-                        <argLine>${surefire.argLine}</argLine>
-                        <parallelOptimized>true</parallelOptimized>
-                        <workingDirectory>${basedir}/target/FORK_DIRECTORY_${surefire.forkNumber}</workingDirectory>
-                        <redirectTestOutputToFile>true</redirectTestOutputToFile>
-                    </configuration>
-                </plugin>
-
-                <!--
-                    Define the version of the Failsafe plugin
-
-                    Why:  Ensure we have a recent enough surefire to use parallelism properly
-                    When: Standard lifecycle, integration-test phases
-                -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-failsafe-plugin</artifactId>
-                    <version>2.22.0</version>
-                    <configuration>
-                        <argLine>${surefire.argLine}</argLine>
-                        <parallelOptimized>true</parallelOptimized>
-                        <workingDirectory>${basedir}/target/FAILSAFE_FORK_DIRECTORY_${surefire.forkNumber}
-                        </workingDirectory>
-                        <redirectTestOutputToFile>true</redirectTestOutputToFile>
-                    </configuration>
-                    <dependencies>
-                        <dependency>
-                            <groupId>org.apache.maven.surefire</groupId>
-                            <artifactId>surefire-junit47</artifactId>
-                            <version>2.22.0</version>
-                        </dependency>
-                    </dependencies>
-                </plugin>
-
-                <!--
-                    Define OSGi bundle plugin version.
-
-                    Why:  Plugin used to generate OSGi Manifest headers in JARs.
-                    Used: As included in [sub]projects.
-                -->
-                <plugin>
-                    <groupId>org.apache.felix</groupId>
-                    <artifactId>maven-bundle-plugin</artifactId>
-                    <version>4.2.1</version>
-                    <configuration>
-                        <supportedProjectTypes>
-                            <supportedProjectType>ejb</supportedProjectType>
-                            <supportedProjectType>jar</supportedProjectType>
-                            <supportedProjectType>bundle</supportedProjectType>
-                            <supportedProjectType>war</supportedProjectType>
-                            <supportedProjectType>ear</supportedProjectType>
-                        </supportedProjectTypes>
-                        <instructions>
-                            <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
-                            <Embed-Directory>osgi/embedded</Embed-Directory>
-                            <_consumer-policy><![CDATA[$<range;[===,+)>]]></_consumer-policy>
-                            <_provider-policy><![CDATA[$<range;[===,=+)>]]></_provider-policy>
-                        </instructions>
-                    </configuration>
-                </plugin>
-
-                <!--
-                    Specify the version of the GPG plugin
-
-                    Why:  Used to sign artifacts.
-                    Used: To sign artifacts, using GPG.
-                -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-gpg-plugin</artifactId>
-                    <version>1.6</version>
-                    <configuration>
-                        <skip>${release.skipGpgSigning}</skip>
-                    </configuration>
-                </plugin>
-
-                <!--
-                    Specify the version of the Deploy plugin
-
-                    Why:  Used to deploy artifacts to repositories.
-                    Used: To copy/upload artifacts to repos.
-                -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-deploy-plugin</artifactId>
-                    <version>${maven-deploy-plugin.version}</version>
-                    <configuration>
-                        <updateReleaseInfo>true</updateReleaseInfo>
-                    </configuration>
-                    <executions>
-                        <execution>
-                            <id>default-deploy</id>
-                            <phase>none</phase>
-                        </execution>
-                    </executions>
-                </plugin>
-
-
-                <!-- Enforce not importing incorrect projects. -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-enforcer-plugin</artifactId>
-                    <version>${enforcer.version}</version>
-                    <executions>
-                        <execution>
-                            <id>enforce-maven</id>
-                            <goals>
-                                <goal>enforce</goal>
-                            </goals>
-                            <phase>none</phase>
-                        </execution>
-                        <execution>
-                            <id>enforce-correct-maven</id>
-                            <goals>
-                                <goal>enforce</goal>
-                            </goals>
-                            <phase>validate</phase>
-                            <configuration combine.self="override">
-                                <rules>
-                                    <requireMavenVersion>
-                                        <version>(,2.1.0),(2.1.0,2.2.0),(2.2.0,)</version>
-                                        <message>Maven 2.1.0 and 2.2.0 produce incorrect GPG signatures and checksums
-                                            respectively.
-                                        </message>
-                                    </requireMavenVersion>
-                                </rules>
-                            </configuration>
-                        </execution>
-                        <execution>
-                            <id>enforce-imports</id>
-                            <goals>
-                                <goal>enforce</goal>
-                            </goals>
-                            <configuration>
-                                <fail>${breakOnFailure.enforcer}</fail>
-                                <rules>
-                                    <requireMavenVersion>
-                                        <version>[3.0.5,)</version>
-                                    </requireMavenVersion>
-                                    <requireJavaVersion>
-                                        <version>${jdk.version}</version>
-                                    </requireJavaVersion>
-                                    <requireUpperBoundDeps />
-
-                                    <!--
-                                        Enforce the ProjectType structure, implying that all projects
-                                        must comply with the project template definitions.
-                                    -->
-                                    <validateProjectTypes implementation="com.etraveli.oss.codestyle.projects.enforcer.PermittedProjectTypeRule" />
-
-                                    <!--
-                                        Enforce the implementation rules for dependencies, to enforce that
-                                        the level of dependency tanglement is not increased. This implies that
-                                        implementation projects cannot import other implementation projects (but
-                                        instead should import APIs).
-
-                                        While the configuration below reflect the default settings, it is
-                                        reproduced her to serve as an example of how to configure this enforcement rule
-                                        in child reactors - where needs are likely different than here.
-                                    -->
-                                    <restrictImplDependencies implementation="com.etraveli.oss.codestyle.projects.enforcer.CorrectDependenciesRule">
-                                        <evaluateGroupIds>${enforcer.includedGroupIdPatterns}</evaluateGroupIds>
-                                        <dontEvaluateGroupIds>${enforcer.excludedGroupIdPatterns}</dontEvaluateGroupIds>
-                                    </restrictImplDependencies>
-
-                                    <!--
-                                        Enforce using correct packages for classes within a NSC project.
-                                        The root package of any project should be identical to its groupId.
-                                        Any package below the root package can safely be used - so ...
-
-                                        if the groupId of a project is "com.acme.foobar",
-                                        then all code within that project must reside within the "com.acme.foobar" package,
-                                        or in any subpackage thereof.
-                                    -->
-                                    <correctPackaging implementation="com.etraveli.oss.codestyle.projects.enforcer.CorrectPackagingRule" />
-                                </rules>
-                            </configuration>
-                        </execution>
-                    </executions>
-                    <dependencies>
-                        <dependency>
-                            <groupId>com.etraveli.oss.codestyle</groupId>
-                            <artifactId>etraveli-codestyle</artifactId>
-                            <version>0.9.8-SNAPSHOT</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>org.apache.maven.enforcer</groupId>
-                            <artifactId>enforcer-api</artifactId>
-                            <version>${enforcer.version}</version>
-                        </dependency>
-                    </dependencies>
-                </plugin>
-
-                <!--
-                    Configures the WAR plugin to properly use the generated OSGi-compliant manifest.
-
-                    Why:  Assigns some manifest data within the WARs in WAR projects. Reads bundle-generated manifest.
-                    Used: Standard lifecycle, mvn package.
-                -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-war-plugin</artifactId>
-                    <version>3.2.2</version>
-                    <configuration>
-                        <archive>
-                            <manifest>
-                                <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
-                            </manifest>
-                            <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
-                            <manifestEntries>
-                                <name>${project.name}</name>
-                                <description>${project.description}</description>
-                                <groupId>${project.groupId}</groupId>
-                                <artifactId>${project.artifactId}</artifactId>
-                            </manifestEntries>
-                        </archive>
-                    </configuration>
-                </plugin>
-
-            </plugins>
+            <!--
+                Dokka Maven Plugin provides javadoc-a-like documentation for Kotlin classes.
+                This plugin only works with JDK8, though, since it depends on the tools.jar
+                for its execution.
+            -->
+            <plugin>
+              <groupId>org.jetbrains.dokka</groupId>
+              <artifactId>dokka-maven-plugin</artifactId>
+              <version>${dokka.version}</version>
+              <configuration>
+                <outputDir>${project.reporting.outputDirectory}/dokka</outputDir>
+                <outputFormat>${dokka.outputFormat}</outputFormat>
+                <jdkVersion>8</jdkVersion>
+              </configuration>
+            </plugin>
+          </plugins>
         </pluginManagement>
 
         <plugins>
 
-            <!--
-                 Ensure that the kotlin-maven-plugin uses the standard src/main/kotlin
-                 and src/test/kotlin directories.
-
-                 Why:  Ensures standard placement for Kotlin sources.
-                 Used: Standard lifecycle, mvn compile / test-compile.
-             -->
-            <plugin>
-                <groupId>org.jetbrains.kotlin</groupId>
-                <artifactId>kotlin-maven-plugin</artifactId>
-                <version>${kotlin.version}</version>
-                <executions>
-                    <execution>
-                        <id>compile</id>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>compile</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>test-compile</id>
-                        <phase>test-compile</phase>
-                        <goals>
-                            <goal>test-compile</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <!--
-                Ensure that the compiler plugin ignores the Java directories.
-            -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <executions>
-                    <!--
-                        Replacing default-compile as it is treated specially by maven
-                     -->
-                    <execution>
-                        <id>default-compile</id>
-                        <phase>none</phase>
-                    </execution>
-                    <!--
-                        Replacing default-testCompile as it is treated specially by maven
-                     -->
-                    <execution>
-                        <id>default-testCompile</id>
-                        <phase>none</phase>
-                    </execution>
-                    <execution>
-                        <id>java-compile</id>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>compile</goal>
-                        </goals>
-                        <!-- configuration>
-                            <compileSourceRoots>
-                                <sourceRoot>src/main/java</sourceRoot>
-                                <sourceRoot>src/main/kotlin</sourceRoot>
-                            </compileSourceRoots>
-                        </configuration -->
-                    </execution>
-                    <execution>
-                        <id>java-test-compile</id>
-                        <phase>test-compile</phase>
-                        <goals>
-                            <goal>testCompile</goal>
-                        </goals>
-                        <!-- configuration>
-                            <compileSourceRoots>
-                                <sourceRoot>src/main/java</sourceRoot>
-                                <sourceRoot>src/main/kotlin</sourceRoot>
-                            </compileSourceRoots>
-                        </configuration -->
-                    </execution>
-                </executions>
-            </plugin>
-
-            <!--
-                Configures the site plugin. Its use is further documented in the site documentation itself.
-
-                Why:  Make compile and publish the Codestyle documentation.
-                Used: Site lifecycle, mvn site.
-            -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-site-plugin</artifactId>
-                <version>${maven-site-plugin.version}</version>
-                <executions>
-                    <execution>
-                        <id>attach-descriptor</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>attach-descriptor</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>default-deploy</id>
-                        <phase>site-deploy</phase>
-                        <goals>
-                            <goal />
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <topSiteURL>${site.url.prefix}/${reactor.name}</topSiteURL>
-                    <stagingSiteURL>${site.url.prefix}/${reactor.name}</stagingSiteURL>
-                    <stagingDirectory>${site.staging.localDirectory}</stagingDirectory>
-                    <generateSitemap>true</generateSitemap>
-                    <inputEncoding>${project.build.sourceEncoding}</inputEncoding>
-                    <outputEncoding>${project.reporting.outputEncoding}</outputEncoding>
-                </configuration>
-            </plugin>
-
-            <!--
-                Generate maven dependencies listing file
-
-                Used: Standard lifecycle, mvn compile.
-            -->
-            <plugin>
-                <groupId>org.apache.servicemix.tooling</groupId>
-                <artifactId>depends-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>generate-depends-file</id>
-                        <goals>
-                            <goal>generate-depends-file</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <!--
-
-                Configures the release plugin to use a custom release profile.
-
-                Why:  Release artifacts
-                Used: Normal lifecycle, release goal
-            -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-release-plugin</artifactId>
-                <version>2.5.3</version>
-                <configuration>
-                    <arguments>-Petraveli-release</arguments>
-                    <mavenExecutorId>forked-path</mavenExecutorId>
-                    <useReleaseProfile>false</useReleaseProfile>
-                    <tagNameFormat>${reactor.name}-@{project.version}</tagNameFormat>
-                    <goals>deploy</goals>
-                </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.apache.maven.scm</groupId>
-                        <artifactId>maven-scm-providers-git</artifactId>
-                        <version>1.9.4</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-
-            <!--
-                Define OSGi bundle plugin version.
-
-                Why:  Plugin used to generate OSGi Manifest headers in JARs.
-                Used: As included in [sub]projects.
-            -->
-            <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-bundle-plugin</artifactId>
-                <version>4.2.1</version>
-                <executions>
-                    <execution>
-                        <id>bundle-manifest</id>
-                        <phase>process-classes</phase>
-                        <goals>
-                            <goal>manifest</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <!-- Generate png images from Plantuml source files. -->
-            <plugin>
-                <groupId>com.github.jeluard</groupId>
-                <artifactId>plantuml-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>generate-plantuml-diagrams</id>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <phase>pre-site</phase>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-enforcer-plugin</artifactId>
-                <version>${enforcer.version}</version>
-            </plugin>
+          <!--
+              Dokka Maven Plugin provides javadoc-a-like documentation for Kotlin classes.
+              This plugin only works with JDK8, though, since it depends on the tools.jar
+              for its execution.
+          -->
+          <plugin>
+            <groupId>org.jetbrains.dokka</groupId>
+            <artifactId>dokka-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <phase>pre-site</phase>
+                <goals>
+                  <goal>dokka</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
         </plugins>
-    </build>
+      </build>
+    </profile>
 
-    <reporting>
-        <excludeDefaults>true</excludeDefaults>
-        <outputDirectory>${project.build.directory}/site</outputDirectory>
+    <!--
+        Release profile for Nazgul Reactors.
+    -->
+    <profile>
+      <id>etraveli-release</id>
+      <build>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>${maven-project-info-reports-plugin.version}</version>
-                <configuration>
-                    <dependencyDetailsEnabled>false</dependencyDetailsEnabled>
-                </configuration>
-            </plugin>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jxr-plugin</artifactId>
-                <version>3.0.0</version>
-            </plugin>
+          <!--
+              Release Plugin configuration.
 
-            <!--
+              Use a custom id for the deploy-to-repo operation.
+          -->
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-deploy-plugin</artifactId>
+            <version>${maven-deploy-plugin.version}</version>
+            <configuration>
+              <updateReleaseInfo>true</updateReleaseInfo>
+            </configuration>
+            <executions>
+              <execution>
+                <id>default-deploy</id>
+                <phase>none</phase>
+              </execution>
+              <execution>
+                <id>deploy-to-repo</id>
+                <goals>
+                  <goal>deploy</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
 
-                Use a working version of the Maven versions plugin.
+          <!--
+              Always include a source JAR.
+          -->
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>default-jar-no-fork</id>
+                <goals>
+                  <goal>jar-no-fork</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
 
-                Why:  Workaround for https://jira.codehaus.org/browse/MVERSIONS-236
-                Used: Only when called.
-            -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>versions-maven-plugin</artifactId>
-                <version>${versions-maven-plugin.version}</version>
-            </plugin>
+          <!--
+              Use the JavaDoc plugin to attach a JavaDoc JAR to release artifacts.
+          -->
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <configuration>
+              <failOnError>false</failOnError>
+            </configuration>
+            <executions>
+              <execution>
+                <id>attach-javadocs</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+
+          <!--
+              Sign the artifacts with the GPG plugin.
+          -->
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <skip>${release.skipGpgSigning}</skip>
+            </configuration>
+          </plugin>
         </plugins>
-    </reporting>
-
-    <!--
-    ################################################
-    # Section 4:  External systems
-    ################################################
-    -->
-
-    <!--
-        Define the Continuous Build server address.
-    -->
-    <ciManagement>
-        <system>TravisCI</system>
-        <url>https://travis-ci.org/etraveli/etraveli-codestyle</url>
-    </ciManagement>
-
-    <!--
-        Define the issue management system.
-    -->
-    <issueManagement>
-        <system>github</system>
-        <url>https://github.com/etraveli/etraveli-codestyle/issues</url>
-    </issueManagement>
-
-    <!--
-        Define repository settings for Maven's deploy and release plugins.
-        Move parts to settings.xml, as per recommendation within Maven specs.
-    -->
-    <distributionManagement>
-        <repository>
-            <id>ossrh-staging</id>
-            <name>Sonatype OSS Nexus: Releases</name>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
-        </repository>
-        <snapshotRepository>
-            <id>ossrh-snapshots</id>
-            <name>Sonatype OSS Nexus: Snapshots</name>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <site>
-            <id>github_site</id>
-            <name>GitHub Site for Etraveli Codestyle</name>
-            <url>${site.top.url}/${path.in.reactor}</url>
-        </site>
-    </distributionManagement>
-
-    <!--
-        Define connections for Maven's VCS integration.
-    -->
-    <scm>
-        <connection>${scm.connection.url}</connection>
-        <developerConnection>${scm.devConnection.url}</developerConnection>
-        <url>${scm.url}</url>
-        <tag>HEAD</tag>
-    </scm>
-
-    <!--
-    ################################################
-    # Section 5:  Profiles
-    ################################################
-    -->
-    <profiles>
-        <profile>
-            <id>jdk9</id>
-            <activation>
-                <jdk>[9,11)</jdk>
-            </activation>
-
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-compiler-plugin</artifactId>
-                        <configuration>
-                            <compilerArgs>
-                                <arg>--add-modules=java.xml.bind</arg>
-                            </compilerArgs>
-                            <!-- without forking compilation happens in the
-                                same process, so no arguments are applied -->
-                            <fork>true</fork>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <configuration>
-                            <argLine>
-                                --add-modules java.xml.bind
-                                --illegal-access=deny
-                            </argLine>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-                        <configuration>
-                            <argLine>
-                                --add-modules java.xml.bind
-                                --illegal-access=deny
-                            </argLine>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-
-        </profile>
-
-        <profile>
-            <id>jdk11</id>
-            <activation>
-                <jdk>[11,)</jdk>
-            </activation>
-
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-compiler-plugin</artifactId>
-                        <configuration>
-                            <!--
-                                without forking compilation happens in the
-                                same process, so no arguments are applied
-                             -->
-                            <fork>true</fork>
-                        </configuration>
-                    </plugin>
-
-                    <plugin>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <configuration>
-                            <argLine>--illegal-access=deny</argLine>
-                        </configuration>
-                    </plugin>
-
-                    <plugin>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-                        <configuration>
-                            <argLine>--illegal-access=deny</argLine>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
-        <profile>
-            <id>jdk8</id>
-            <activation>
-                <jdk>8</jdk>
-            </activation>
-
-            <properties>
-
-                <!-- Include Dokka -->
-                <dokka.version>0.10.1</dokka.version>
-                <dokka.outputFormat>javadoc</dokka.outputFormat>
-            </properties>
-
-            <!-- dependencyManagement>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.jetbrains.kotlin</groupId>
-                        <artifactId>kotlin-stdlib-jdk8</artifactId>
-                        <version>${kotlin.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.jetbrains.kotlin</groupId>
-                        <artifactId>kotlin-reflect</artifactId>
-                        <version>${kotlin.version}</version>
-                    </dependency>
-                </dependencies>
-            </dependencyManagement -->
-
-            <build>
-                <pluginManagement>
-                    <plugins>
-
-                        <!--
-                            Dokka Maven Plugin provides javadoc-a-like documentation for Kotlin classes.
-                            This plugin only works with JDK8, though, since it depends on the tools.jar
-                            for its execution.
-                        -->
-                        <plugin>
-                            <groupId>org.jetbrains.dokka</groupId>
-                            <artifactId>dokka-maven-plugin</artifactId>
-                            <version>${dokka.version}</version>
-                            <configuration>
-                                <outputDir>${project.reporting.outputDirectory}/dokka</outputDir>
-                                <outputFormat>${dokka.outputFormat}</outputFormat>
-                                <jdkVersion>8</jdkVersion>
-                            </configuration>
-                        </plugin>
-                    </plugins>
-                </pluginManagement>
-
-                <plugins>
-
-                    <!--
-                        Dokka Maven Plugin provides javadoc-a-like documentation for Kotlin classes.
-                        This plugin only works with JDK8, though, since it depends on the tools.jar
-                        for its execution.
-                    -->
-                    <plugin>
-                        <groupId>org.jetbrains.dokka</groupId>
-                        <artifactId>dokka-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <phase>pre-site</phase>
-                                <goals>
-                                    <goal>dokka</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
-        <!--
-            Release profile for Nazgul Reactors.
-        -->
-        <profile>
-            <id>etraveli-release</id>
-            <build>
-                <plugins>
-
-                    <!--
-                        Release Plugin configuration.
-
-                        Use a custom id for the deploy-to-repo operation.
-                    -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-deploy-plugin</artifactId>
-                        <version>${maven-deploy-plugin.version}</version>
-                        <configuration>
-                            <updateReleaseInfo>true</updateReleaseInfo>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>default-deploy</id>
-                                <phase>none</phase>
-                            </execution>
-                            <execution>
-                                <id>deploy-to-repo</id>
-                                <goals>
-                                    <goal>deploy</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-
-                    <!--
-                        Always include a source JAR.
-                    -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-source-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>default-jar-no-fork</id>
-                                <goals>
-                                    <goal>jar-no-fork</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-
-                    <!--
-                        Use the JavaDoc plugin to attach a JavaDoc JAR to release artifacts.
-                    -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <configuration>
-                            <failOnError>false</failOnError>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>attach-javadocs</id>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-
-                    <!--
-                        Sign the artifacts with the GPG plugin.
-                    -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>sign-artifacts</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <skip>${release.skipGpgSigning}</skip>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
+      </build>
+    </profile>
+  </profiles>
 </project>

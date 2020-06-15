@@ -2,8 +2,11 @@
  * Copyright (c) Seat24 AB
  */
 
-package com.etraveli.oss.codestyle.projects.enforcer
+package com.etraveli.oss.codestyle.projects.enforcer.com.etraveli.oss.codestyle.projects.extractor
 
+import com.etraveli.oss.codestyle.projects.enforcer.KotlinClassOutsideOfPackageDirStructure
+import com.etraveli.oss.codestyle.projects.extractor.AbstractPackageExtractor
+import com.etraveli.oss.codestyle.projects.extractor.KotlinPackageExtractor
 import org.junit.Assert
 import org.junit.Test
 import java.io.File
@@ -96,14 +99,15 @@ class KotlinPackageExtractorTest {
         val thePackage = unitUnderTest.getPackage(theFile)
 
         // Assert
-        Assert.assertEquals(KotlinClassOutsideOfPackageDirStructure::class.java.`package`.name, thePackage)
+        Assert.assertEquals(
+          KotlinClassOutsideOfPackageDirStructure::class.java.`package`.name, thePackage)
     }
 
     //
     // Private helpers
     //
 
-    private fun getRegexFrom(packageExtractor: AbstractSimplePackageExtractor): Regex {
+    private fun getRegexFrom(packageExtractor: AbstractPackageExtractor): Regex {
 
         val propName = "packageRegEx"
         val props = packageExtractor::class.declaredMemberProperties.filter { it.name == propName }
