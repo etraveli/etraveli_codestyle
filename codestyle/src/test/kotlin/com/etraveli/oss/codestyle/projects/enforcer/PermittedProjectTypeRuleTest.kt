@@ -61,4 +61,32 @@ class PermittedProjectTypeRuleTest {
         // Act & Assert
         unitUnderTest.execute(mockHelper)
     }
+
+    @Test(expected = EnforcerRuleException::class)
+    fun validateExceptionOnBomWithDependencies() {
+
+        // Assemble
+        val project = MavenTestUtils.readPom("testdata/poms/incorrect-bom-with-dependency.xml")
+        val mockHelper = MockEnforcerRuleHelper(project)
+        val unitUnderTest = PermittedProjectTypeRule(
+          listOf("^com\\.etraveli\\..*\\.generated\\..*", "^com\\.etraveli\\.oss\\.codestyle\\..*")
+        )
+
+        // Act & Assert
+        unitUnderTest.execute(mockHelper)
+    }
+
+    @Test
+    fun validateNoExceptionOnBomHavingIgnoredDependencies() {
+
+        // Assemble
+        val project = MavenTestUtils.readPom("testdata/poms/correct-bom-with-ignored-dependencies.xml")
+        val mockHelper = MockEnforcerRuleHelper(project)
+        val unitUnderTest = PermittedProjectTypeRule(
+          listOf("^com\\.etraveli\\..*\\.generated\\..*", "^com\\.etraveli\\.oss\\.codestyle\\..*")
+        )
+
+        // Act & Assert
+        unitUnderTest.execute(mockHelper)
+    }
 }

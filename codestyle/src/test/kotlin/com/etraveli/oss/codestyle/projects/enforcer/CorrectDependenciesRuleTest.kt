@@ -59,4 +59,18 @@ class CorrectDependenciesRuleTest {
         // Act & Assert
         unitUnderTest.execute(mockHelper)
     }
+
+    @Test(expected = IllegalArgumentException::class)
+    fun validateExceptionOnBomHavingDependencies() {
+
+        // Assemble
+        val project = MavenTestUtils.readPom("testdata/poms/incorrect-bom-with-dependency.xml")
+        val mockHelper = MockEnforcerRuleHelper(project)
+        val unitUnderTest = CorrectDependenciesRule(
+          dontEvaluateGroupIds = listOf("^com\\.etraveli\\..*\\.generated\\..*", "^com\\.etraveli\\.oss\\.codestyle\\..*")
+        )
+
+        // Act & Assert
+        unitUnderTest.execute(mockHelper)
+    }
 }

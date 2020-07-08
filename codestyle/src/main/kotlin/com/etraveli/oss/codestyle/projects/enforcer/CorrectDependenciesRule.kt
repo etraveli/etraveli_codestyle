@@ -124,7 +124,8 @@ open class CorrectDependenciesRule @JvmOverloads constructor(
           throw RuleFailureException(prefix + "in compile scope for non-test artifacts.", current)
         }
 
-        if (artifactProjectType === CommonProjectTypes.JEE_APPLICATION || artifactProjectType === CommonProjectTypes.PROOF_OF_CONCEPT) {
+        if (artifactProjectType === CommonProjectTypes.JEE_APPLICATION
+          || artifactProjectType === CommonProjectTypes.PROOF_OF_CONCEPT) {
           throw RuleFailureException(prefix + "in bundles.", current)
         }
 
@@ -142,9 +143,8 @@ open class CorrectDependenciesRule @JvmOverloads constructor(
      * List containing [Regex] patterns matching Maven GroupIDs to be excluded from this Rule's evaluation.
      */
     @JvmStatic
-    val DEFAULT_DONT_EVALUATE_GROUPIDS = listOf(
-      "^com\\.etraveli\\..*\\.generated\\..*",
-      "^com\\.etraveli\\.oss\\.codestyle\\..*")
+    val DEFAULT_DONT_EVALUATE_GROUPIDS = listOf("^com\\.etraveli\\..*\\.generated\\..*",
+                                                "^com\\.etraveli\\.oss\\.codestyle\\..*")
 
     /**
      * List containing [Regex] patterns matching Maven GroupIDs to be included in this Rule's evaluation.

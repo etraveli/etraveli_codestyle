@@ -13,8 +13,8 @@
     ################################################
     -->
     <parent>
-        <groupId>com.etraveli.oss.codestyle.poms.kotlin</groupId>
-        <artifactId>etraveli-codestyle-kotlin-api-parent</artifactId>
+        <groupId>se.jguru.nazgul.tools.poms</groupId>
+        <artifactId>nazgul-tools-parent</artifactId>
         <version>1.0.0</version>
         <relativePath>../../poms/tools-parent</relativePath>
     </parent>
@@ -30,28 +30,14 @@
     # Section 2:  Dependencies
     ################################################
     -->
-    <dependencyManagement>
-        <dependencies>
-
-            <!--
-                At least one dependencyManagement/dependency is required to qualify this as a BOM.
-            -->
-            <dependency>
-                <groupId>org.yaml</groupId>
-                <artifactId>snakeyaml</artifactId>
-                <version>1.24</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <dependencies>
 
         <!--
-            Internal dependencies
+            Incorrect: Dependency within a BOM. (Should only have DependencyManagement/Dependency).
         -->
         <dependency>
-            <groupId>com.etraveli.oss.codestyle.annotations</groupId>
-            <artifactId>etraveli-codestyle-annotations</artifactId>
+            <groupId>se.jguru.nazgul.tools.validation</groupId>
+            <artifactId>nazgul-tools-validation-api</artifactId>
             <version>1.0.0</version>
         </dependency>
 

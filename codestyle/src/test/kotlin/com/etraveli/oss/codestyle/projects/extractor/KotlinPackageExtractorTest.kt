@@ -80,6 +80,7 @@ class KotlinPackageExtractorTest {
         unitUnderTest.getPackage(File(resource.path))
     }
 
+    @Suppress("RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
     @Test
     fun validateKotlinFilesUsesPackageAnnotation() {
 

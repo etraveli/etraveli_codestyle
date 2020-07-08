@@ -166,25 +166,25 @@ enum class CommonProjectTypes(artifactIdPattern: String?,
             }
 
             // Any of the dependencies non-ignored?
-            val ignoreRegexp = ignoredGroupIds?.map { ProjectType.getDefaultRegexFor(it) }?.toList()
+            val ignoreRegExps = ignoredGroupIds?.map { ProjectType.getDefaultRegexFor(it) }?.toList()
 
-            println("=== [${ignoreRegexp?.size?:0}] CompiledIgnorePatterns: $ignoreRegexp")
-
-            return when(ignoreRegexp == null) {
+            return when(ignoreRegExps == null) {
                 true -> true
                 else -> {
 
-                    val foundAtLeastOneNonIgnoredMatch = depList.map { aDependency ->
-                        ignoreRegexp.any { pattern ->
+                    val foundAtLeastOneNonIgnoredMatch = depList.map {
 
-                            val match = pattern.matches(aDependency.groupId.trim())
-                            println("=== GroupID: [${aDependency.groupId}] matches [${pattern.pattern}]: $match")
+                        val theGroupID = it.groupId.trim()
 
-                            match
-                        }
-                    }.any { it }
+                        // Should we ignore the current dependency?
+                        ignoreRegExps.any { currentIgnoreExp -> currentIgnoreExp.matches(theGroupID) }
 
-                    println("=== Found at least 1 non-ignored GroupID match: $foundAtLeastOneNonIgnoredMatch")
+                    }.any {
+
+                        // Is there any non-ignored dependencies in the list?
+                        !it
+                    }
+
                     foundAtLeastOneNonIgnoredMatch
                 }
             }
@@ -195,21 +195,21 @@ enum class CommonProjectTypes(artifactIdPattern: String?,
 
             BILL_OF_MATERIALS -> {
 
-                // This project not contain Dependency definitions.
-                val hasNoRelevantDependencies = !containsNonIgnoredElements(project.dependencies)
+                // This project can not contain Dependency definitions.
+                val hasNoDependencies = !containsNonIgnoredElements(project.dependencies)
 
                 // This project *should* contain DependencyManagement definitions.
                 val hasDependencyManagementDefinitions = project.dependencyManagement != null
                         && containsNonIgnoredElements(project.dependencyManagement.dependencies)
 
                 // All Done.
-                hasNoRelevantDependencies && hasDependencyManagementDefinitions
+                hasNoDependencies && hasDependencyManagementDefinitions
             }
 
             REACTOR -> {
 
                 // This project not contain Dependency definitions.
-                val hasNoRelevantDependencies = !containsNonIgnoredElements(project.dependencies)
+                val hasNoNonIgnoredDependencies = !containsNonIgnoredElements(project.dependencies)
 
                 // This kind of project should not contain DependencyManagement definitions.
                 val dependencyManagement = project.dependencyManagement
@@ -217,8 +217,9 @@ enum class CommonProjectTypes(artifactIdPattern: String?,
                         || !containsNonIgnoredElements(dependencyManagement.dependencies)
 
                 // All Done.
-                hasNoRelevantDependencies && hasNoManagementDependencies
+                hasNoNonIgnoredDependencies && hasNoManagementDependencies
             }
+
             PARENT, ASSEMBLY -> {
 
                 // This project should not contain modules.
@@ -304,7 +305,7 @@ enum class CommonProjectTypes(artifactIdPattern: String?,
             val toReturn = matches[0]
             when (toReturn) {
 
-                CommonProjectTypes.PARENT, CommonProjectTypes.ASSEMBLY ->
+                PARENT, ASSEMBLY ->
 
                     // This project should not contain modules.
                     if (project.modules != null && project.modules.isNotEmpty()) {
@@ -312,10 +313,36 @@ enum class CommonProjectTypes(artifactIdPattern: String?,
                                                          "module definitions. (Modules are reserved for reactor projects).")
                     }
 
-                CommonProjectTypes.REACTOR, CommonProjectTypes.BILL_OF_MATERIALS -> {
+                BILL_OF_MATERIALS -> {
+
+                    val errorText = "${toReturn.name} projects may not contain dependency definitions. " +
+                      "(Dependencies should be defined within parent projects)."
+
+                    fun containsNonIgnoredDependencies(depList: List<Dependency>?): Boolean {
+
+                        if(depList == null || depList.isEmpty()) {
+                            return false;
+                        }
+
+                        // Any of the dependencies non-ignored?
+                        val compiledIgnorePatterns = ignorePatterns.map { Pattern.compile(it) }.toList()
+
+                        return depList.map { aDependency ->
+                            compiledIgnorePatterns.any { pattern -> pattern.matcher(aDependency.groupId).matches()
+                            }
+                        }.any { !it }
+                    }
+
+                    // This project not contain Dependency definitions.
+                    if (containsNonIgnoredDependencies(project.dependencies)) {
+                        throw IllegalArgumentException(errorText)
+                    }
+                }
+
+                REACTOR -> {
 
                     val errorText = "${toReturn.name} projects may not contain " +
-                      "dependency [incl. Management] definitions. (Dependencies should be defined " +
+                      "dependency [incl. DependencyManagement] definitions. (Dependencies should be defined " +
                       "within parent projects)."
 
                     fun containsNonIgnoredElements(depList: List<Dependency>?): Boolean {

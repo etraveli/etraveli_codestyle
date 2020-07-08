@@ -19,22 +19,22 @@ open class DefaultProjectType(
   /**
    * The [Regex] to identify matching Aether GroupIDs for this [ProjectType]
    */
-  protected val groupIdRegex: Regex,
+  protected open val groupIdRegex: Regex,
 
   /**
    * The [Regex] to identify matching Aether ArtifactIDs for this [ProjectType]
    */
-  protected val artifactIdRegex: Regex,
+  protected open val artifactIdRegex: Regex,
 
   /**
    * The [Regex] to identify matching Aether packaging for this [ProjectType]
    */
-  protected val packagingRegex: Regex,
+  protected open val packagingRegex: Regex,
 
   /**
    * Indicates if received [null]s should be accepted or rejected.
    */
-  protected val acceptNullValues: Boolean = false) : ProjectType {
+  protected open val acceptNullValues: Boolean = false) : ProjectType {
 
   /**
    * Convenience constructor using the pure String `Pattern`s instead of the full [Regex] objects.

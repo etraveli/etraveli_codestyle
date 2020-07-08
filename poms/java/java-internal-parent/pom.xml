@@ -123,8 +123,8 @@
 
         <!-- Enforcer configuration parameters -->
         <enforcer.version>3.0.0-M3</enforcer.version>
-        <enforcer.includedGroupIdPatterns>^com\\.etraveli\\..*</enforcer.includedGroupIdPatterns>
-        <enforcer.excludedGroupIdPatterns>^com\\.etraveli\\..*\\.generated\\..*,^com\\.etraveli\\.codestyle\\..*</enforcer.excludedGroupIdPatterns>
+        <enforcer.includedGroupIdPatterns>^com\.etraveli\..*</enforcer.includedGroupIdPatterns>
+        <enforcer.excludedGroupIdPatterns>^com\.etraveli\..*\.generated\..*,^com\.etraveli\.codestyle\..*</enforcer.excludedGroupIdPatterns>
 
         <!-- Openclover configuration parameters -->
         <clover.plugin.version>4.3.0</clover.plugin.version>

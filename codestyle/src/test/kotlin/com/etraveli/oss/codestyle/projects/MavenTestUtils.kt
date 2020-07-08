@@ -19,7 +19,8 @@ object MavenTestUtils {
     /**
      * The default Stub version.
      */
-    private const val DEFAULT_VERSION = "1.0.0"
+    @JvmStatic
+    private val DEFAULT_VERSION = "1.0.0"
 
     /**
      * Reads the POM found at the supplied filePath, retrieving the created MavenProject.
@@ -27,6 +28,7 @@ object MavenTestUtils {
      * @param filePath The path to the pom.xml file.
      * @return The MavenProject created from the filePath pom.
      */
+    @JvmStatic
     fun readPom(filePath: String): MavenProject {
 
         try {
@@ -50,6 +52,7 @@ object MavenTestUtils {
      * @param artifactId The artifactId for the MavenProject to return.
      * @return a MavenProjectStub created from the supplied properties.
      */
+    @JvmStatic
     fun getStub(packaging: String,
                 groupId: String,
                 artifactId: String): MavenProject {
@@ -66,6 +69,7 @@ object MavenTestUtils {
      * @param version    The version for the MavenProject to return.
      * @return a MavenProjectStub created from the supplied properties.
      */
+    @JvmStatic
     fun getStub(packaging: String,
                 groupId: String,
                 artifactId: String,
