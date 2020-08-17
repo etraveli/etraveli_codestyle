@@ -1345,7 +1345,7 @@
                                 <requireJavaVersion>
                                     <version>${jdk.version}</version>
                                 </requireJavaVersion>
-                                <requireUpperBoundDeps />
+                                <dependencyConvergence />
 
                                 <!--
                                     Enforce the ProjectType structure, implying that all projects
