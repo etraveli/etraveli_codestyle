@@ -1,3 +1,6 @@
+### Build Status:
+<img src="https://travis-ci.org/etraveli/etraveli_codestyle.svg?branch=master" />
+
 # What is a "Codestyle" repo?
 
 This repository does not contain artifacts intended for deployment into production.
