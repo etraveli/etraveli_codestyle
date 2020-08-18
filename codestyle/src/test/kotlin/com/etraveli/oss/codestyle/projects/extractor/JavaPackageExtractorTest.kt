@@ -90,7 +90,7 @@ class JavaPackageExtractorTest {
         Assert.assertEquals("", packageNames["nokNotAPackage.txt"])
     }
 
-    @Test(expected = FileNotFoundException::class)
+    @Test(expected = IllegalArgumentException::class)
     fun validateExceptionOnSubmittingDirectoriesToPackageExtractor() {
 
         // Assemble

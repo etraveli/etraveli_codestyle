@@ -5,6 +5,8 @@ package com.etraveli.oss.codestyle.projects.extractor
 
 import java.io.File
 import java.io.FileFilter
+import java.io.FileNotFoundException
+import java.lang.IllegalArgumentException
 
 /**
  * Utility class containing constants and generic Pattern definitions.
@@ -37,21 +39,31 @@ abstract class AbstractPackageExtractor : PackageExtractor {
     /**
      * Utility method which retrieves a FileFilter which accepts Files whose name ends
      * with the given suffix, case insensitive matching.
+     *
+     * @param requiredLowerCaseSuffix the LC suffix required to be present for all files returned.
      */
     @JvmStatic
     fun getSuffixFileFilter(requiredLowerCaseSuffix: String) = FileFilter { aFile ->
-      aFile != null &&
-        aFile.isFile &&
-        aFile.name.toLowerCase()
-          .trim()
-          .endsWith(requiredLowerCaseSuffix.toLowerCase())
+      aFile != null
+        && aFile.isFile
+        && aFile.name.toLowerCase().trim().endsWith(requiredLowerCaseSuffix.toLowerCase())
     }
 
     /**
-     * Default implementation to get a package for the
+     * Default implementation to get a package from the supplied source file.
+     *
+     * @param sourceFile The source file to be introspected for a package.
+     * @param packageRegEx a [Regex] which would identify a line containing the package definition.
+     *
+     * @return The package name.
+     * @throws IllegalArgumentException if the sourceFile was a directory.
      */
     @JvmStatic
     protected fun getPackageFor(sourceFile: File, packageRegEx: Regex): String {
+
+      if (sourceFile.isDirectory) {
+        throw IllegalArgumentException("SourceFile [${sourceFile.canonicalPath}] should be a file, not a directory.")
+      }
 
       for (aLine: String in sourceFile.readLines(Charsets.UTF_8)) {
 
