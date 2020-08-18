@@ -155,7 +155,7 @@ Checkout the release tag on the master branch, rebuild and deploy to the OSS rep
 
     git checkout etraveli-codestyle-2.4.0
     
-    mvn -Petraveli-release clean deploy
+    mvn -Drelease.skipGpgSigning=false -Petraveli-release clean deploy
     
 The normal binary release process (send mail to group, solicit acceptance etc.) follows.
 When the release is approved, build and publish the release documentation as described below.

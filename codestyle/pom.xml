@@ -118,12 +118,12 @@
         <developer>
             <id>lj</id>
             <name>Lennart Jörelid</name>
-            <email>lennart.jorelid@etraveli.com</email>
+            <email>lennart.jorelid@etraveligroup.com</email>
             <roles>
                 <role>Committer</role>
             </roles>
             <organization>Etraveli</organization>
-            <organizationUrl>http://www.etraveli.com</organizationUrl>
+            <organizationUrl>https://www.etraveligroup.com</organizationUrl>
             <timezone>+1</timezone>
         </developer>
     </developers>
@@ -224,7 +224,6 @@
 
                 <!--
                     Use a working version of the Maven versions plugin.
-                    (TODO: Update the Codehaus versions plugin with the fine additions done by Lars.)
 
                     Why:  Workaround for https://jira.codehaus.org/browse/MVERSIONS-236
                     Used: Only when called.
@@ -745,6 +744,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>3.2.0</version>
                         <configuration>
                             <failOnError>false</failOnError>
                         </configuration>

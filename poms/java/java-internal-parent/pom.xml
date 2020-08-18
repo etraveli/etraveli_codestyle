@@ -110,7 +110,7 @@
 
         <!-- Diverse plugin versions -->
         <maven-project-info-reports-plugin.version>3.0.0</maven-project-info-reports-plugin.version>
-        <maven-javadoc-plugin.version>3.1.1</maven-javadoc-plugin.version>
+        <maven-javadoc-plugin.version>3.2.0</maven-javadoc-plugin.version>
         <dependency.plugin.version>3.1.1</dependency.plugin.version>
         <versions-maven-plugin.version>2.7</versions-maven-plugin.version>
         <jaxb2-maven-plugin.version>2.5.0</jaxb2-maven-plugin.version>
@@ -181,12 +181,12 @@
         <developer>
             <id>lj</id>
             <name>Lennart Jörelid</name>
-            <email>lennart.jorelid@etraveli.com</email>
+            <email>lennart.jorelid@etraveligroup.com</email>
             <roles>
                 <role>Committer</role>
             </roles>
             <organization>Etraveli</organization>
-            <organizationUrl>http://www.etraveli.com</organizationUrl>
+            <organizationUrl>https://www.etraveligroup.com</organizationUrl>
             <timezone>+1</timezone>
         </developer>
     </developers>
@@ -1876,6 +1876,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>3.2.0</version>
                         <configuration>
                             <failOnError>false</failOnError>
                         </configuration>

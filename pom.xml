@@ -38,12 +38,12 @@
         <developer>
             <id>lj</id>
             <name>Lennart Jörelid</name>
-            <email>lennart.jorelid@etraveli.com</email>
+            <email>lennart.jorelid@etraveligroup.com</email>
             <roles>
                 <role>Committer</role>
             </roles>
             <organization>Etraveli</organization>
-            <organizationUrl>http://www.etraveli.com</organizationUrl>
+            <organizationUrl>https://www.etraveligroup.com</organizationUrl>
             <timezone>+1</timezone>
         </developer>
     </developers>
@@ -72,6 +72,7 @@
         <site.staging.localDirectory>/tmp/${reactor.name}</site.staging.localDirectory>
 
         <maven.version>3.5.0</maven.version>
+        <maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
 
         <!-- Build definition properties -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -120,7 +121,6 @@
         <module>annotations</module>
         <module>codestyle</module>
         <module>poms</module>
-        <!-- module>features-assembly</module -->
     </modules>
 
     <!--
@@ -213,7 +213,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.10.4</version>
+                <version>3.2.0</version>
                 <configuration>
                     <failOnError>false</failOnError>
                     <stylesheet>java</stylesheet>
@@ -425,13 +425,24 @@
             <id>etraveli-release</id>
             <build>
                 <plugins>
+
+                    <!--
+                        Release Plugin configuration.
+
+                        Use a custom id for the deploy-to-repo operation.
+                    -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-deploy-plugin</artifactId>
+                        <version>${maven-deploy-plugin.version}</version>
                         <configuration>
                             <updateReleaseInfo>true</updateReleaseInfo>
                         </configuration>
                     </plugin>
+
+                    <!--
+                        Always include a source JAR.
+                    -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-source-plugin</artifactId>
@@ -444,6 +455,10 @@
                             </execution>
                         </executions>
                     </plugin>
+
+                    <!--
+                        Use the JavaDoc plugin to attach a JavaDoc JAR to release artifacts.
+                    -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
@@ -459,6 +474,10 @@
                             </execution>
                         </executions>
                     </plugin>
+
+                    <!--
+                        Sign the artifacts with the GPG plugin.
+                    -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
@@ -471,23 +490,10 @@
                                 </goals>
                             </execution>
                         </executions>
-                    </plugin>
-                    <!-- plugin>
-                        <groupId>com.github.github</groupId>
-                        <artifactId>site-maven-plugin</artifactId>
                         <configuration>
-                            <message>Creating site for version ${project.version}</message>
-                            <noJekyll>true</noJekyll>
+                            <skip>${release.skipGpgSigning}</skip>
                         </configuration>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>site</goal>
-                                </goals>
-                                <phase>site</phase>
-                            </execution>
-                        </executions>
-                    </plugin -->
+                    </plugin>
                 </plugins>
             </build>
         </profile>

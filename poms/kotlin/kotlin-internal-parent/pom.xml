@@ -150,12 +150,12 @@
     <developer>
       <id>lj</id>
       <name>Lennart Jörelid</name>
-      <email>lennart.jorelid@etraveli.com</email>
+      <email>lennart.jorelid@etraveligroup.com</email>
       <roles>
         <role>Committer</role>
       </roles>
       <organization>Etraveli</organization>
-      <organizationUrl>http://www.etraveli.com</organizationUrl>
+      <organizationUrl>https://www.etraveligroup.com</organizationUrl>
       <timezone>+1</timezone>
     </developer>
   </developers>
@@ -1006,21 +1006,6 @@
         <dokka.outputFormat>javadoc</dokka.outputFormat>
       </properties>
 
-      <!-- dependencyManagement>
-          <dependencies>
-              <dependency>
-                  <groupId>org.jetbrains.kotlin</groupId>
-                  <artifactId>kotlin-stdlib-jdk8</artifactId>
-                  <version>${kotlin.version}</version>
-              </dependency>
-              <dependency>
-                  <groupId>org.jetbrains.kotlin</groupId>
-                  <artifactId>kotlin-reflect</artifactId>
-                  <version>${kotlin.version}</version>
-              </dependency>
-          </dependencies>
-      </dependencyManagement -->
-
       <build>
         <pluginManagement>
           <plugins>
@@ -1122,6 +1107,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-javadoc-plugin</artifactId>
+            <version>3.2.0</version>
             <configuration>
               <failOnError>false</failOnError>
             </configuration>
