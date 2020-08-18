@@ -1,6 +1,3 @@
-### Build Status:
-<img src="https://travis-ci.org/etraveli/etraveli_codestyle.svg?branch=master" />
-
 # What is a "Codestyle" repo?
 
 This repository does not contain artifacts intended for deployment into production.
@@ -142,11 +139,11 @@ If the release preparation build completed without errors, your local release re
 two new commits with the commit message starting with `[maven-release-plugin]` on the form shown below. 
 We have still not pushed anything to any source code or artifact repository.  
 
-    * b229a34 - Lennart Jörelid (20 seconds ago) (HEAD -> master)
+    * b229a34 - Lennart Jörelid (20 seconds ago) (HEAD -> master)
     |   [maven-release-plugin] prepare for next development iteration
-    * 31f498f - Lennart Jörelid (20 seconds ago) (tag: etraveli-codestyle-2.4.0)
+    * 31f498f - Lennart Jörelid (20 seconds ago) (tag: etraveli-codestyle-2.4.0)
     |   [maven-release-plugin] prepare release etraveli-codestyle-2.4.0
-    * b4499f9 - Lennart Jörelid (9 hours ago) (origin/master, origin/HEAD)
+    * b4499f9 - Lennart Jörelid (9 hours ago) (origin/master, origin/HEAD)
     |   Using only JDK 8 since that is the defaults in travis.
     
 #### b. Perform normal deployment of the artifact
