@@ -29,7 +29,7 @@
 
         <!-- Version number properties -->
         <nazgul-core.version>3.0.0</nazgul-core.version>
-        <xmlunit.version>2.6.3</xmlunit.version>
+        <xmlunit.version>2.7.0</xmlunit.version>
     </properties>
 
     <!-- +=============================================== -->

@@ -113,7 +113,7 @@
     <slf4j.version>1.7.25</slf4j.version>
     <logback.version>1.2.3</logback.version>
     <logback.logstash.version>5.1</logback.logstash.version>
-    <xmlunit.version>2.6.3</xmlunit.version>
+    <xmlunit.version>2.7.0</xmlunit.version>
     <jaxb2-maven-plugin.version>2.3.1</jaxb2-maven-plugin.version>
     <jaxb-api.version>2.3.1</jaxb-api.version>
     <depgraph-maven-plugin.version>3.3.0</depgraph-maven-plugin.version>
