@@ -4,12 +4,17 @@
 package com.etraveli.oss.codestyle.projects.enforcer
 
 import com.etraveli.oss.codestyle.projects.CommonProjectTypes
+import com.etraveli.oss.codestyle.projects.FailedProjectResolutionException
 import com.etraveli.oss.codestyle.projects.ProjectType
+import com.etraveli.oss.codestyle.projects.enforcer.model.AnalysisResult
+import com.etraveli.oss.codestyle.projects.enforcer.model.InexactResult
+import com.etraveli.oss.codestyle.projects.enforcer.model.ExactResult
 import org.apache.maven.artifact.Artifact
 import org.apache.maven.artifact.DefaultArtifact
 import org.apache.maven.artifact.handler.DefaultArtifactHandler
 import org.apache.maven.enforcer.rule.api.EnforcerRuleHelper
 import org.apache.maven.project.MavenProject
+import java.lang.IllegalArgumentException
 
 /**
  * Maven enforcement rule which ensures that Implementation [Artifact]s are not used as dependencies within
@@ -38,12 +43,12 @@ open class CorrectDependenciesRule @JvmOverloads constructor(
 
   private val dontEvaluateGroupIds: List<String> = DEFAULT_DONT_EVALUATE_GROUPIDS,
 
-  private val projectConverter: ((theProject: MavenProject) -> ProjectType) = {
-    CommonProjectTypes.getProjectType(it, dontEvaluateGroupIds)
+  private val projectConverter: ((theProject: MavenProject) -> AnalysisResult?) = {
+    defaultAnalysisOf(it, dontEvaluateGroupIds)
   },
 
-  private val artifactConverter: ((theArtifact: Artifact) -> ProjectType) = {
-    CommonProjectTypes.getProjectType(it)
+  private val artifactConverter: ((theArtifact: Artifact) -> AnalysisResult?) = {
+    defaultAnalysisOf(it)
   }) : AbstractNonCacheableEnforcerRule() {
 
 
@@ -54,12 +59,6 @@ open class CorrectDependenciesRule @JvmOverloads constructor(
   override fun getShortRuleDescription(): String = "Incorrect Dependency found within project."
 
   override fun performValidation(project: MavenProject, helper: EnforcerRuleHelper) {
-
-    // Acquire the ProjectType, and don't evaluate for ignored ProjectTypes.
-    val projectType = projectConverter.invoke(project)
-    if (projectType in ignoredProjectTypes) {
-      return
-    }
 
     // Don't evaluate if told not to.
     if (matches(project.groupId, regexpsDontEvaluateGroupIDs)) {
@@ -89,6 +88,30 @@ open class CorrectDependenciesRule @JvmOverloads constructor(
       return
     }
 
+    // Acquire the ProjectType, and don't evaluate for ignored ProjectTypes.
+    var foundProjectType : ProjectType? = null
+    var errorMessage : String? = null
+
+    when(val projectAnalysisResult = projectConverter.invoke(project)) {
+      is ExactResult -> {
+        foundProjectType = projectAnalysisResult.projectType
+      }
+      is InexactResult -> {
+        foundProjectType = projectAnalysisResult.closestProjectType
+        errorMessage = projectAnalysisResult.message
+      }
+      else -> {
+        foundProjectType = null
+      }
+    }
+
+    // Throw an exception if the
+    if (foundProjectType != null && foundProjectType in ignoredProjectTypes) {
+      return
+    } else if(errorMessage != null) {
+      throw throw IllegalArgumentException(errorMessage)
+    }
+
     // Acquire all project dependencies.
     val artifactList = project.dependencyArtifacts
       ?: project.model.dependencies?.map {
@@ -113,31 +136,90 @@ open class CorrectDependenciesRule @JvmOverloads constructor(
       val isNotExplicitlyExcludedFromEvaluation = !matches(current.groupId, regexpsDontEvaluateGroupIDs)
       if (isIncludedInEvaluation && isNotExplicitlyExcludedFromEvaluation) {
 
-        val artifactProjectType = artifactConverter(current)
-        val prefix = "Don't use $artifactProjectType dependencies "
+        var artifactProjectType : ProjectType? = null
+        var artifactErrorMessage : String? = null
 
-        if (artifactProjectType === CommonProjectTypes.IMPLEMENTATION) {
-          throw RuleFailureException(prefix + "outside of application projects.", current)
+        when(val artifactAnalyzed = artifactConverter(current)) {
+          is ExactResult -> {
+            artifactProjectType = artifactAnalyzed.projectType
+          }
+          is InexactResult -> {
+            artifactProjectType = artifactAnalyzed.closestProjectType
+            artifactErrorMessage = artifactAnalyzed.message
+          }
+          else -> {
+            artifactProjectType = null
+          }
         }
 
-        if (artifactProjectType === CommonProjectTypes.TEST) {
-          throw RuleFailureException(prefix + "in compile scope for non-test artifacts.", current)
+        // Log somewhat
+        val log = helper.log
+        if(log.isInfoEnabled && artifactErrorMessage !== null) {
+          log.info(artifactErrorMessage)
         }
 
-        if (artifactProjectType === CommonProjectTypes.JEE_APPLICATION
-          || artifactProjectType === CommonProjectTypes.PROOF_OF_CONCEPT) {
-          throw RuleFailureException(prefix + "in bundles.", current)
-        }
 
-        if (artifactProjectType === CommonProjectTypes.BILL_OF_MATERIALS) {
-          throw RuleFailureException(prefix + "in Dependency block. (Use only as DependencyManagement " +
-                                       "import-scoped dependencies).")
+        if(artifactProjectType != null) {
+          val prefix = "Don't use $artifactProjectType dependencies "
+
+          if (artifactProjectType === CommonProjectTypes.IMPLEMENTATION) {
+            throw RuleFailureException(prefix + "within [${CommonProjectTypes.IMPLEMENTATION.name}] projects. " +
+                                         "Implementation projects should only be imported in " +
+                                         "provided/runtime/test scope", current)
+          }
+
+          if (artifactProjectType === CommonProjectTypes.TEST) {
+            throw RuleFailureException(prefix + "in compile scope for non-test artifacts.", current)
+          }
+
+          if (artifactProjectType === CommonProjectTypes.JEE_APPLICATION
+            || artifactProjectType === CommonProjectTypes.PROOF_OF_CONCEPT) {
+            throw RuleFailureException(prefix + "in bundles.", current)
+          }
+
+          if (artifactProjectType === CommonProjectTypes.BILL_OF_MATERIALS) {
+            throw RuleFailureException(prefix + "in Dependency block. (Use only as DependencyManagement " +
+                                         "import-scoped dependencies).")
+          }
         }
       }
     }
   }
 
   companion object {
+
+    @JvmStatic
+    internal fun defaultAnalysisOf(theProject: MavenProject,
+                                   dontEvaluateGroupIdPatterns: List<String>) : AnalysisResult? {
+
+      var toReturn :AnalysisResult? = null
+
+      try {
+        toReturn = ExactResult(CommonProjectTypes.getProjectType(theProject, dontEvaluateGroupIdPatterns))
+      } catch (e: FailedProjectResolutionException) {
+        toReturn = InexactResult(e.bestEstimate, e.message)
+      } catch (e : Exception) {
+        // Ignore this
+      }
+
+      return toReturn
+    }
+
+    @JvmStatic
+    internal fun defaultAnalysisOf(anArtifact: Artifact) : AnalysisResult? {
+
+      var toReturn :AnalysisResult? = null
+
+      try {
+        toReturn = ExactResult(CommonProjectTypes.getProjectType(anArtifact))
+      } catch (e: FailedProjectResolutionException) {
+        toReturn = InexactResult(e.bestEstimate, e.message)
+      } catch (e : Exception) {
+        // Ignore this
+      }
+
+      return toReturn
+    }
 
     /**
      * List containing [Regex] patterns matching Maven GroupIDs to be excluded from this Rule's evaluation.

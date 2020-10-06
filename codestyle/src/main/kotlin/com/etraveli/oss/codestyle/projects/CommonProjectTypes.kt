@@ -280,7 +280,8 @@ enum class CommonProjectTypes(artifactIdPattern: String?,
         @Throws(IllegalArgumentException::class)
         @JvmStatic
         @JvmOverloads
-        fun getProjectType(project: MavenProject, ignorePatterns: List<String> = emptyList()): CommonProjectTypes {
+        fun getProjectType(project: MavenProject,
+                           ignorePatterns: List<String> = emptyList()): CommonProjectTypes {
 
             val matches = CommonProjectTypes
               .values()
@@ -305,18 +306,30 @@ enum class CommonProjectTypes(artifactIdPattern: String?,
             val toReturn = matches[0]
             when (toReturn) {
 
-                PARENT, ASSEMBLY ->
+                PARENT ->
 
                     // This project should not contain modules.
                     if (project.modules != null && project.modules.isNotEmpty()) {
-                        throw IllegalArgumentException("${toReturn.name} projects may not contain " +
-                                                         "module definitions. (Modules are reserved for reactor projects).")
+                        throw FailedProjectResolutionException("${toReturn.name} projects may not " +
+                                                                 "contain module definitions. " +
+                                                                 "(Modules are reserved for reactor projects).",
+                                                               PARENT)
+                    }
+
+                ASSEMBLY ->
+
+                    // This project should not contain modules.
+                    if (project.modules != null && project.modules.isNotEmpty()) {
+                        throw FailedProjectResolutionException("${toReturn.name} projects may not " +
+                                                                 "contain module definitions. " +
+                                                                 "(Modules are reserved for reactor projects).",
+                                                               ASSEMBLY)
                     }
 
                 BILL_OF_MATERIALS -> {
 
                     val errorText = "${toReturn.name} projects may not contain dependency definitions. " +
-                      "(Dependencies should be defined within parent projects)."
+                      "(Dependencies should be defined within DependencyManagement blocks within parent projects)."
 
                     fun containsNonIgnoredDependencies(depList: List<Dependency>?): Boolean {
 
@@ -335,7 +348,7 @@ enum class CommonProjectTypes(artifactIdPattern: String?,
 
                     // This project not contain Dependency definitions.
                     if (containsNonIgnoredDependencies(project.dependencies)) {
-                        throw IllegalArgumentException(errorText)
+                        throw FailedProjectResolutionException(errorText, BILL_OF_MATERIALS)
                     }
                 }
 
@@ -343,7 +356,7 @@ enum class CommonProjectTypes(artifactIdPattern: String?,
 
                     val errorText = "${toReturn.name} projects may not contain " +
                       "dependency [incl. DependencyManagement] definitions. (Dependencies should be defined " +
-                      "within parent projects)."
+                      "within DependencyManagement blocks within parent projects)."
 
                     fun containsNonIgnoredElements(depList: List<Dependency>?): Boolean {
 
@@ -364,13 +377,13 @@ enum class CommonProjectTypes(artifactIdPattern: String?,
 
                     // This project not contain Dependency definitions.
                     if (containsNonIgnoredElements(project.dependencies)) {
-                        throw IllegalArgumentException(errorText)
+                        throw FailedProjectResolutionException(errorText, REACTOR)
                     }
 
                     // This kind of project should not contain DependencyManagement definitions.
                     val dependencyManagement = project.dependencyManagement
                     if (dependencyManagement != null && containsNonIgnoredElements(dependencyManagement.dependencies)) {
-                        throw IllegalArgumentException(errorText)
+                        throw FailedProjectResolutionException(errorText, REACTOR)
                     }
                 }
 

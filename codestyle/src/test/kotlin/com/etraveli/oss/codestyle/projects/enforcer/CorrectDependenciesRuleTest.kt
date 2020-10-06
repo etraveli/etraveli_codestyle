@@ -60,6 +60,18 @@ class CorrectDependenciesRuleTest {
         unitUnderTest.execute(mockHelper)
     }
 
+    @Test
+    fun validateOkApiPomHavingIgnoredDependencies() {
+
+        // Assemble
+        val project = MavenTestUtils.readPom("testdata/poms/correct-api-with-ignored-dependencies.xml")
+        val mockHelper = MockEnforcerRuleHelper(project)
+        val unitUnderTest = CorrectDependenciesRule()
+
+        // Act & Assert
+        unitUnderTest.execute(mockHelper)
+    }
+
     @Test(expected = IllegalArgumentException::class)
     fun validateExceptionOnBomHavingDependencies() {
 
@@ -67,7 +79,35 @@ class CorrectDependenciesRuleTest {
         val project = MavenTestUtils.readPom("testdata/poms/incorrect-bom-with-dependency.xml")
         val mockHelper = MockEnforcerRuleHelper(project)
         val unitUnderTest = CorrectDependenciesRule(
-          dontEvaluateGroupIds = listOf("^com\\.etraveli\\..*\\.generated\\..*", "^com\\.etraveli\\.oss\\.codestyle\\..*")
+          dontEvaluateGroupIds = listOf("^com\\.etraveli\\..*\\.generated\\..*")
+        )
+
+        // Act & Assert
+        unitUnderTest.execute(mockHelper)
+    }
+
+    @Test(expected = EnforcerRuleException::class)
+    fun validateExceptionOnImplProjectHavingImplDependencies() {
+
+        // Assemble
+        val project = MavenTestUtils.readPom("testdata/poms/incorrect-impl-with-impl-dependency.xml")
+        val mockHelper = MockEnforcerRuleHelper(project)
+        val unitUnderTest = CorrectDependenciesRule(
+          dontEvaluateGroupIds = listOf("^com\\.etraveli\\..*\\.generated\\..*")
+        )
+
+        // Act & Assert
+        unitUnderTest.execute(mockHelper)
+    }
+
+    @Test(expected = EnforcerRuleException::class)
+    fun validateExceptionOnApiInImpl() {
+
+        // Assemble
+        val project = MavenTestUtils.readPom("testdata/poms/incorrect-impl-with-impl-dependency.xml")
+        val mockHelper = MockEnforcerRuleHelper(project)
+        val unitUnderTest = CorrectDependenciesRule(
+          dontEvaluateGroupIds = listOf("^com\\.etraveli\\..*\\.generated\\..*")
         )
 
         // Act & Assert

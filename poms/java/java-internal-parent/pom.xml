@@ -991,11 +991,6 @@
                             <artifactId>etraveli-codestyle</artifactId>
                             <version>0.10.1-SNAPSHOT</version>
                         </dependency>
-                        <dependency>
-                            <groupId>log4j</groupId>
-                            <artifactId>log4j</artifactId>
-                            <version>1.2.17</version>
-                        </dependency>
                     </dependencies>
                 </plugin>
 

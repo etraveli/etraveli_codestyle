@@ -16,12 +16,14 @@ import org.apache.maven.project.MavenProject
  * @param dontEvaluateGroupIds Ignore any dependencies whose groupIDs match any of the patterns supplied
  * @param permittedProjectTypes A List containing the ProjectTypes permitted.
  * Defaults to `CommonProjectTypes.values().asList()`.
- * @see ProjectType
+ *
  * @author [Lennart J&ouml;relid](mailto:lennart.jorelid@etraveli.com)
+ * @see ProjectType
  */
 open class PermittedProjectTypeRule @JvmOverloads constructor(
   val dontEvaluateGroupIds: List<String>? = null,
-  val permittedProjectTypes: List<ProjectType> = CommonProjectTypes.values().asList()
+  val permittedProjectTypes: List<ProjectType> = CommonProjectTypes.values()
+    .asList()
 ) : AbstractNonCacheableEnforcerRule() {
 
   // Internal state
@@ -64,10 +66,15 @@ open class PermittedProjectTypeRule @JvmOverloads constructor(
 
   override fun toString(): String {
 
-    val ignoreDescription = when(dontEvaluateGroupIds == null) {
+    val ignoreDescription = when (dontEvaluateGroupIds.isNullOrEmpty()) {
       true -> "ignoring no artifacts."
-      else -> "ignoring artifacts matching [${dontEvaluateGroupIds.size}] groupIDs: [" +
-        dontEvaluateGroupIds.map { it }.reduce { acc, s -> "$acc, $s" } + "]"
+      else -> {
+
+        val nonEvaldGroupIDs = dontEvaluateGroupIds.map { it }
+          .reduce { acc, s -> "$acc, $s" }
+
+        "ignoring artifacts matching [${dontEvaluateGroupIds.size}] groupIDs: [$nonEvaldGroupIDs]"
+      }
     }
 
     return "${this::class.java.simpleName} $ignoreDescription" +
