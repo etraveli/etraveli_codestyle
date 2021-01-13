@@ -82,7 +82,7 @@
 
         <!-- Code style properties -->
         <clean.plugin.version>3.0.0</clean.plugin.version>
-        <maven-project-info-reports-plugin.version>3.0.0</maven-project-info-reports-plugin.version>
+        <maven-project-info-reports-plugin.version>3.1.1</maven-project-info-reports-plugin.version>
         <versions-maven-plugin.version>2.7</versions-maven-plugin.version>
 
         <!-- Site plugin properties -->

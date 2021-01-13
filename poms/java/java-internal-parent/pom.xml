@@ -110,7 +110,7 @@
         <maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
 
       <!-- Diverse plugin versions -->
-      <maven-project-info-reports-plugin.version>3.0.0</maven-project-info-reports-plugin.version>
+      <maven-project-info-reports-plugin.version>3.1.1</maven-project-info-reports-plugin.version>
         <maven-javadoc-plugin.version>3.2.0</maven-javadoc-plugin.version>
         <dependency.plugin.version>3.1.2</dependency.plugin.version>
         <versions-maven-plugin.version>2.7</versions-maven-plugin.version>
@@ -541,7 +541,7 @@
                                         <goals>
                                             <goal>generate-depends-file</goal>
                                         </goals>
-                                        <versionRange>[1.2,)</versionRange>
+                                        <versionRange>[1.4,)</versionRange>
                                     </pluginExecutionFilter>
                                     <action>
                                         <ignore/>
@@ -604,7 +604,7 @@
               <plugin>
                     <groupId>org.apache.felix</groupId>
                     <artifactId>maven-bundle-plugin</artifactId>
-                    <version>4.2.1</version>
+                    <version>5.1.1</version>
                     <executions>
                         <execution>
                             <id>bundle-manifest</id>
