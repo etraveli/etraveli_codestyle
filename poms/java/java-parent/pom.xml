@@ -15,7 +15,7 @@
     <parent>
         <groupId>com.etraveli.oss.codestyle.poms.java</groupId>
         <artifactId>etraveli-codestyle-java-internal-parent</artifactId>
-        <version>etraveli-codestyle-0.12.0</version>
+        <version>0.12.1-SNAPSHOT</version>
         <relativePath>../java-internal-parent</relativePath>
     </parent>
 
@@ -121,7 +121,7 @@
                     <dependency>
                         <groupId>com.etraveli.oss.codestyle</groupId>
                         <artifactId>etraveli-codestyle</artifactId>
-                        <version>etraveli-codestyle-0.12.0</version>
+                        <version>0.12.1-SNAPSHOT</version>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -153,6 +153,6 @@
         <connection>${scm.connection.url}</connection>
         <developerConnection>${scm.devConnection.url}</developerConnection>
         <url>${scm.url}</url>
-        <tag>etraveli-codestyle-0.12.0</tag>
+        <tag>HEAD</tag>
     </scm>
 </project>
