@@ -15,7 +15,7 @@
     <parent>
         <groupId>com.etraveli.oss.codestyle.poms.kotlin</groupId>
         <artifactId>etraveli-codestyle-kotlin-internal-parent</artifactId>
-        <version>0.13.0</version>
+        <version>0.13.1-SNAPSHOT</version>
         <relativePath>../kotlin-internal-parent</relativePath>
     </parent>
 
@@ -114,7 +114,7 @@
                         <dependency>
                             <groupId>com.etraveli.oss.codestyle</groupId>
                             <artifactId>etraveli-codestyle</artifactId>
-                            <version>0.13.0</version>
+                            <version>0.13.1-SNAPSHOT</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -219,7 +219,7 @@
         <connection>${scm.connection.url}</connection>
         <developerConnection>${scm.devConnection.url}</developerConnection>
         <url>${scm.url}</url>
-        <tag>etraveli-codestyle-0.13.0</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <!--
