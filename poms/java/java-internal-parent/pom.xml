@@ -4,19 +4,20 @@
   -->
 
 <!--suppress MavenRedundantGroupId -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <!--
-    ################################################
-    # Section 1:  Project information
-    ################################################
-    -->
-    <parent>
+  <!--
+  ################################################
+  # Section 1:  Project information
+  ################################################
+  -->
+  <parent>
         <groupId>org.sonatype.oss</groupId>
         <artifactId>oss-parent</artifactId>
         <version>9</version>
-        <relativePath />
+        <relativePath/>
     </parent>
 
     <groupId>com.etraveli.oss.codestyle.poms.java</groupId>
@@ -68,23 +69,23 @@
             Define the URL prefixes for Site Deployment and DistributionManagement.
             These can be overridden in sub-reactors to tailor releases to other locations.
         -->
-        <reactor.name>etraveli_codestyle</reactor.name>
+      <reactor.name>etraveli_codestyle</reactor.name>
         <path.in.reactor>poms/java/java-internal-parent</path.in.reactor>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <!-- Build-controlling properties -->
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+      <!-- Build-controlling properties -->
+      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <build.number />
+        <build.number/>
         <artifact.distribution.directory>${project.build.outputDirectory}</artifact.distribution.directory>
         <check.plugins.phase>package</check.plugins.phase>
-        <jdk.version>1.8</jdk.version>
+        <jdk.version>11</jdk.version>
         <javaee-api.version>8.0</javaee-api.version>
 
-        <!--
-            Define URL prefixes used in the various URL settings of the POM.
-        -->
-        <git.repo.owner>etraveli</git.repo.owner>
+      <!--
+          Define URL prefixes used in the various URL settings of the POM.
+      -->
+      <git.repo.owner>etraveli</git.repo.owner>
         <git.repo.url.prefix>https://github.com/${git.repo.owner}</git.repo.url.prefix>
         <git.scm.url.prefix>scm:git:ssh://git@github.com/${git.repo.owner}</git.scm.url.prefix>
         <site.url.prefix>http://${git.repo.owner}.github.io</site.url.prefix>
@@ -96,8 +97,8 @@
         <scm.url>${git.repo.url.prefix}/${reactor.name}.git</scm.url>
         <site.staging.localDirectory>/tmp/${reactor.name}</site.staging.localDirectory>
 
-        <!-- Version number properties -->
-        <maven.version>3.3.1</maven.version>
+      <!-- Version number properties -->
+      <maven.version>3.3.1</maven.version>
         <openjpa.version>2.4.0</openjpa.version>
         <maven.release.plugin.version>2.5.3</maven.release.plugin.version>
         <maven.compiler.plugin.version>3.8.0</maven.compiler.plugin.version>
@@ -105,76 +106,77 @@
         <slf4j.version>1.7.25</slf4j.version>
         <logback.version>1.2.3</logback.version>
         <logback.logstash.version>5.1</logback.logstash.version>
-        <kotlin.version>1.4.10</kotlin.version>
+        <kotlin.version>1.4.21</kotlin.version>
         <maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
 
-        <!-- Diverse plugin versions -->
-        <maven-project-info-reports-plugin.version>3.0.0</maven-project-info-reports-plugin.version>
+      <!-- Diverse plugin versions -->
+      <maven-project-info-reports-plugin.version>3.0.0</maven-project-info-reports-plugin.version>
         <maven-javadoc-plugin.version>3.2.0</maven-javadoc-plugin.version>
-        <dependency.plugin.version>3.1.1</dependency.plugin.version>
+        <dependency.plugin.version>3.1.2</dependency.plugin.version>
         <versions-maven-plugin.version>2.7</versions-maven-plugin.version>
         <jaxb2-maven-plugin.version>2.5.0</jaxb2-maven-plugin.version>
         <depgraph-maven-plugin.version>3.3.0</depgraph-maven-plugin.version>
         <depgraph.printStyleConfiguration>false</depgraph.printStyleConfiguration>
 
-        <!-- Code style properties -->
-        <wtp.version>2.0</wtp.version>
+      <!-- Code style properties -->
+      <wtp.version>2.0</wtp.version>
         <skip.verify.code>false</skip.verify.code>
 
-        <!-- Enforcer configuration parameters -->
-        <enforcer.version>3.0.0-M3</enforcer.version>
+      <!-- Enforcer configuration parameters -->
+      <enforcer.version>3.0.0-M3</enforcer.version>
+        <linkage-checker.version>1.5.4</linkage-checker.version>
         <enforcer.includedGroupIdPatterns>^com\.etraveli\..*</enforcer.includedGroupIdPatterns>
         <enforcer.excludedGroupIdPatterns>^com\.etraveli\..*\.generated\..*,^com\.etraveli\.codestyle\..*</enforcer.excludedGroupIdPatterns>
 
-        <!-- Openclover configuration parameters -->
-        <clover.plugin.version>4.3.0</clover.plugin.version>
+      <!-- Openclover configuration parameters -->
+      <clover.plugin.version>4.3.0</clover.plugin.version>
         <clover.plugin.required.percentage>80%</clover.plugin.required.percentage>
 
-        <!-- AspectJ Properties -->
-        <aspectj.runtime.version>1.8.13</aspectj.runtime.version>
+      <!-- AspectJ Properties -->
+      <aspectj.runtime.version>1.8.13</aspectj.runtime.version>
         <aspectj-maven-plugin.version>1.11</aspectj-maven-plugin.version>
 
-        <!-- Checkstyle configuration parameters. -->
-        <checkstyle.plugin.version>3.1.1</checkstyle.plugin.version>
+      <!-- Checkstyle configuration parameters. -->
+      <checkstyle.plugin.version>3.1.1</checkstyle.plugin.version>
         <checkstyle.config.location>codestyle/checkstyle.xml</checkstyle.config.location>
         <checkstyle.suppressions.location>codestyle/checkstyle-suppressions.xml</checkstyle.suppressions.location>
         <checkstyle.violationSeverity>error</checkstyle.violationSeverity>
         <checkstyle.excludes>**/generated/**/*,**/grammars/**/*</checkstyle.excludes>
 
-        <!-- PMD configuration parameters. -->
-        <pmd.plugin.version>3.13.0</pmd.plugin.version>
+      <!-- PMD configuration parameters. -->
+      <pmd.plugin.version>3.13.0</pmd.plugin.version>
         <pmd.ruleset>/codestyle/pmd-rules.xml</pmd.ruleset>
 
-        <!-- Spotbugs configuration parameters. -->
-        <spotbugs.plugin.version>3.1.6</spotbugs.plugin.version>
+      <!-- Spotbugs configuration parameters. -->
+      <spotbugs.plugin.version>3.1.6</spotbugs.plugin.version>
         <spotbugs.only.analyze>com.etraveli.*</spotbugs.only.analyze>
         <spotbugs.includeFilterFile>codestyle/spotbugs.xml</spotbugs.includeFilterFile>
         <spotbugs.excludeFilterFile>codestyle/spotbugs-excludes.xml</spotbugs.excludeFilterFile>
 
-        <!-- Surefire configuration parameters. -->
-        <surefire.memconf>-Xmx1024m -XX:MaxPermSize=512m</surefire.memconf>
+      <!-- Surefire configuration parameters. -->
+      <surefire.memconf>-Xmx1024m -XX:MaxPermSize=512m</surefire.memconf>
         <surefire.argLine>${surefire.memconf}</surefire.argLine>
 
-        <!-- License plugin configuration parameters. -->
-        <license.id>seat24_apl_v2</license.id>
+      <!-- License plugin configuration parameters. -->
+      <license.id>seat24_apl_v2</license.id>
         <license.licenseResolver>classpath://codestyle/license</license.licenseResolver>
 
-        <!-- Define code-breaking constants -->
-        <breakOnFailure.checkstyle>true</breakOnFailure.checkstyle>
+      <!-- Define code-breaking constants -->
+      <breakOnFailure.checkstyle>true</breakOnFailure.checkstyle>
         <breakOnFailure.pmd>true</breakOnFailure.pmd>
         <breakOnFailure.enforcer>true</breakOnFailure.enforcer>
         <breakOnFailure.license>true</breakOnFailure.license>
         <release.skipGpgSigning>true</release.skipGpgSigning>
 
-        <!-- Site plugin properties -->
-        <maven-site-plugin.version>3.8.2</maven-site-plugin.version>
+      <!-- Site plugin properties -->
+      <maven-site-plugin.version>3.9.1</maven-site-plugin.version>
         <doxia-modules.version>1.8</doxia-modules.version>
         <wagon-modules.version>2.10</wagon-modules.version>
 
-        <!-- Resource-controlling properties -->
-        <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
-        <maven-resources-plugin.includeEmptyDirs>true</maven-resources-plugin.includeEmptyDirs>
-        <apiviz.version>1.3.4</apiviz.version>
+      <!-- Resource-controlling properties -->
+      <maven-resources-plugin.version>3.2.0</maven-resources-plugin.version>
+      <maven-resources-plugin.includeEmptyDirs>true</maven-resources-plugin.includeEmptyDirs>
+      <apiviz.version>1.3.4</apiviz.version>
     </properties>
 
     <developers>
@@ -191,12 +193,12 @@
         </developer>
     </developers>
 
-    <!--
-    ################################################
-    # Section 2:  Dependency (management) settings
-    ################################################
-    -->
-    <dependencyManagement>
+  <!--
+  ################################################
+  # Section 2:  Dependency (management) settings
+  ################################################
+  -->
+  <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>org.slf4j</groupId>
@@ -216,20 +218,20 @@
                 <version>${logback.logstash.version}</version>
             </dependency>
 
-            <!--
-                JavaEE specification.
-            -->
-            <dependency>
+          <!--
+              JavaEE specification.
+          -->
+          <dependency>
                 <groupId>javax</groupId>
                 <artifactId>javaee-api</artifactId>
                 <version>${javaee-api.version}</version>
                 <scope>provided</scope>
             </dependency>
 
-            <!--
-                AOP dependencies.
-            -->
-            <dependency>
+          <!--
+              AOP dependencies.
+          -->
+          <dependency>
                 <groupId>org.aspectj</groupId>
                 <artifactId>aspectjrt</artifactId>
                 <version>${aspectj.runtime.version}</version>
@@ -240,10 +242,10 @@
                 <version>${aspectj.runtime.version}</version>
             </dependency>
 
-            <!--
-                OSGi dependencies
-            -->
-            <dependency>
+          <!--
+              OSGi dependencies
+          -->
+          <dependency>
                 <groupId>org.osgi</groupId>
                 <artifactId>org.osgi.core</artifactId>
                 <version>${osgiVersion}</version>
@@ -271,10 +273,10 @@
                 <version>${kotlin.version}</version>
             </dependency>
 
-            <!--
-               Test framework dependencies
-            -->
-            <dependency>
+          <!--
+             Test framework dependencies
+          -->
+          <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
                 <scope>test</scope>
@@ -284,12 +286,12 @@
         </dependencies>
     </dependencyManagement>
 
-    <!--
-    ################################################
-    # Section 3:  Build settings
-    ################################################
-    -->
-    <build>
+  <!--
+  ################################################
+  # Section 3:  Build settings
+  ################################################
+  -->
+  <build>
         <pluginManagement>
             <plugins>
 
@@ -299,7 +301,7 @@
                     Why:  Convert Plantuml documents to png images.
                     Used: Site lifecycle, mvn site.
                 -->
-                <plugin>
+              <plugin>
                     <groupId>com.github.jeluard</groupId>
                     <artifactId>plantuml-maven-plugin</artifactId>
                     <version>7954</version>
@@ -328,7 +330,7 @@
                             Do not upgrade the plantuml dependency above version 8030, as those plantuml releases
                             are not binary compatible with the plugin version 7954.
                         -->
-                        <dependency>
+                      <dependency>
                             <groupId>net.sourceforge.plantuml</groupId>
                             <artifactId>plantuml</artifactId>
                             <version>8030</version>
@@ -336,13 +338,13 @@
                     </dependencies>
                 </plugin>
 
-                <!--
-                    Use the latest maven-clean-plugin.
+              <!--
+                  Use the latest maven-clean-plugin.
 
-                    Why:  Override the version in Maven's super pom.xml.
-                    Used: Clean lifecycle
-                -->
-                <plugin>
+                  Why:  Override the version in Maven's super pom.xml.
+                  Used: Clean lifecycle
+              -->
+              <plugin>
                     <artifactId>maven-clean-plugin</artifactId>
                     <version>3.0.0</version>
                     <configuration>
@@ -358,13 +360,13 @@
                     </configuration>
                 </plugin>
 
-                <!--
-                    This is not a proper maven plugin configuration, but instead Eclipse metadata for M2E.
+              <!--
+                  This is not a proper maven plugin configuration, but instead Eclipse metadata for M2E.
 
-                    Why:  Eclipse metadata for M2E lifecycle mappings
-                    Used: Only by Eclipse; neither used by Maven nor any other IDE.
-                -->
-                <plugin>
+                  Why:  Eclipse metadata for M2E lifecycle mappings
+                  Used: Only by Eclipse; neither used by Maven nor any other IDE.
+              -->
+              <plugin>
                     <groupId>org.eclipse.m2e</groupId>
                     <artifactId>lifecycle-mapping</artifactId>
                     <version>1.0.0</version>
@@ -401,7 +403,7 @@
                                         <versionRange>2.5</versionRange>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore />
+                                        <ignore/>
                                     </action>
                                 </pluginExecution>
 
@@ -415,7 +417,7 @@
                                         <versionRange>[0.0,)</versionRange>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore />
+                                        <ignore/>
                                     </action>
                                 </pluginExecution>
 
@@ -454,7 +456,7 @@
                                         <versionRange>[0.0,)</versionRange>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore />
+                                        <ignore/>
                                     </action>
                                 </pluginExecution>
 
@@ -468,7 +470,7 @@
                                         <versionRange>[0.0,)</versionRange>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore />
+                                        <ignore/>
                                     </action>
                                 </pluginExecution>
 
@@ -485,7 +487,7 @@
                                         <versionRange>[0.0,)</versionRange>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore />
+                                        <ignore/>
                                     </action>
                                 </pluginExecution>
 
@@ -500,7 +502,7 @@
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <execute />
+                                        <execute/>
                                     </action>
                                 </pluginExecution>
 
@@ -514,7 +516,7 @@
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <execute />
+                                        <execute/>
                                     </action>
                                 </pluginExecution>
 
@@ -528,7 +530,7 @@
                                         <versionRange>[1.0.0,)</versionRange>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore />
+                                        <ignore/>
                                     </action>
                                 </pluginExecution>
 
@@ -542,7 +544,7 @@
                                         <versionRange>[1.2,)</versionRange>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore />
+                                        <ignore/>
                                     </action>
                                 </pluginExecution>
 
@@ -557,7 +559,7 @@
                                         <versionRange>[1.2,)</versionRange>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore />
+                                        <ignore/>
                                     </action>
                                 </pluginExecution>
 
@@ -566,10 +568,10 @@
                     </configuration>
                 </plugin>
 
-                <!--
-                    Dependency graph generation plugin
-                -->
-                <plugin>
+              <!--
+                  Dependency graph generation plugin
+              -->
+              <plugin>
                     <groupId>com.github.ferstl</groupId>
                     <artifactId>depgraph-maven-plugin</artifactId>
                     <version>${depgraph-maven-plugin.version}</version>
@@ -593,13 +595,13 @@
                     </dependencies>
                 </plugin>
 
-                <!--
-                    Define OSGi bundle plugin version.
+              <!--
+                  Define OSGi bundle plugin version.
 
-                    Why:  Plugin used to generate OSGi Manifest headers in JARs.
-                    Used: As included in [sub]projects.
-                -->
-                <plugin>
+                  Why:  Plugin used to generate OSGi Manifest headers in JARs.
+                  Used: As included in [sub]projects.
+              -->
+              <plugin>
                     <groupId>org.apache.felix</groupId>
                     <artifactId>maven-bundle-plugin</artifactId>
                     <version>4.2.1</version>
@@ -626,14 +628,14 @@
                     </configuration>
                 </plugin>
 
-                <!--
+              <!--
 
-                    Configures the release plugin to use a custom release profile.
+                  Configures the release plugin to use a custom release profile.
 
-                    Why:  Release artifacts
-                    Used: Normal lifecycle, release goal
-                -->
-                <plugin>
+                  Why:  Release artifacts
+                  Used: Normal lifecycle, release goal
+              -->
+              <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-release-plugin</artifactId>
                     <version>${maven.release.plugin.version}</version>
@@ -653,13 +655,13 @@
                     </dependencies>
                 </plugin>
 
-                <!--
-                    Configures the WAR plugin to properly use the generated OSGi-compliant manifest.
+              <!--
+                  Configures the WAR plugin to properly use the generated OSGi-compliant manifest.
 
-                    Why:  Assigns some manifest data within the WARs in WAR projects. Reads bundle-generated manifest.
-                    Used: Standard lifecycle, mvn package.
-                -->
-                <plugin>
+                  Why:  Assigns some manifest data within the WARs in WAR projects. Reads bundle-generated manifest.
+                  Used: Standard lifecycle, mvn package.
+              -->
+              <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-war-plugin</artifactId>
                     <version>3.2.2</version>
@@ -679,14 +681,14 @@
                     </configuration>
                 </plugin>
 
-                <!--
-                    Configure EAR plugin, directs all normal dependencies in the /lib directory.
+              <!--
+                  Configure EAR plugin, directs all normal dependencies in the /lib directory.
 
-                    Why:  Assigns some manifest data within JARs.
-                          Reads bundle-generated manifest. Uses JEE 6 style EARs.
-                    Used: Standard lifecycle, mvn package.
-                -->
-                <plugin>
+                  Why:  Assigns some manifest data within JARs.
+                        Reads bundle-generated manifest. Uses JEE 6 style EARs.
+                  Used: Standard lifecycle, mvn package.
+              -->
+              <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-ear-plugin</artifactId>
                     <version>2.10.1</version>
@@ -699,7 +701,7 @@
                             </goals>
                             <configuration>
                                 <!-- defaultJavaBundleDir>lib</defaultJavaBundleDir -->
-                                <defaultLibBundleDir>lib</defaultLibBundleDir>
+                              <defaultLibBundleDir>lib</defaultLibBundleDir>
                                 <version>6</version>
                                 <archive>
                                     <manifest>
@@ -718,13 +720,13 @@
                     </executions>
                 </plugin>
 
-                <!--
-                    Configure EJB plugin, uses EJB version 3.1 by default.
+              <!--
+                  Configure EJB plugin, uses EJB version 3.1 by default.
 
-                    Why:  Assigns some manifest data within JARs. Reads bundle-generated manifest.
-                    Used: Standard lifecycle, mvn package.
-                -->
-                <plugin>
+                  Why:  Assigns some manifest data within JARs. Reads bundle-generated manifest.
+                  Used: Standard lifecycle, mvn package.
+              -->
+              <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-ejb-plugin</artifactId>
                     <version>3.0.0</version>
@@ -746,13 +748,13 @@
                     </configuration>
                 </plugin>
 
-                <!--
-                    Configure JAR plugin.
+              <!--
+                  Configure JAR plugin.
 
-                    Why:  Assigns some manifest data within JARs. Reads bundle-generated manifest.
-                    Used: Standard lifecycle, mvn package.
-                -->
-                <plugin>
+                  Why:  Assigns some manifest data within JARs. Reads bundle-generated manifest.
+                  Used: Standard lifecycle, mvn package.
+              -->
+              <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jar-plugin</artifactId>
                     <version>3.1.1</version>
@@ -772,13 +774,13 @@
                     </configuration>
                 </plugin>
 
-                <!--
-                    Configure Compiler plugin.
+              <!--
+                  Configure Compiler plugin.
 
-                    Why:  Ensures source and target Java versions, as well as source encoding (UTF-8).
-                    Used: Standard lifecycle, mvn compile.
-                -->
-                <plugin>
+                  Why:  Ensures source and target Java versions, as well as source encoding (UTF-8).
+                  Used: Standard lifecycle, mvn compile.
+              -->
+              <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>${maven.compiler.plugin.version}</version>
@@ -791,14 +793,13 @@
                     </configuration>
                 </plugin>
 
+              <!--
+                  Specify the version of the Deploy plugin
 
-                <!--
-                    Specify the version of the Deploy plugin
-
-                    Why:  Used to deploy artifacts to repositories.
-                    Used: To copy/upload artifacts to repos.
-                -->
-                <plugin>
+                  Why:  Used to deploy artifacts to repositories.
+                  Used: To copy/upload artifacts to repos.
+              -->
+              <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-deploy-plugin</artifactId>
                     <version>${maven-deploy-plugin.version}</version>
@@ -813,13 +814,13 @@
                     </executions>
                 </plugin>
 
-                <!--
-                    Define project-info-reports plugin version, and reduce the time taken to run it.
+              <!--
+                  Define project-info-reports plugin version, and reduce the time taken to run it.
 
-                    Why:  Version definition only.
-                    Used: Standard lifecycle, mvn site.
-                -->
-                <plugin>
+                  Why:  Version definition only.
+                  Used: Standard lifecycle, mvn site.
+              -->
+              <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-project-info-reports-plugin</artifactId>
                     <version>${maven-project-info-reports-plugin.version}</version>
@@ -828,13 +829,13 @@
                     </configuration>
                 </plugin>
 
-                <!--
-                    Configures the maven resources plugin.
+              <!--
+                  Configures the maven resources plugin.
 
-                    Why:  Ensures that all resources are handled using the standard source encoding.
-                    Used: Standard lifecycle, mvn process-resources.
-                -->
-                <plugin>
+                  Why:  Ensures that all resources are handled using the standard source encoding.
+                  Used: Standard lifecycle, mvn process-resources.
+              -->
+              <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-resources-plugin</artifactId>
                     <version>${maven-resources-plugin.version}</version>
@@ -845,26 +846,26 @@
                     </configuration>
                 </plugin>
 
-                <!--
-                    Analyzes imported dependencies.
+              <!--
+                  Analyzes imported dependencies.
 
-                    Why:  Provide warnings when imported dependencies are not used within the project.
-                    Used: Standard lifecycle.
-                -->
-                <plugin>
+                  Why:  Provide warnings when imported dependencies are not used within the project.
+                  Used: Standard lifecycle.
+              -->
+              <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-dependency-plugin</artifactId>
                     <version>${dependency.plugin.version}</version>
                 </plugin>
 
-                <!--
-                    Configures the maven surefire plugin, which runs the unit tests invoking JUnit.
-                    Surefire's argument line is overridable in subprojects using the property "surefire.argLine".
+              <!--
+                  Configures the maven surefire plugin, which runs the unit tests invoking JUnit.
+                  Surefire's argument line is overridable in subprojects using the property "surefire.argLine".
 
-                    Why:  Supply required encoding (UTF-8), as well as memory sizing definitions.
-                    Used: Standard lifecycle, mvn test.
-                -->
-                <plugin>
+                  Why:  Supply required encoding (UTF-8), as well as memory sizing definitions.
+                  Used: Standard lifecycle, mvn test.
+              -->
+              <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>2.22.0</version>
@@ -874,13 +875,13 @@
                     </configuration>
                 </plugin>
 
-                <!--
-                    Define the version of the Failsafe plugin
+              <!--
+                  Define the version of the Failsafe plugin
 
-                    Why:  Ensure we have a recent enough surefire to use parallelism properly
-                    When: Standard lifecycle, integration-test phases
-                -->
-                <plugin>
+                  Why:  Ensure we have a recent enough surefire to use parallelism properly
+                  When: Standard lifecycle, integration-test phases
+              -->
+              <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-failsafe-plugin</artifactId>
                     <version>2.21.0</version>
@@ -899,26 +900,26 @@
                     </dependencies>
                 </plugin>
 
-                <!--
-                    Define source plugin version, which generates source:jars.
+              <!--
+                  Define source plugin version, which generates source:jars.
 
-                    Why:  Version definition only.
-                    Used: Standard lifecyle, mvn source:jar.
-                -->
-                <plugin>
+                  Why:  Version definition only.
+                  Used: Standard lifecyle, mvn source:jar.
+              -->
+              <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-source-plugin</artifactId>
                     <version>3.2.1</version>
                 </plugin>
 
-                <!--
-                    Configures the site plugin to properly cope with link relativization, staging
-                    and deployment in a controlled and extensible manner.
+              <!--
+                  Configures the site plugin to properly cope with link relativization, staging
+                  and deployment in a controlled and extensible manner.
 
-                    Why:  Generates site documentation. Adds wagon remote deployment capability.
-                    Used: Standard lifecycle, mvn site, mvn site:stage.
-                -->
-                <plugin>
+                  Why:  Generates site documentation. Adds wagon remote deployment capability.
+                  Used: Standard lifecycle, mvn site, mvn site:stage.
+              -->
+              <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-site-plugin</artifactId>
                     <version>${maven-site-plugin.version}</version>
@@ -933,7 +934,7 @@
                             <id>default-deploy</id>
                             <phase>site-deploy</phase>
                             <goals>
-                                <goal />
+                                <goal/>
                             </goals>
                         </execution>
                     </executions>
@@ -954,13 +955,13 @@
                     </dependencies>
                 </plugin>
 
-                <!--
-                    Provides PMD code-style checking integration into the project.
+              <!--
+                  Provides PMD code-style checking integration into the project.
 
-                    Why:  Validates the codestyle.
-                    Used: Standard lifecycle, mvn package.
-                -->
-                <plugin>
+                  Why:  Validates the codestyle.
+                  Used: Standard lifecycle, mvn package.
+              -->
+              <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-pmd-plugin</artifactId>
                     <version>${pmd.plugin.version}</version>
@@ -994,13 +995,13 @@
                     </dependencies>
                 </plugin>
 
-                <!--
-                    Enforces the defined code style, as provided within the codestyle project.
+              <!--
+                  Enforces the defined code style, as provided within the codestyle project.
 
-                    Why:  Validates the codestyle.
-                    Used: Standard lifecycle, mvn package.
-                -->
-                <plugin>
+                  Why:  Validates the codestyle.
+                  Used: Standard lifecycle, mvn package.
+              -->
+              <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-checkstyle-plugin</artifactId>
                     <version>${checkstyle.plugin.version}</version>
@@ -1035,11 +1036,11 @@
                             <artifactId>etraveli-codestyle</artifactId>
                             <version>0.11.1-SNAPSHOT</version>
                         </dependency>
-                        <!--
-                            Workaround https://github.com/jcgay/maven-color/issues/8
-                            i.e. Maven 2 to 3 incompatibilities.
-                         -->
-                        <dependency>
+                      <!--
+                          Workaround https://github.com/jcgay/maven-color/issues/8
+                          i.e. Maven 2 to 3 incompatibilities.
+                       -->
+                      <dependency>
                             <groupId>org.slf4j</groupId>
                             <artifactId>jcl-over-slf4j</artifactId>
                             <version>${slf4j.version}</version>
@@ -1052,12 +1053,12 @@
                     </dependencies>
                 </plugin>
 
-                <!--
-                    Provides unit test coverage for the project.
+              <!--
+                  Provides unit test coverage for the project.
 
-                    Used: Standard build, mvn test.
-                -->
-                <plugin>
+                  Used: Standard build, mvn test.
+              -->
+              <plugin>
                     <groupId>org.openclover</groupId>
                     <artifactId>clover-maven-plugin</artifactId>
                     <version>${clover.plugin.version}</version>
@@ -1075,12 +1076,12 @@
                     </configuration>
                 </plugin>
 
-                <!--
-                    Provides Spotbugs for the project.
+              <!--
+                  Provides Spotbugs for the project.
 
-                    Used: Standard build, mvn test, site.
-                -->
-                <plugin>
+                  Used: Standard build, mvn test, site.
+              -->
+              <plugin>
                     <groupId>com.github.spotbugs</groupId>
                     <artifactId>spotbugs-maven-plugin</artifactId>
                     <version>${spotbugs.plugin.version}</version>
@@ -1119,14 +1120,14 @@
                     </dependencies>
                 </plugin>
 
-                <!--
-                    The license plugin is quite inflexible about the format for the injected/detected file header
-                    in terms of license structure. Use it as intended, but provide a variable
+              <!--
+                  The license plugin is quite inflexible about the format for the injected/detected file header
+                  in terms of license structure. Use it as intended, but provide a variable
 
-                    Why:  Ensures that all files contain a license header.
-                    Used: Standard lifecycle, mvn package.
-                -->
-                <plugin>
+                  Why:  Ensures that all files contain a license header.
+                  Used: Standard lifecycle, mvn package.
+              -->
+              <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>license-maven-plugin</artifactId>
                     <version>2.0.0</version>
@@ -1145,21 +1146,21 @@
                         </roots>
                         <excludes>
                             <!-- Custom excludes -->
-                            <param>**/*.json</param>
-                            <!-- Modelling filetypes -->
-                            <param>**/*.zargo</param>
+                          <param>**/*.json</param>
+                          <!-- Modelling filetypes -->
+                          <param>**/*.zargo</param>
                             <param>**/*.uml</param>
                             <param>**/*.umldi</param>
                             <param>**/*.umldi</param>
                             <param>**/*.xmi</param>
-                            <!-- Image filetypes -->
-                            <param>**/*.img</param>
+                          <!-- Image filetypes -->
+                          <param>**/*.img</param>
                             <param>**/*.png</param>
                             <param>**/*.jpg</param>
                             <param>**/*.jpeg</param>
                             <param>**/*.gif</param>
-                            <!-- Archives -->
-                            <param>**/*.zip</param>
+                          <!-- Archives -->
+                          <param>**/*.zip</param>
                             <param>**/*.jar</param>
                             <param>**/*.war</param>
                             <param>**/*.ear</param>
@@ -1192,23 +1193,22 @@
                     </dependencies>
                 </plugin>
 
+              <!--
+                  Use a working version of the Maven versions plugin.
 
-                <!--
-                    Use a working version of the Maven versions plugin.
-
-                    Why:  Workaround for https://jira.codehaus.org/browse/MVERSIONS-236
-                    Used: Only when called.
-                -->
-                <plugin>
+                  Why:  Workaround for https://jira.codehaus.org/browse/MVERSIONS-236
+                  Used: Only when called.
+              -->
+              <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>versions-maven-plugin</artifactId>
                     <version>${versions-maven-plugin.version}</version>
                 </plugin>
 
-                <!--
-                    Define the version of the maven-gpg-plugina
-                -->
-                <plugin>
+              <!--
+                  Define the version of the maven-gpg-plugina
+              -->
+              <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-gpg-plugin</artifactId>
                     <version>1.6</version>
@@ -1217,25 +1217,25 @@
                     </configuration>
                 </plugin>
 
-                <!--
-                    Extracts dependency information from the build into a property file within the artifact.
+              <!--
+                  Extracts dependency information from the build into a property file within the artifact.
 
-                    Why:  Plugin used to generate a META-INF/maven/dependencies.properties file within the artifact.
-                    Used: In all projects; generate-resources phase.
-                -->
-                <plugin>
+                  Why:  Plugin used to generate a META-INF/maven/dependencies.properties file within the artifact.
+                  Used: In all projects; generate-resources phase.
+              -->
+              <plugin>
                     <groupId>org.apache.servicemix.tooling</groupId>
                     <artifactId>depends-maven-plugin</artifactId>
                     <version>1.4.0</version>
                 </plugin>
 
-                <!--
-                    Use the site-maven-plugin which works with GitHub site deployments.
+              <!--
+                  Use the site-maven-plugin which works with GitHub site deployments.
 
-                    Why:  GitHub-based site deployment is done by committing into the branch gh-pages.
-                    Used: Only at release time.
-                -->
-                <plugin>
+                  Why:  GitHub-based site deployment is done by committing into the branch gh-pages.
+                  Used: Only at release time.
+              -->
+              <plugin>
                     <groupId>com.github.github</groupId>
                     <artifactId>site-maven-plugin</artifactId>
                     <version>0.12</version>
@@ -1251,7 +1251,7 @@
         <plugins>
 
             <!-- Check codestyle, part 1: Checkstyle -->
-            <plugin>
+          <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <executions>
@@ -1265,8 +1265,8 @@
                 </executions>
             </plugin>
 
-            <!-- Check codestyle, part 2: PMD -->
-            <plugin>
+          <!-- Check codestyle, part 2: PMD -->
+          <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
                 <executions>
@@ -1278,8 +1278,8 @@
                 </executions>
             </plugin>
 
-            <!-- Check codestyle, part 3: Spotbugs -->
-            <plugin>
+          <!-- Check codestyle, part 3: Spotbugs -->
+          <plugin>
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
                 <executions>
@@ -1291,8 +1291,8 @@
                 </executions>
             </plugin>
 
-            <!-- Fix project license documents -->
-            <plugin>
+          <!-- Fix project license documents -->
+          <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>license-maven-plugin</artifactId>
                 <executions>
@@ -1307,8 +1307,8 @@
                 </executions>
             </plugin>
 
-            <!-- Compile the code -->
-            <plugin>
+          <!-- Compile the code -->
+          <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven.compiler.plugin.version}</version>
@@ -1321,8 +1321,8 @@
                 </configuration>
             </plugin>
 
-            <!-- Enforce not importing incorrect projects. -->
-            <plugin>
+          <!-- Enforce not importing incorrect projects. -->
+          <plugin>
                 <artifactId>maven-enforcer-plugin</artifactId>
                 <version>${enforcer.version}</version>
                 <executions>
@@ -1340,48 +1340,70 @@
                                 <requireJavaVersion>
                                     <version>${jdk.version}</version>
                                 </requireJavaVersion>
-                                <dependencyConvergence />
 
-                                <!--
-                                    Enforce the ProjectType structure, implying that all projects
-                                    must comply with the project template definitions.
-                                -->
-                                <validateProjectTypes implementation="com.etraveli.oss.codestyle.projects.enforcer.PermittedProjectTypeRule" />
+                              <!--
+                                  Enforce the ProjectType structure, implying that all projects
+                                  must comply with the project template definitions.
+                              -->
+                              <validateProjectTypes
+                                implementation="com.etraveli.oss.codestyle.projects.enforcer.PermittedProjectTypeRule"/>
 
-                                <!--
-                                    Enforce the implementation rules for dependencies, to enforce that
-                                    the level of dependency tanglement is not increased. This implies that
-                                    implementation projects cannot import other implementation projects (but
-                                    instead should import APIs).
+                              <!--
+                                  Enforce the implementation rules for dependencies, to enforce that
+                                  the level of dependency tanglement is not increased. This implies that
+                                  implementation projects cannot import other implementation projects (but
+                                  instead should import APIs).
 
-                                    While the configuration below reflect the default settings, it is
-                                    reproduced her to serve as an example of how to configure this enforcement rule
-                                    in child reactors - where needs are likely different than here.
-                                -->
-                                <restrictImplDependencies implementation="com.etraveli.oss.codestyle.projects.enforcer.CorrectDependenciesRule">
+                                  While the configuration below reflect the default settings, it is
+                                  reproduced her to serve as an example of how to configure this enforcement rule
+                                  in child reactors - where needs are likely different than here.
+                              -->
+                              <restrictImplDependencies
+                                implementation="com.etraveli.oss.codestyle.projects.enforcer.CorrectDependenciesRule">
                                     <evaluateGroupIds>${enforcer.includedGroupIdPatterns}</evaluateGroupIds>
                                     <dontEvaluateGroupIds>${enforcer.excludedGroupIdPatterns}</dontEvaluateGroupIds>
                                 </restrictImplDependencies>
 
-                                <!--
-                                    Enforce using correct packages for classes within a NSC project.
-                                    The root package of any project should be identical to its groupId.
-                                    Any package below the root package can safely be used - so ...
+                              <!--
+                                  Enforce using correct packages for classes within a NSC project.
+                                  The root package of any project should be identical to its groupId.
+                                  Any package below the root package can safely be used - so ...
 
-                                    if the groupId of a project is "com.acme.foobar",
-                                    then all code within that project must reside within the "com.acme.foobar" package,
-                                    or in any subpackage thereof.
-                                -->
-                                <correctPackaging implementation="com.etraveli.oss.codestyle.projects.enforcer.CorrectPackagingRule" />
+                                  if the groupId of a project is "com.acme.foobar",
+                                  then all code within that project must reside within the "com.acme.foobar" package,
+                                  or in any subpackage thereof.
+                              -->
+                              <correctPackaging
+                                implementation="com.etraveli.oss.codestyle.projects.enforcer.CorrectPackagingRule"/>
                             </rules>
                         </configuration>
                     </execution>
+                  <execution>
+                    <id>enforce-linkage-checker</id>
+                    <phase>verify</phase>
+                    <goals>
+                      <goal>enforce</goal>
+                    </goals>
+                    <configuration>
+                      <rules>
+                        <LinkageCheckerRule
+                          implementation="com.google.cloud.tools.dependencies.enforcer.LinkageCheckerRule">
+                          <level>WARN</level>
+                        </LinkageCheckerRule>
+                      </rules>
+                    </configuration>
+                  </execution>
                 </executions>
                 <dependencies>
                     <dependency>
                         <groupId>com.etraveli.oss.codestyle</groupId>
                         <artifactId>etraveli-codestyle</artifactId>
                         <version>0.11.1-SNAPSHOT</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.google.cloud.tools</groupId>
+                        <artifactId>linkage-checker-enforcer-rules</artifactId>
+                        <version>${linkage-checker.version}</version>
                     </dependency>
                     <dependency>
                         <groupId>org.apache.maven.enforcer</groupId>
@@ -1391,8 +1413,8 @@
                 </dependencies>
             </plugin>
 
-            <!-- Generate maven dependencies listing file -->
-            <plugin>
+          <!-- Generate maven dependencies listing file -->
+          <plugin>
                 <groupId>org.apache.servicemix.tooling</groupId>
                 <artifactId>depends-maven-plugin</artifactId>
                 <executions>
@@ -1405,17 +1427,17 @@
                 </executions>
             </plugin>
 
-            <!--
-                Define the version of the Build-Helper maven plugin.
-            -->
-            <plugin>
+          <!--
+              Define the version of the Build-Helper maven plugin.
+          -->
+          <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
                 <version>3.0.0</version>
             </plugin>
 
-            <!-- Analyze dependencies for usage within the project -->
-            <plugin>
+          <!-- Analyze dependencies for usage within the project -->
+          <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <executions>
@@ -1432,17 +1454,17 @@
                                 scope dependency), we can only provide a warning about
                                 unused dependencies.
                              -->
-                            <failOnWarning>false</failOnWarning>
+                          <failOnWarning>false</failOnWarning>
 
-                            <!-- Only deal with compile-scope dependencies -->
-                            <ignoreNonCompile>true</ignoreNonCompile>
+                          <!-- Only deal with compile-scope dependencies -->
+                          <ignoreNonCompile>true</ignoreNonCompile>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
 
-            <!-- Produce an OSGi-compliant MANIFEST.MF file. -->
-            <plugin>
+          <!-- Produce an OSGi-compliant MANIFEST.MF file. -->
+          <plugin>
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-bundle-plugin</artifactId>
                 <executions>
@@ -1456,8 +1478,8 @@
                 </executions>
             </plugin>
 
-            <!-- Generate dependency graph -->
-            <plugin>
+          <!-- Generate dependency graph -->
+          <plugin>
                 <groupId>com.github.ferstl</groupId>
                 <artifactId>depgraph-maven-plugin</artifactId>
                 <executions>
@@ -1471,8 +1493,8 @@
                 </executions>
             </plugin>
 
-            <!-- Generate png images from Plantuml source files. -->
-            <plugin>
+          <!-- Generate png images from Plantuml source files. -->
+          <plugin>
                 <groupId>com.github.jeluard</groupId>
                 <artifactId>plantuml-maven-plugin</artifactId>
                 <executions>
@@ -1499,7 +1521,7 @@
                  once for the pluginManagement section and once for site reporting.
             -->
 
-            <plugin>
+          <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
                 <version>${maven-project-info-reports-plugin.version}</version>
@@ -1508,13 +1530,13 @@
                 </configuration>
             </plugin>
 
-            <!--
-                Configure the javadoc plugin not to fail on standard HTML
-                constructs when building using JDK 8.
+          <!--
+              Configure the javadoc plugin not to fail on standard HTML
+              constructs when building using JDK 8.
 
-                Typical standard constructs include empty tags, like: <p />
-            -->
-            <plugin>
+              Typical standard constructs include empty tags, like: <p />
+          -->
+          <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>${maven-javadoc-plugin.version}</version>
@@ -1559,12 +1581,12 @@
                 <version>3.0.0</version>
             </plugin>
 
-            <!--
-                 Due to problems in the Maven 3 site plugin you must enter the configuration twice,
-                 once for the pluginManagement section and once for the site, see
-                 http://jira.codehaus.org/browse/MSITE-516 and http://jira.codehaus.org/browse/MSITE-523
-            -->
-            <plugin>
+          <!--
+               Due to problems in the Maven 3 site plugin you must enter the configuration twice,
+               once for the pluginManagement section and once for the site, see
+               http://jira.codehaus.org/browse/MSITE-516 and http://jira.codehaus.org/browse/MSITE-523
+          -->
+          <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
                 <version>${pmd.plugin.version}</version>
@@ -1589,16 +1611,16 @@
                 </configuration>
             </plugin>
 
-            <!--
-                 Due to problems in the Maven 3 site plugin you must enter the configuration twice,
-                 once for the pluginManagement section and once for the site, see
-                 http://jira.codehaus.org/browse/MSITE-516 and http://jira.codehaus.org/browse/MSITE-523
+          <!--
+               Due to problems in the Maven 3 site plugin you must enter the configuration twice,
+               once for the pluginManagement section and once for the site, see
+               http://jira.codehaus.org/browse/MSITE-516 and http://jira.codehaus.org/browse/MSITE-523
 
-                 Cannot use checkstyle reports until https://github.com/apache/maven-plugins/pull/88
-                 is merged into the maven-checkstyle-plugin codebase. (Or until we publish a stable-version
-                 clone with changed GroupID for internal use).
-            -->
-            <plugin>
+               Cannot use checkstyle reports until https://github.com/apache/maven-plugins/pull/88
+               is merged into the maven-checkstyle-plugin codebase. (Or until we publish a stable-version
+               clone with changed GroupID for internal use).
+          -->
+          <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>${checkstyle.plugin.version}</version>
@@ -1618,12 +1640,12 @@
                 </reportSets>
             </plugin>
 
-            <!--
-                 Due to problems in the Maven 3 site plugin you must enter the configuration twice,
-                 once for the pluginManagement section and once for the site, see
-                 http://jira.codehaus.org/browse/MSITE-516 and http://jira.codehaus.org/browse/MSITE-523
-            -->
-            <plugin>
+          <!--
+               Due to problems in the Maven 3 site plugin you must enter the configuration twice,
+               once for the pluginManagement section and once for the site, see
+               http://jira.codehaus.org/browse/MSITE-516 and http://jira.codehaus.org/browse/MSITE-523
+          -->
+          <plugin>
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
                 <version>${spotbugs.plugin.version}</version>
@@ -1661,33 +1683,33 @@
         </plugins>
     </reporting>
 
-    <!--
-    ################################################
-    # Section 4:  External systems
-    ################################################
-    -->
+  <!--
+  ################################################
+  # Section 4:  External systems
+  ################################################
+  -->
 
-    <!--
-        Define the Continuous Build server address.
-    -->
-    <ciManagement>
+  <!--
+      Define the Continuous Build server address.
+  -->
+  <ciManagement>
         <system>TravisCI</system>
         <url>https://travis-ci.org/etraveli/etraveli-codestyle</url>
     </ciManagement>
 
-    <!--
-        Define the issue management system.
-    -->
-    <issueManagement>
+  <!--
+      Define the issue management system.
+  -->
+  <issueManagement>
         <system>github</system>
         <url>https://github.com/etraveli/etraveli-codestyle/issues</url>
     </issueManagement>
 
-    <!--
-        Define repository settings for Maven's deploy and release plugins.
-        Move parts to settings.xml, as per recommendation within Maven specs.
-    -->
-    <distributionManagement>
+  <!--
+      Define repository settings for Maven's deploy and release plugins.
+      Move parts to settings.xml, as per recommendation within Maven specs.
+  -->
+  <distributionManagement>
         <repository>
             <id>ossrh-staging</id>
             <name>Sonatype OSS Nexus: Releases</name>
@@ -1705,22 +1727,22 @@
         </site>
     </distributionManagement>
 
-    <!--
-        Define connections for Maven's VCS integration.
-    -->
-    <scm>
+  <!--
+      Define connections for Maven's VCS integration.
+  -->
+  <scm>
         <connection>${scm.connection.url}</connection>
         <developerConnection>${scm.devConnection.url}</developerConnection>
         <url>${scm.url}</url>
         <tag>HEAD</tag>
     </scm>
 
-    <!--
-    ################################################
-    # Section 5:  Profiles
-    ################################################
-    -->
-    <profiles>
+  <!--
+  ################################################
+  # Section 5:  Profiles
+  ################################################
+  -->
+  <profiles>
 
         <profile>
             <id>jdk9</id>
@@ -1736,9 +1758,9 @@
                             <compilerArgs>
                                 <arg>--add-modules=java.xml.bind</arg>
                             </compilerArgs>
-                            <!-- without forking compilation happens in the
-                                same process, so no arguments are applied -->
-                            <fork>true</fork>
+                          <!-- without forking compilation happens in the
+                              same process, so no arguments are applied -->
+                          <fork>true</fork>
                         </configuration>
                     </plugin>
                     <plugin>
@@ -1793,7 +1815,7 @@
                                 without forking compilation happens in the
                                 same process, so no arguments are applied
                              -->
-                            <fork>true</fork>
+                          <fork>true</fork>
                         </configuration>
                     </plugin>
 
@@ -1815,10 +1837,10 @@
 
         </profile>
 
-        <!--
-            Release profile for Etraveli Reactors.
-        -->
-        <profile>
+    <!--
+        Release profile for Etraveli Reactors.
+    -->
+    <profile>
             <id>etraveli-release</id>
             <build>
                 <plugins>
@@ -1828,7 +1850,7 @@
 
                         Use a custom id for the deploy-to-repo operation.
                     -->
-                    <plugin>
+                  <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-deploy-plugin</artifactId>
                         <version>${maven-deploy-plugin.version}</version>
@@ -1849,10 +1871,10 @@
                         </executions>
                     </plugin>
 
-                    <!--
-                        Always include a source JAR.
-                    -->
-                    <plugin>
+                  <!--
+                      Always include a source JAR.
+                  -->
+                  <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-source-plugin</artifactId>
                         <executions>
@@ -1865,10 +1887,10 @@
                         </executions>
                     </plugin>
 
-                    <!--
-                        Use the JavaDoc plugin to attach a JavaDoc JAR to release artifacts.
-                    -->
-                    <plugin>
+                  <!--
+                      Use the JavaDoc plugin to attach a JavaDoc JAR to release artifacts.
+                  -->
+                  <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
                         <version>3.2.0</version>
@@ -1885,10 +1907,10 @@
                         </executions>
                     </plugin>
 
-                    <!--
-                        Sign the artifacts with the GPG plugin.
-                    -->
-                    <plugin>
+                  <!--
+                      Sign the artifacts with the GPG plugin.
+                  -->
+                  <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
                         <executions>
@@ -1908,10 +1930,10 @@
             </build>
         </profile>
 
-        <!--
-            Purpose:    Skip deploy step for dryRun
-        -->
-        <profile>
+    <!--
+        Purpose:    Skip deploy step for dryRun
+    -->
+    <profile>
             <id>release.dryRun</id>
             <activation>
                 <property>
@@ -1934,10 +1956,10 @@
             </build>
         </profile>
 
-        <!--
-            Purpose:    Turn off the checks of the code quality plugins [spotbugs, checkstyle, pmd].
-        -->
-        <profile>
+    <!--
+        Purpose:    Turn off the checks of the code quality plugins [spotbugs, checkstyle, pmd].
+    -->
+    <profile>
             <id>skipVerifyCode</id>
             <activation>
                 <property>

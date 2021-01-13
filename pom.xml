@@ -77,7 +77,7 @@
         <!-- Build definition properties -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <jdk.version>1.8</jdk.version>
+        <jdk.version>11</jdk.version>
         <release.skipGpgSigning>true</release.skipGpgSigning>
 
         <!-- Code style properties -->
@@ -86,7 +86,7 @@
         <versions-maven-plugin.version>2.7</versions-maven-plugin.version>
 
         <!-- Site plugin properties -->
-        <maven-site-plugin.version>3.8.2</maven-site-plugin.version>
+        <maven-site-plugin.version>3.9.1</maven-site-plugin.version>
         <doxia-modules.version>1.8</doxia-modules.version>
         <wagon-modules.version>2.10</wagon-modules.version>
     </properties>

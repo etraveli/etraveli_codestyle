@@ -4,7 +4,8 @@
   -->
 
 <!--suppress MavenRedundantGroupId -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <!--
@@ -16,7 +17,7 @@
     <groupId>org.sonatype.oss</groupId>
     <artifactId>oss-parent</artifactId>
     <version>9</version>
-    <relativePath />
+    <relativePath/>
   </parent>
 
   <groupId>com.etraveli.oss.codestyle.poms.kotlin</groupId>
@@ -74,8 +75,8 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
     <!-- Kotlin constants -->
-    <kotlin.version>1.4.10</kotlin.version>
-    <kotlin.jvm.target>1.8</kotlin.jvm.target>
+    <kotlin.version>1.4.21</kotlin.version>
+    <kotlin.jvm.target>11</kotlin.jvm.target>
 
     <!-- Define code-breaking constants -->
     <breakOnFailure.checkstyle>true</breakOnFailure.checkstyle>
@@ -101,7 +102,7 @@
 
     <maven.version>3.0</maven.version>
     <enforcer.api.version>1.4.1</enforcer.api.version>
-    <jdk.version>1.8</jdk.version>
+    <jdk.version>11</jdk.version>
     <javaee-api.version>8.0</javaee-api.version>
     <validation-api.version>1.1.0.Final</validation-api.version>
     <maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
@@ -113,7 +114,7 @@
     <slf4j.version>1.7.25</slf4j.version>
     <logback.version>1.2.3</logback.version>
     <logback.logstash.version>5.1</logback.logstash.version>
-    <xmlunit.version>2.7.0</xmlunit.version>
+    <xmlunit.version>2.8.2</xmlunit.version>
     <jaxb2-maven-plugin.version>2.3.1</jaxb2-maven-plugin.version>
     <jaxb-api.version>2.3.1</jaxb-api.version>
     <depgraph-maven-plugin.version>3.3.0</depgraph-maven-plugin.version>
@@ -127,8 +128,14 @@
     <checkstyle.header.java.file>codestyle/copyright/header_java.txt</checkstyle.header.java.file>
     <clean.plugin.version>2.6.1</clean.plugin.version>
 
+    <!-- License plugin configuration parameters. -->
+    <license.id>seat24_apl_v2</license.id>
+    <license.licenseResolver>classpath://codestyle/license</license.licenseResolver>
+    <breakOnFailure.license>true</breakOnFailure.license>
+
     <!-- Enforcer configuration parameters -->
     <enforcer.version>3.0.0-M3</enforcer.version>
+    <linkage-checker.version>1.5.4</linkage-checker.version>
     <enforcer.includedGroupIdPatterns>^com\.etraveli\..*</enforcer.includedGroupIdPatterns>
     <enforcer.excludedGroupIdPatterns>^com\.etraveli\..*\.generated\..*,^com\.etraveli\.oss\.codestyle\..*</enforcer.excludedGroupIdPatterns>
 
@@ -139,7 +146,7 @@
 
     <!-- Site plugin properties -->
     <maven-project-info-reports-plugin.version>3.0.0</maven-project-info-reports-plugin.version>
-    <maven-site-plugin.version>3.8.2</maven-site-plugin.version>
+    <maven-site-plugin.version>3.9.1</maven-site-plugin.version>
     <doxia-modules.version>1.8</doxia-modules.version>
     <wagon-modules.version>2.10</wagon-modules.version>
     <versions-maven-plugin.version>2.7</versions-maven-plugin.version>
@@ -188,6 +195,83 @@
 
     <pluginManagement>
       <plugins>
+
+        <!--
+                The license plugin is quite inflexible about the format for the injected/detected file header
+                in terms of license structure. Use it as intended, but provide a variable to handle the
+                desired license and license resolver.
+
+                Why:  Ensures that all files contain a license header.
+                Used: Standard lifecycle, mvn package.
+            -->
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>license-maven-plugin</artifactId>
+          <version>2.0.0</version>
+          <configuration>
+            <encoding>${project.build.sourceEncoding}</encoding>
+            <descriptionTemplate>/codestyle/license/${license.id}/licenseDescriptionTemplate.ftl</descriptionTemplate>
+            <failOnMissingHeader>${breakOnFailure.license}</failOnMissingHeader>
+            <licenseName>${license.id}</licenseName>
+            <licenseResolver>${license.licenseResolver}</licenseResolver>
+            <canUpdateDescription>true</canUpdateDescription>
+            <addJavaLicenseAfterPackage>false</addJavaLicenseAfterPackage>
+            <licenseFile>${project.build.directory}/LICENSE.TXT</licenseFile>
+            <roots>
+              <root>${project.basedir}/src/main</root>
+              <root>${project.basedir}/src/site</root>
+            </roots>
+            <excludes>
+              <!-- Custom excludes -->
+              <param>**/*.json</param>
+              <!-- Modelling filetypes -->
+              <param>**/*.zargo</param>
+              <param>**/*.uml</param>
+              <param>**/*.umldi</param>
+              <param>**/*.umldi</param>
+              <param>**/*.xmi</param>
+              <!-- Image filetypes -->
+              <param>**/*.img</param>
+              <param>**/*.png</param>
+              <param>**/*.jpg</param>
+              <param>**/*.jpeg</param>
+              <param>**/*.gif</param>
+              <!-- Archives -->
+              <param>**/*.zip</param>
+              <param>**/*.jar</param>
+              <param>**/*.war</param>
+              <param>**/*.ear</param>
+              <param>**/*.tgz</param>
+              <param>**/*.gz</param>
+            </excludes>
+            <extraExtensions>
+              <kt>java</kt>
+            </extraExtensions>
+          </configuration>
+          <dependencies>
+            <dependency>
+              <groupId>com.etraveli.oss.codestyle</groupId>
+              <artifactId>etraveli-codestyle</artifactId>
+              <version>0.11.1-SNAPSHOT</version>
+            </dependency>
+          </dependencies>
+          <executions>
+            <execution>
+              <id>check-file-header</id>
+              <phase>process-sources</phase>
+              <goals>
+                <goal>check-file-header</goal>
+              </goals>
+            </execution>
+            <execution>
+              <id>add-license</id>
+              <phase>generate-sources</phase>
+              <goals>
+                <goal>update-project-license</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
 
         <!--
             Provides Plantuml integration into site deployments.
@@ -530,13 +614,13 @@
                   <requireJavaVersion>
                     <version>${jdk.version}</version>
                   </requireJavaVersion>
-                  <dependencyConvergence />
 
                   <!--
                       Enforce the ProjectType structure, implying that all projects
                       must comply with the project template definitions.
                   -->
-                  <validateProjectTypes implementation="com.etraveli.oss.codestyle.projects.enforcer.PermittedProjectTypeRule">
+                  <validateProjectTypes
+                    implementation="com.etraveli.oss.codestyle.projects.enforcer.PermittedProjectTypeRule">
                     <dontEvaluateGroupIds>${enforcer.excludedGroupIdPatterns}</dontEvaluateGroupIds>
                   </validateProjectTypes>
 
@@ -550,7 +634,8 @@
                       reproduced her to serve as an example of how to configure this enforcement rule
                       in child reactors - where needs are likely different than here.
                   -->
-                  <restrictImplDependencies implementation="com.etraveli.oss.codestyle.projects.enforcer.CorrectDependenciesRule">
+                  <restrictImplDependencies
+                    implementation="com.etraveli.oss.codestyle.projects.enforcer.CorrectDependenciesRule">
                     <evaluateGroupIds>${enforcer.includedGroupIdPatterns}</evaluateGroupIds>
                     <dontEvaluateGroupIds>${enforcer.excludedGroupIdPatterns}</dontEvaluateGroupIds>
                   </restrictImplDependencies>
@@ -564,7 +649,21 @@
                       then all code within that project must reside within the "com.acme.foobar" package,
                       or in any subpackage thereof.
                   -->
-                  <correctPackaging implementation="com.etraveli.oss.codestyle.projects.enforcer.CorrectPackagingRule" />
+                  <correctPackaging implementation="com.etraveli.oss.codestyle.projects.enforcer.CorrectPackagingRule"/>
+                </rules>
+              </configuration>
+            </execution>
+            <execution>
+              <id>enforce-linkage-checker</id>
+              <phase>verify</phase>
+              <goals>
+                <goal>enforce</goal>
+              </goals>
+              <configuration>
+                <rules>
+                  <LinkageCheckerRule implementation="com.google.cloud.tools.dependencies.enforcer.LinkageCheckerRule">
+                    <level>WARN</level>
+                  </LinkageCheckerRule>
                 </rules>
               </configuration>
             </execution>
@@ -574,6 +673,11 @@
               <groupId>com.etraveli.oss.codestyle</groupId>
               <artifactId>etraveli-codestyle</artifactId>
               <version>0.11.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+              <groupId>com.google.cloud.tools</groupId>
+              <artifactId>linkage-checker-enforcer-rules</artifactId>
+              <version>${linkage-checker.version}</version>
             </dependency>
             <dependency>
               <groupId>org.apache.maven.enforcer</groupId>
@@ -715,7 +819,7 @@
             <id>default-deploy</id>
             <phase>site-deploy</phase>
             <goals>
-              <goal />
+              <goal/>
             </goals>
           </execution>
         </executions>

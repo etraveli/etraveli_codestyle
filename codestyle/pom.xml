@@ -72,8 +72,8 @@
         <path.in.reactor>codestyle</path.in.reactor>
 
         <!-- Kotlin constants -->
-        <kotlin.version>1.4.0</kotlin.version>
-        <kotlin.jvm.target>1.8</kotlin.jvm.target>
+        <kotlin.version>1.4.21</kotlin.version>
+        <kotlin.jvm.target>11</kotlin.jvm.target>
         <kotlin.plugin>jpa</kotlin.plugin>
         <license.id>seat24_apl_v2</license.id>
 
@@ -94,7 +94,7 @@
 
         <maven.version>3.0</maven.version>
         <enforcer.version>3.0.0-M3</enforcer.version>
-        <jdk.version>1.8</jdk.version>
+        <jdk.version>11</jdk.version>
         <release.skipGpgSigning>true</release.skipGpgSigning>
 
         <!-- Code style properties -->
@@ -108,7 +108,7 @@
         <maven-project-info-reports-plugin.version>3.0.0</maven-project-info-reports-plugin.version>
 
         <!-- Site plugin properties -->
-        <maven-site-plugin.version>3.8.2</maven-site-plugin.version>
+        <maven-site-plugin.version>3.9.1</maven-site-plugin.version>
         <doxia-modules.version>1.8</doxia-modules.version>
         <wagon-modules.version>2.10</wagon-modules.version>
         <versions-maven-plugin.version>2.7</versions-maven-plugin.version>
