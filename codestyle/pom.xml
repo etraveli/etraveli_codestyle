@@ -21,7 +21,7 @@
 
     <groupId>com.etraveli.oss.codestyle</groupId>
     <artifactId>etraveli-codestyle</artifactId>
-    <version>0.12.1-SNAPSHOT</version>
+    <version>0.13.0</version>
     <name>${project.artifactId}</name>
     <packaging>jar</packaging>
     <url>${site.top.url}/${path.in.reactor}</url>
@@ -652,7 +652,7 @@
         <connection>${scm.connection.url}</connection>
         <developerConnection>${scm.devConnection.url}</developerConnection>
         <url>${scm.url}</url>
-        <tag>HEAD</tag>
+        <tag>etraveli-codestyle-0.13.0</tag>
     </scm>
 
     <!--
