@@ -145,6 +145,8 @@
     <surefire.plugin.version>2.20.1</surefire.plugin.version>
 
     <!-- Site plugin properties -->
+    <dokka.version>1.4.10.2</dokka.version>
+    <dokka.outputFormat>javadoc</dokka.outputFormat>
     <maven-project-info-reports-plugin.version>3.1.1</maven-project-info-reports-plugin.version>
     <maven-site-plugin.version>3.9.1</maven-site-plugin.version>
     <doxia-modules.version>1.8</doxia-modules.version>
@@ -464,6 +466,19 @@
         </plugin>
 
         <!--
+            Dokka Maven Plugin provides javadoc-a-like documentation for Kotlin classes.
+        -->
+        <plugin>
+          <groupId>org.jetbrains.dokka</groupId>
+          <artifactId>dokka-maven-plugin</artifactId>
+          <version>${dokka.version}</version>
+          <configuration>
+            <outputDir>${project.reporting.outputDirectory}/dokka</outputDir>
+            <jdkVersion>${kotlin.jvm.target}</jdkVersion>
+          </configuration>
+        </plugin>
+
+        <!--
             Define the version of the Surefire plugin
 
             Why:  Ensure we have a recent enough surefire to use parallelism properly
@@ -742,6 +757,31 @@
             <phase>test-compile</phase>
             <goals>
               <goal>test-compile</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!--
+          Dokka Maven Plugin provides javadoc-a-like documentation for Kotlin classes.
+      -->
+      <plugin>
+        <groupId>org.jetbrains.dokka</groupId>
+        <artifactId>dokka-maven-plugin</artifactId>
+        <version>${dokka.version}</version>
+        <executions>
+          <execution>
+            <id>CreateJavaDocForSite</id>
+            <phase>pre-site</phase>
+            <goals>
+              <goal>javadoc</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>IncludeJavaDocJarInRelease</id>
+            <phase>package</phase>
+            <goals>
+              <goal>javadocJar</goal>
             </goals>
           </execution>
         </executions>
@@ -1089,64 +1129,6 @@
             <configuration>
               <argLine>--illegal-access=deny</argLine>
             </configuration>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-
-    <profile>
-      <id>jdk8</id>
-      <activation>
-        <jdk>8</jdk>
-      </activation>
-
-      <properties>
-
-        <!-- Include Dokka -->
-        <dokka.version>1.4.10.2</dokka.version>
-        <dokka.outputFormat>javadoc</dokka.outputFormat>
-      </properties>
-
-      <build>
-        <pluginManagement>
-          <plugins>
-
-            <!--
-                Dokka Maven Plugin provides javadoc-a-like documentation for Kotlin classes.
-                This plugin only works with JDK8, though, since it depends on the tools.jar
-                for its execution.
-            -->
-            <plugin>
-              <groupId>org.jetbrains.dokka</groupId>
-              <artifactId>dokka-maven-plugin</artifactId>
-              <version>${dokka.version}</version>
-              <configuration>
-                <outputDir>${project.reporting.outputDirectory}/dokka</outputDir>
-                <outputFormat>${dokka.outputFormat}</outputFormat>
-                <jdkVersion>8</jdkVersion>
-              </configuration>
-            </plugin>
-          </plugins>
-        </pluginManagement>
-
-        <plugins>
-
-          <!--
-              Dokka Maven Plugin provides javadoc-a-like documentation for Kotlin classes.
-              This plugin only works with JDK8, though, since it depends on the tools.jar
-              for its execution.
-          -->
-          <plugin>
-            <groupId>org.jetbrains.dokka</groupId>
-            <artifactId>dokka-maven-plugin</artifactId>
-            <executions>
-              <execution>
-                <phase>pre-site</phase>
-                <goals>
-                  <goal>dokka</goal>
-                </goals>
-              </execution>
-            </executions>
           </plugin>
         </plugins>
       </build>
