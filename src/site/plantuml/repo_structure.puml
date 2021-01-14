@@ -29,6 +29,7 @@
             Contains:
             # Library definitions
             # Non-domain components
+            # Complex API adaptions
         }
     }
 
@@ -55,8 +56,9 @@
 
         note right of repoApplications {
             Contains:
+            # Service implementations
             # JavaEE application projects ("<i>WAR</i>", etc)
-            # Assembly projects
+            # Assembly projects (Containers etc)
         }
     }
 @enduml

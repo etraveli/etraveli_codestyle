@@ -136,7 +136,7 @@ following commands to
 
     cd etraveli-codestyle
 
-    mvn -DpushChanges=false -DreleaseVersion=2.4.0 -DdevelopmentVersion=2.5.0-SNAPSHOT -Dtag=etraveli-codestyle-2.4.0 release:prepare
+    mvn -DpushChanges=false -DreleaseVersion=0.13.0 -DdevelopmentVersion=0.13.1-SNAPSHOT -Dtag=etraveli-codestyle-0.13.1 release:prepare
     
 If the release preparation build completed without errors, your local release repository should now contain 
 two new commits with the commit message starting with `[maven-release-plugin]` on the form shown below. 
@@ -153,7 +153,7 @@ We have still not pushed anything to any source code or artifact repository.
 
 Checkout the release tag on the master branch, rebuild and deploy to the OSS repository server.
 
-    git checkout etraveli-codestyle-2.4.0
+    git checkout etraveli-codestyle-0.13.1
     
     mvn -Drelease.skipGpgSigning=false -Petraveli-release clean deploy
     
@@ -172,7 +172,7 @@ Checkout the newly prepared release and build its artifact and release documenta
 Note that the system property `https.protocols` is required to generate the site, since
 GitHub's api refuses to use the default TLS version of java (i.e. TLSv1.0).
 
-    git checkout etraveli-codestyle-2.4.0
+    git checkout etraveli-codestyle-0.13.0
     
     mvn -Dhttps.protocols="TLSv1,TLSv1.1,TLSv1.2" clean package site
     
@@ -186,16 +186,16 @@ of the build. Copy the content of this directory to a temporary place, such as `
 #### c. Move the plugin documentation to its gh-pages branch location
 
 Check out the `gh-pages` branch, and copy the documentation to a directory
-named `Documentation/v2.4.0` (substitute the version number with the release version).
+named `Documentation/v0.13.0` (substitute the version number with the release version).
 
 #### d. Add the documentation to git, and push to publish
 
 Assuming that the repository id is `github`, add the static documentation pages to git, 
 commit the addition using a standard message, and push:
 
-    git add Documentation/v2.4.0
+    git add Documentation/v0.13.0
     
-    git commit -m "Added plugin documentation for version 2.4.0"
+    git commit -m "Added plugin documentation for version 0.13.0"
     
     git push github 
 
