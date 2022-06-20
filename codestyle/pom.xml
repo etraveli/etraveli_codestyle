@@ -72,7 +72,7 @@
         <path.in.reactor>codestyle</path.in.reactor>
 
         <!-- Kotlin constants -->
-        <kotlin.version>1.4.21</kotlin.version>
+        <kotlin.version>1.6.0</kotlin.version>
         <kotlin.jvm.target>11</kotlin.jvm.target>
         <kotlin.plugin>jpa</kotlin.plugin>
         <license.id>seat24_apl_v2</license.id>
