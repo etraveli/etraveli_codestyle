@@ -92,7 +92,7 @@
         <scm.url>${git.repo.url.prefix}/${reactor.name}.git</scm.url>
         <site.staging.localDirectory>/tmp/${reactor.name}</site.staging.localDirectory>
 
-        <maven.version>3.0</maven.version>
+        <maven.version>3.8.1</maven.version>
         <enforcer.version>3.0.0-M3</enforcer.version>
         <jdk.version>11</jdk.version>
         <release.skipGpgSigning>true</release.skipGpgSigning>
